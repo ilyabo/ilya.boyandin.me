@@ -1,12 +1,12 @@
-import React from 'react';
 import { ChakraProvider } from '@chakra-ui/react';
-import Layout from '../components/Layout';
-import theme from '../theme';
-import { useRouter } from 'next/router';
-import Router from 'next/router';
+import { Analytics } from '@vercel/analytics/react';
+import Router, { useRouter } from 'next/router';
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
+import React from 'react';
+import Layout from '../components/Layout';
 import '../css/main.css';
+import theme from '../theme';
 
 Router.events.on('routeChangeStart', () => NProgress.start());
 Router.events.on('routeChangeComplete', () => NProgress.done());
@@ -24,6 +24,7 @@ const App = (props) => {
       <Layout>
         <Component {...pageProps} />
       </Layout>
+      <Analytics />
     </ChakraProvider>
   );
 };
