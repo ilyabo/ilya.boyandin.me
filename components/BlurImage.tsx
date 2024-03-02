@@ -1,6 +1,3 @@
-import React, { FC, useState } from 'react';
-import Image from 'next/image';
-import styled from '@emotion/styled';
 import {
   Flex,
   Modal,
@@ -11,9 +8,12 @@ import {
   ModalOverlay,
   Spinner,
 } from '@chakra-ui/react';
+import styled from '@emotion/styled';
+import Image from 'next/image';
+import { FC, useState } from 'react';
 import colors from '../colors';
 
-export const NF_IMAGE_LOADER = ({ src, width }) => `${src}?nf_resize=fit&w=${width}`;
+// export const NF_IMAGE_LOADER = ({ src, width }) => `${src}?nf_resize=fit&w=${width}`;
 
 const DURATION = '0.3s';
 
@@ -69,7 +69,7 @@ const BlurImage: FC<any> = (props: Props) => {
                 layout="fill"
                 objectFit="contain"
                 onLoadingComplete={() => setZoomedLoading(false)}
-                loader={NF_IMAGE_LOADER}
+                //loader={NF_IMAGE_LOADER}
               />
               {isZoomedLoading ? <Spinner color={colors.primary[2]} size="md" /> : null}
             </Flex>
@@ -84,7 +84,7 @@ const BlurImage: FC<any> = (props: Props) => {
       {...rest}
       data-loading={isLoading}
       alt={props.alt}
-      loader={NF_IMAGE_LOADER}
+      // loader={NF_IMAGE_LOADER}
       onLoadingComplete={() => setLoading(false)}
       style={{ cursor: isZoomable ? 'zoom-in' : undefined }}
     />

@@ -1,10 +1,10 @@
-import * as React from 'react';
-import ProfileImg from '../public/profile-pic.jpg';
-import styled from '@emotion/styled';
 import { Box } from '@chakra-ui/react';
+import styled from '@emotion/styled';
 import Image from 'next/image';
 import Link from 'next/link';
-import { NF_IMAGE_LOADER } from '../components/BlurImage';
+import * as React from 'react';
+import ProfileImg from '../public/profile-pic.jpg';
+// import { NF_IMAGE_LOADER } from '../components/BlurImage';
 
 const Header = styled('div')`
   display: flex;
@@ -127,7 +127,11 @@ const Resume = (props) => {
             }}
             position="relative"
           >
-            <Image src={ProfileImg} layout="fill" loader={NF_IMAGE_LOADER} />
+            <Image
+              src={ProfileImg}
+              layout="fill"
+              // loader={NF_IMAGE_LOADER}
+            />
           </Box>
         </Link>
 
