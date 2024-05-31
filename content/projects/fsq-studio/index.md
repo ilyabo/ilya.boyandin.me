@@ -20,6 +20,9 @@ Here are some of the features I've worked on:
 <i>Annotations – US Census 2020 - Population and Race</i>
 <embed src="fsq-annotations.mp4" />
 
+<i>Annotations – Editing</i>
+<img src="annotations.jpg">
+
 <i>Flow layer – Bike sharing in Montreal – </i>
 <img src="unfolded-flow-layer-bixi.jpg">
 

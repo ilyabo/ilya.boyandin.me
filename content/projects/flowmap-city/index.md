@@ -14,3 +14,5 @@ orderDate: 2050-01-01
 is an analysis tool for cities, transport and mobility providers for understanding travel demand.
 
 ![Flowmap City – Passenger traffic in Switzerland](flowmap-city-npvm.jpg)
+
+![Flowmap City – Zurich public transport](zurich-transport.jpg)
