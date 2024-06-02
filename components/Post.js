@@ -14,14 +14,16 @@ export default function Post({ post }) {
   const prevNext = (
     <>
       <Button
+        size="sm"
         leftIcon={<FaChevronLeft size="16px" />}
         isDisabled={!post.prev}
         onClick={() => router.push(post.prev)}
       >
         Previous
       </Button>
-      <Flex grow={1} basis="20px" />
+      <Flex grow={1} basis="10px" />
       <Button
+        size="sm"
         rightIcon={<FaChevronRight size="16px" />}
         isDisabled={!post.next}
         onClick={() => router.push(post.next)}
