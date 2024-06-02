@@ -23,6 +23,9 @@ Here are some of the features I've worked on:
 <i>Annotations – Editing</i>
 <img src="annotations.jpg">
 
+<i>Annotations – Editing</i>
+<img src="annotations-2.jpg">
+
 <i>Flow layer – Bike sharing in Montreal – </i>
 <img src="unfolded-flow-layer-bixi.jpg">
 
