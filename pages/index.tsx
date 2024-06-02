@@ -37,6 +37,8 @@ const HomePage = (props: any) => {
           </Box>
         </Flex>
 
+        <Flex flexBasis="50px" />
+
         <Flex flexDir="column" gap={5} mt={10}>
           <NextLink href="/talks" passHref>
             <Heading as="a" fontSize="2xl">

@@ -1,8 +1,13 @@
-import { getAllPosts, getPostBySlug } from '../../lib/api';
 import Post from '../../components/Post';
+import { getAllPosts, getPostBySlug } from '../../lib/api';
 
 export default function ProjectPost({ post }) {
-  return <Post post={post} />;
+  return (
+    <div>
+      {post.index}
+      <Post post={post} />
+    </div>
+  );
   // const router = useRouter();
   // if (!router.isFallback && !post?.slug) {
   //   return <ErrorPage statusCode={404} />;
@@ -31,7 +36,7 @@ export default function ProjectPost({ post }) {
 }
 
 export async function getStaticProps({ params }) {
-  const post = getPostBySlug('projects', params.slug);
+  const post = getPostBySlug('projects', params.slug, { includePrevNext: true, urlPath: 'p' });
   const content = post.content;
 
   return {

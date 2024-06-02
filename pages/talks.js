@@ -1,8 +1,8 @@
-import React from 'react';
 import { Box, Flex, VStack } from '@chakra-ui/react';
-import { getAllPosts } from '../lib/api';
-import CardGrid from '../components/CardGrid';
 import Link from 'next/link';
+import React from 'react';
+import CardGrid from '../components/CardGrid';
+import { getAllPosts } from '../lib/api';
 
 const TalksPage = ({ talks }) => {
   return (

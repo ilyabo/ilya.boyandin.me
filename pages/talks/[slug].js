@@ -1,12 +1,12 @@
-import { getAllPosts, getPostBySlug } from '../../lib/api';
 import Post from '../../components/Post';
+import { getAllPosts, getPostBySlug } from '../../lib/api';
 
 export default function ProjectPost({ post }) {
   return <Post post={post} />;
 }
 
 export async function getStaticProps({ params }) {
-  const post = getPostBySlug('talks', params.slug);
+  const post = getPostBySlug('talks', params.slug, { includePrevNext: true });
   const content = post.content;
 
   return {
