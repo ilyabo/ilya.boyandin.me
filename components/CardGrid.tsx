@@ -1,9 +1,7 @@
-import React from 'react';
-import Link from 'next/link';
 import { Box, Link as ChakraLink, Grid, HStack, Spacer, Text, VStack } from '@chakra-ui/react';
-import formatDate from '../lib/formatDate';
+import Link from 'next/link';
 import BlurImage from '../components/BlurImage';
-import colors from '../colors';
+import formatDate from '../lib/formatDate';
 
 const CardGrid = ({ items, path, linkPath }) => {
   return (

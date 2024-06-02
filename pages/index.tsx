@@ -1,13 +1,12 @@
-import React from 'react';
 import { getAllPosts } from '../lib/api';
 
-import MarkdownContent from '../components/MarkdownContent';
+import { Box, Button, Flex, Heading, Text } from '@chakra-ui/react';
 import fs from 'fs';
 import matter from 'gray-matter';
-import { CONTENT_DIR } from '../config';
-import { Link as ChakraLink, Box, Flex, Heading, Text } from '@chakra-ui/react';
-import CardGrid from '../components/CardGrid';
 import NextLink from 'next/link';
+import CardGrid from '../components/CardGrid';
+import MarkdownContent from '../components/MarkdownContent';
+import { CONTENT_DIR } from '../config';
 
 const NUM_PREVIEW_ITEMS = 12;
 
@@ -19,9 +18,11 @@ const HomePage = (props: any) => {
         <MarkdownContent content={content} slug={'home'} />
 
         <Flex flexDir="column" gap={5}>
-          <Heading as="h2" fontSize="2xl">
-            Recent Projects
-          </Heading>
+          <NextLink href="/projects" passHref>
+            <Heading as="a" fontSize="2xl">
+              <Text textColor="#2F4A59">Recent Projects</Text>
+            </Heading>
+          </NextLink>
 
           <Box alignSelf="center">
             <CardGrid items={projects} path="projects" linkPath="p" />
@@ -29,21 +30,27 @@ const HomePage = (props: any) => {
 
           <Box textAlign={'center'} fontSize="lg" mt="10">
             <NextLink href="/projects" passHref>
-              More projects
+              <Button variant={'outline'} colorScheme="blue" size="lg">
+                More projects
+              </Button>
             </NextLink>
           </Box>
         </Flex>
 
         <Flex flexDir="column" gap={5} mt={10}>
-          <Heading as="h2" fontSize="2xl">
-            Recent Talks
-          </Heading>
+          <NextLink href="/talks" passHref>
+            <Heading as="a" fontSize="2xl">
+              <Text textColor="#2F4A59">Recent Talks</Text>
+            </Heading>
+          </NextLink>{' '}
           <Box alignSelf="center">
             <CardGrid items={talks} path="talks" linkPath="talks" />
           </Box>
           <Box textAlign={'center'} fontSize="lg" mt="10">
             <NextLink href="/talks" passHref>
-              More talks
+              <Button variant={'outline'} colorScheme="blue" size="lg">
+                More talks
+              </Button>
             </NextLink>
           </Box>
         </Flex>

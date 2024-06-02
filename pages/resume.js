@@ -158,14 +158,19 @@ const Resume = (props) => {
           <span className="flabel">Thesis title:</span> Visualization of Temporal Origin-Destination
           Data
           <br />
+          <span className="flabel">Supervised by:</span>{' '}
+          <Go to="https://enrico.bertini.io/">Enrico Bertini</Go>,{' '}
+          <Go to="https://human-ist.unifr.ch/en/institute/team/denis-lalanne.html">
+            Denis Lalanne
+          </Go>
+          <br />
           <span className="flabel">Summary:</span>
           Carried out an <Go to="/assets/thesis.pdf">in-depth study</Go> of temporal
           origin-destination data which can represent movement of people, energy, material, etc
-          between locations in geographic space. Developed{' '}
-          <Go to="/assets/flowstrates-eurovis11-fin.pdf">Flowstrates</Go>, a novel approach for
-          visualizing and exploring temporal origin-destination data. Carried out a qualitative{' '}
-          <Go to="/p/flowmap-user-study/">user study</Go> comparing animated and small-multiple
-          representations of changes in flow maps.
+          between locations in geographic space. Developed <Go to="/p/flowstrates">Flowstrates</Go>,
+          a novel approach for visualizing and exploring temporal origin-destination data. Carried
+          out a qualitative <Go to="/p/flowmap-user-study/">user study</Go> comparing animated and
+          small-multiple representations of changes in flow maps.
         </div>
 
         <div className="block">
@@ -173,6 +178,9 @@ const Resume = (props) => {
           <br />
           <span className="flabel">Thesis title:</span> Statistical Query Transformations for
           Question Answering in the Web
+          <br />
+          <span className="flabel">Supervised by:</span>{' '}
+          <Go to="https://www.linkedin.com/in/igornekrestyanov/">Igor Nekrestyanov</Go>
           <br />
           <span className="flabel">Summary:</span>
           Developed an improvement for a state-of-the-art machine learning approach transforming
@@ -193,7 +201,27 @@ const Resume = (props) => {
           </div>
           <ul>
             <li>
-              Working on <Go to="https://studio.foursquare.com/">Foursquare Studio </Go>.
+              Working on <Go to="https://studio.foursquare.com/">Foursquare Studio</Go>. Responsible
+              for implementing various geospatial visualization features: 3d animated trip layer,
+              flow layer for mobility visualization, time scale synchronization for multi-dataset
+              animations, swipe mode, editable rich text map annotations, JSON config editor,
+              draggable legend, map scale widget, etc.
+            </li>
+            <li>
+              Contributed to the development of the{' '}
+              <Go to="https://docs.foursquare.com/developer/docs/studio-map-sdk-overview">
+                Foursquare Map SDK
+              </Go>{' '}
+              (both JavaScript and Python versions) allowing developers to embed map visualizations
+              in third-party apps and interactive Python notebooks.
+            </li>
+            <li>
+              Pilot implementation of <Go to="/p/fsq-notebooks">SQL notebooks</Go> with map
+              visualizations of the query results.
+            </li>
+            <li>
+              Developed the <Go to="/p/fsq-paris-2024">Paris Olympics Places</Go> app showcasing
+              various APIs and Map SDK features.
             </li>
           </ul>
 
@@ -208,6 +236,16 @@ const Resume = (props) => {
           </div>
           <ul>
             <li>Interactive maps and geographic data visualization consultancy.</li>
+            <li>
+              Developing the <Go to="/p/flowmap-city">Flowmap City</Go> – a web-based interactive
+              analysis tool for cities, transport and mobility providers for understanding travel
+              demand.
+            </li>
+            <li>
+              Developed the <Go to="/p/cobalt">Cobalt Supply Chain</Go> and{' '}
+              <Go to="/p/makuta">Mining in Democratic Republic of the Congo</Go> apps for the NGO{' '}
+              <Go to="https://www.resourcematters.org/">Resource Matters</Go>
+            </li>
           </ul>
 
           <br />
@@ -222,9 +260,8 @@ const Resume = (props) => {
           </div>
           <ul>
             <li>
-              Helping to build the{' '}
-              <Go to="http://studio.unfolded.ai/">next generation geospatial analytics platform</Go>
-              .
+              Helping to build the <Go to="/p/fsq-studio">Unfolded Studio</Go>, the next generation
+              geospatial analytics platform. The company Unfolded was later acquired by Foursquare.
             </li>
           </ul>
 
@@ -367,8 +404,8 @@ const Resume = (props) => {
           </div>
           <ul>
             <li>
-              Developed web applications used by the students, lecturers and employees of the
-              university for the online administration.
+              Developed <Go to="/p/joanna">web applications</Go> used by the students, lecturers and
+              employees of the university for the online administration.
               {
                 // <!--Usability was the main concern and the feedback from the users was very positive.-->
               }
@@ -377,7 +414,8 @@ const Resume = (props) => {
               Maintained the web and database server infrastructure for the online administration.
             </li>
             <li>
-              Designed and developed a web application for collaborative data collection and
+              Designed and developed a{' '}
+              <Go to="/p/wissensbilanz">web application for collaborative data collection</Go> and
               consolidation to provide a statistical overview of study- and research-relevant
               indicators.
               {
