@@ -20,7 +20,7 @@ export default function Post({ post }) {
       >
         Previous
       </Button>
-      <Flex grow={1} />
+      <Flex grow={1} basis="20px" />
       <Button
         rightIcon={<FaChevronRight size="16px" />}
         isDisabled={!post.next}
@@ -41,14 +41,16 @@ export default function Post({ post }) {
             {/*<meta property="og:image" content={post.ogImage.url} />*/}
           </Head>
           <VStack alignItems="flex-start" spacing={5}>
-            <Flex flexDir={{ base: 'column', md: 'row' }} alignItems="center" width="100%">
-              <Heading as="h1" size="2xl">
+            <Flex flexDir={{ base: 'column', md: 'row' }} alignItems="center" width="100%" gap="1">
+              <Heading as="h1" size="2xl" align={{ base: 'center', md: 'left' }}>
                 {post.title}
               </Heading>
               <Flex flexBasis={{ base: '10px', md: '30px' }} />
               <Heading size="sm">{formatDate(post.date)}</Heading>
               <Flex grow={1} />
-              <Flex grow={0}>{prevNext}</Flex>
+              <Flex grow={0} width={{ base: '100%', md: 'unset' }}>
+                {prevNext}
+              </Flex>
             </Flex>
 
             <MarkdownContent {...post} />
