@@ -193,7 +193,7 @@ const Resume = (props) => {
         <div className="block">
           <div className="jobTitle">
             <span className="em">
-              Senior Data Visualization Engineer,{' '}
+              Staff Software Engineer, Maps and Data Visualization,{' '}
               <Go to="https://location.foursquare.com/products-studio/">Foursquare</Go> (remote)
             </span>
             &nbsp;&ndash;&nbsp;
