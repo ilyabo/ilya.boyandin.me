@@ -30,7 +30,7 @@ I am passionate about building tools which help cities to shift to sustainable m
 
 Check out <a href="/resume/">my full resume</a> and <a href="https://www.linkedin.com/in/ilyabo/" target="_blank" rel="noopener">my LinkedIn page</a> for more details on my professional background.
 
-I am the father of 👦🏻🧒🏼. My wife is a <a href="http://tanja-boyandin.com/" target="_blank" rel="noopener">professional translator</a>. I like being in the ⛰ nature and 🚴🏻‍♂️ cycling.
+I am the father of 👦🏻🧒🏼. I like being in the ⛰ nature and 🚴🏻‍♂️ cycling.
 I play guitar and 🎹 and [make electronic music](/music).
 I share [much of my code online](https://github.com/ilyabo).
 
