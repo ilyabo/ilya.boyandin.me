@@ -10,6 +10,6 @@ Prototype of interactive notebooks with SQL queries and map visualizations of th
 
 <img src=workbook.png>
 
-<embed src="workbook-explorer.mp4" />
-
 <embed src="workbook-us-hospitals5.mp4" />
+
+<embed src="workbook-explorer.mp4" />
