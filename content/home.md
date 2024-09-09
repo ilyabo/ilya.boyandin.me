@@ -8,7 +8,7 @@ category: work
 
 <img width="922" height="922" float="right" src="me-userpic.jpg" mt="0" mb="10">
 
-I am Ilya. I am a software engineer living in Switzerland. I design and develop geographic data visualizations and
+I am Ilya. I am a software engineer. I design and develop geographic data visualizations and
 geo data analytics tools.
 
 I've completed <a href="/">many projects</a> for media, private companies, NGOs, transportation authorities
@@ -30,7 +30,7 @@ I am passionate about building tools which help cities to shift to sustainable m
 
 Check out <a href="/resume/">my full resume</a> and <a href="https://www.linkedin.com/in/ilyabo/" target="_blank" rel="noopener">my LinkedIn page</a> for more details on my professional background.
 
-I am the father of 👦🏻🧒🏼. I like being in the ⛰ nature and 🚴🏻‍♂️ cycling.
+I live in Switzerland. I like being in the ⛰ nature and 🚴🏻‍♂️ cycling. I am the father of 👦🏻🧒🏼.
 I play guitar and 🎹 and [make electronic music](/music).
 I share [much of my code online](https://github.com/ilyabo).
 
