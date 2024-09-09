@@ -24,61 +24,63 @@ const CardGrid = ({ items, path, linkPath }) => {
         sm: '0px',
       }}
     >
-      {items.map((md) => (
-        <Box
-          key={md.slug}
-          borderRadius={'10px'}
-          padding={'20px'}
-          transition="background-color 0.2s"
-          cursor="pointer"
-          _hover={{
-            backgroundColor: 'gray.100',
-          }}
-        >
-          <Link href={`/${linkPath}/${md.slug}`}>
-            <ChakraLink
-              as="a"
-              href={`/${linkPath}/${md.slug}`}
-              _hover={{
-                textDecoration: 'none !important',
-              }}
-              _focus={{
-                boxShadow: 'none',
-              }}
-            >
-              <VStack width={[280, 280, 320, 360]} cursor="pointer" gap={1}>
-                <HStack width="100%">
-                  <Text overflow="hidden" textOverflow="ellipsis" whiteSpace="nowrap">
-                    {md.title}
-                  </Text>
-                  <Spacer />
-                  <Text fontSize="xs" whiteSpace="nowrap" color={'#aab'}>
-                    {formatDate(md.date)}
-                  </Text>
-                </HStack>
-                <Box
-                  width={'100%'}
-                  height={[120, 140, 160, 180]}
-                  maxWidth="80vw"
-                  position="relative"
-                  border="1px solid #ccc"
-                  borderRadius="10px"
-                  overflow="hidden"
-                >
-                  <BlurImage
-                    sizes="360px"
-                    src={`/media/${path}/${md.slug}/${md.preview}`}
-                    // placeholder="blur"
-                    // blurDataURL={`/media/${md.slug}/${md.preview}`}
-                    layout="fill"
-                    objectFit="cover"
-                  />
-                </Box>
-              </VStack>
-            </ChakraLink>
-          </Link>
-        </Box>
-      ))}
+      {items
+        .filter((md) => !md.unlisted)
+        .map((md) => (
+          <Box
+            key={md.slug}
+            borderRadius={'10px'}
+            padding={'20px'}
+            transition="background-color 0.2s"
+            cursor="pointer"
+            _hover={{
+              backgroundColor: 'gray.100',
+            }}
+          >
+            <Link href={`/${linkPath}/${md.slug}`}>
+              <ChakraLink
+                as="a"
+                href={`/${linkPath}/${md.slug}`}
+                _hover={{
+                  textDecoration: 'none !important',
+                }}
+                _focus={{
+                  boxShadow: 'none',
+                }}
+              >
+                <VStack width={[280, 280, 320, 360]} cursor="pointer" gap={1}>
+                  <HStack width="100%">
+                    <Text overflow="hidden" textOverflow="ellipsis" whiteSpace="nowrap">
+                      {md.title}
+                    </Text>
+                    <Spacer />
+                    <Text fontSize="xs" whiteSpace="nowrap" color={'#aab'}>
+                      {formatDate(md.date)}
+                    </Text>
+                  </HStack>
+                  <Box
+                    width={'100%'}
+                    height={[120, 140, 160, 180]}
+                    maxWidth="80vw"
+                    position="relative"
+                    border="1px solid #ccc"
+                    borderRadius="10px"
+                    overflow="hidden"
+                  >
+                    <BlurImage
+                      sizes="360px"
+                      src={`/media/${path}/${md.slug}/${md.preview}`}
+                      // placeholder="blur"
+                      // blurDataURL={`/media/${md.slug}/${md.preview}`}
+                      layout="fill"
+                      objectFit="cover"
+                    />
+                  </Box>
+                </VStack>
+              </ChakraLink>
+            </Link>
+          </Box>
+        ))}
     </Grid>
   );
 };
