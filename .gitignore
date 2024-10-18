@@ -7,3 +7,12 @@ out/
 
 # Local Netlify folder
 .netlify
+
+# Yarn files
+yarn-error.log
+.yarn-integrity
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+.pnp.*
