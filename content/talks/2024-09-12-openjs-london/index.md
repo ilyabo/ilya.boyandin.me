@@ -20,10 +20,9 @@ In his groundbreaking 1968 presentation, which was later called the "Mother of A
 Engelbart demonstrated the use of windows as a visual interface. It was the first public demonstration of the computer mouse. He showcased a hypertext system that allowed users to link between documents which laid the groundwork for what would eventually become the World Wide Web. He demonstrated early forms of what we now call video conferencing and collaborative editing, where two users could edit the same document in real time.
 
 Engelbart's presentation showed how computers could be used as a communication tool for collaboration, envisioning many of the ways in which we use computers today.
-The modern internet's role in teamwork is enormous. People often work in teams and these teams are becoming increasingly distributed.At least since the COVID-19 pandemic remote work is the norm. But despite being available online to anyone at any time, most of web applications do not support real-time collaboration.
-
-Why is supporting collaboration important?
+The modern internet's role in teamwork is enormous. People often work in teams and these teams are becoming increasingly distributed. At least since the COVID-19 pandemic remote work is the norm. But despite being available online to anyone at any time, most of web applications do not support real-time collaboration.
 When collaborating remotely on the same piece, document, spreadsheet, or code versioning is a major challenge.
+
 
 Real-time collaborative apps like Google Docs, Notion, and Figma have set new expectations for seamless teamwork, particularly among distributed teams. These apps have made collaboration feel natural, but building such systems comes with significant technical challenges, particularly around data synchronization and conflict resolution. Fortunately, modern tools such as Firebase, Liveblocks, and Replicache, along with conflict-free data structure implementations like Automerge and Yjs, are making it easier to tackle these issues. The highly concurrent Phoenix framework, which powers platforms like Discord and Felt, also plays a crucial role by enabling real-time message exchange between users.
 
