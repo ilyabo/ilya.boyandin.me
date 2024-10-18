@@ -1,6 +1,6 @@
 ---
 kind: talk
-title: Open Visualization Summit London
+title: OpenJS Visualization Summit London
 date: 2024-09-12
 category: talk
 preview: preview.png
