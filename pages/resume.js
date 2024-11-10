@@ -114,6 +114,21 @@ const Go = ({ to, children }) => (
   </a>
 );
 
+
+const Talk = ({ children }) => <li>{children}</li>;
+
+const TalkTitle = ({ href, children }) => (
+  <span className="pubTitle">
+    {href ? <Link href={href}>{children}</Link> : children}
+  </span>
+);
+
+const TalkVenue = ({ url, children }) => (
+  url ? <Go to={url}>{children}</Go> : <>{children}</>
+);
+
+
+
 const Resume = (props) => {
   return (
     <CV>
@@ -596,242 +611,215 @@ const Resume = (props) => {
         <h2 id="talks">Public Speaking</h2>
         <div className="block notitles">
           <ul>
-            <li>
-              <span className="pubTitle">
-                <Link href="/talks/2024-11-04-ethz-guest-lecture/">
-                  Geographic data visualization with deck.gl
-                </Link>
-              </span>{' '}
-              guest lecture at the <Go to="https://ikg.ethz.ch/en/">ETH Zürich Institute of Cartography</Go>, 2024
-            </li>
+            <Talk>
+              <TalkTitle href="/talks/2024-11-04-ethz-guest-lecture/">
+                Geographic data visualization with deck.gl
+              </TalkTitle>{' '}
+              guest lecture at the <TalkVenue url="https://ikg.ethz.ch/en/">ETH Zürich Institute of Cartography</TalkVenue>, 2024
+            </Talk>
 
-            <li>
-              <span className="pubTitle">
-                <Link href="/talks/2024-09-12-openjs-london/">
-                  Real-Time Collaborative Map Drawing with deck.gl
-                </Link>
-              </span>{' '}
+            <Talk>
+              <TalkTitle href="/talks/2024-09-12-openjs-london/">
+                Real-Time Collaborative Map Drawing with deck.gl
+              </TalkTitle>{' '}
               at the OpenJS Visualization Summit, London, 2024
-            </li>
+            </Talk>
 
-            <li>
-              <span className="pubTitle">
-                <Link href="/talks/2022-10-06-novi-sad/">
-                  Efficient data analytics and visualization in the browser
-                </Link>
-              </span>{' '}
-              at the <Go to="https://armada-js.com">Armada JS conference</Go>, Novi Sad, 2022
-            </li>
+            <Talk>
+              <TalkTitle href="/talks/2022-10-06-novi-sad/">
+                Efficient data analytics and visualization in the browser
+              </TalkTitle>{' '}
+              at the <TalkVenue url="https://armada-js.com">Armada JS conference</TalkVenue>, Novi Sad, 2022
+            </Talk>
 
-            <li>
-              <span className="pubTitle">
-                <Link href="/talks/2022-09-22-deck-summit/">
-                  Dynamically adaptive Deck.gl layer for mobility data in FlowmapBlue
-                </Link>
-              </span>{' '}
+            <Talk>
+              <TalkTitle href="/talks/2022-09-22-deck-summit/">
+                Dynamically adaptive Deck.gl layer for mobility data in FlowmapBlue
+              </TalkTitle>{' '}
               at the{' '}
-              <Go to="https://deck.gl/events/madrid-summit-2022/">
+              <TalkVenue url="https://deck.gl/events/madrid-summit-2022/">
                 Open Visualization Collaborator Summit
-              </Go>
+              </TalkVenue>
               , Madrid, 2022
-            </li>
+            </Talk>
 
-            <li>
-              <span className="pubTitle">
-                <Link href="/talks/2022-09-07-dvs-fireside-chat/">
-                  Fireside Chat with Past Information is Beautiful Award Winners
-                </Link>
-              </span>{' '}
+            <Talk>
+              <TalkTitle href="/talks/2022-09-07-dvs-fireside-chat/">
+                Fireside Chat with Past Information is Beautiful Award Winners
+              </TalkTitle>{' '}
               at the{' '}
-              <Go to="https://www.datavisualizationsociety.org/fireside-chats#">
+              <TalkVenue url="https://www.datavisualizationsociety.org/fireside-chats#">
                 Data Visualization Society
-              </Go>
+              </TalkVenue>
               , 2022
-            </li>
+            </Talk>
 
-            <li>
-              <span className="pubTitle">
-                <Link href="/talks/2022-08-09-fsq-webinar/">
-                  Mobility data analysis in Unfolded
-                </Link>
-              </span>{' '}
+            <Talk>
+              <TalkTitle href="/talks/2022-08-09-fsq-webinar/">
+                Mobility data analysis in Unfolded
+              </TalkTitle>{' '}
               at the{' '}
-              <Go to="https://connect.foursquare.com/2022-08-Unfolded-Toolbox-Geospatial-Solutions.html">
+              <TalkVenue url="https://connect.foursquare.com/2022-08-Unfolded-Toolbox-Geospatial-Solutions.html">
                 FSQ/Unfolded Webinar
-              </Go>
+              </TalkVenue>
               , 2022
-            </li>
+            </Talk>
 
-            <li>
-              <span className="pubTitle">
-                <Link href="/talks/2021-05-20-cartohack/">Introduction to Unfolded</Link>
-              </span>{' '}
+            <Talk>
+              <TalkTitle href="/talks/2021-05-20-cartohack/">Introduction to Unfolded</TalkTitle>{' '}
               at the{' '}
-              <Go to="https://visualisierung.dgfk.net/de/events/cartohack/07-unfolded/">
+              <TalkVenue url="https://visualisierung.dgfk.net/de/events/cartohack/07-unfolded/">
                 CartoHack #07
-              </Go>
+              </TalkVenue>
               , German cartographic society, 2021
-            </li>
-            <li>
-              <span className="pubTitle">
-                <Link href="/talks/2021-03-02-geohackmin/">
-                  Tools for Geo Data Visualization from the Unfolded team
-                </Link>
-              </span>{' '}
-              at the <Go to="https://cividi.ch/geohackmin-en/">Geo.Hackmin Week</Go>, 2021
-            </li>
-            <li>
-              <span className="pubTitle">
-                <Link href="/talks/2020-07-30-uc.foundation/">Presenting FlowmapBlue</Link>
-              </span>{' '}
-              at the <Go to="https://uc.foundation/">Urban Computing Foundation</Go> Technical
+            </Talk>
+
+            <Talk>
+              <TalkTitle href="/talks/2021-03-02-geohackmin/">
+                Tools for Geo Data Visualization from the Unfolded team
+              </TalkTitle>{' '}
+              at the <TalkVenue url="https://cividi.ch/geohackmin-en/">Geo.Hackmin Week</TalkVenue>, 2021
+            </Talk>
+
+            <Talk>
+              <TalkTitle href="/talks/2020-07-30-uc.foundation/">Presenting FlowmapBlue</TalkTitle>{' '}
+              at the <TalkVenue url="https://uc.foundation/">Urban Computing Foundation</TalkVenue> Technical
               Advisory Council meeting, 2020
-            </li>
-            <li>
-              <span className="pubTitle">
-                <Link href="/talks/2020-07-07-agit/">FlowmapBlue</Link>
-              </span>{' '}
-              (in German) at the <Go to="https://agit.at/">AGIT symposium</Go>, 2020
-            </li>
-            <li>
-              <span className="pubTitle">
-                <Link href="/talks/2020-05-13-datavis-meetup/">Flow Maps</Link>
-              </span>{' '}
+            </Talk>
+
+            <Talk>
+              <TalkTitle href="/talks/2020-07-07-agit/">FlowmapBlue</TalkTitle>{' '}
+              (in German) at the <TalkVenue url="https://agit.at/">AGIT symposium</TalkVenue>, 2020
+            </Talk>
+
+            <Talk>
+              <TalkTitle href="/talks/2020-05-13-datavis-meetup/">Flow Maps</TalkTitle>{' '}
               at the{' '}
-              <Go to="https://www.meetup.com/datavis-zurich/events/270384574/">
+              <TalkVenue url="https://www.meetup.com/datavis-zurich/events/270384574/">
                 Data Visualization Zurich Meetup
-              </Go>
+              </TalkVenue>
               , online, 2020
-            </li>
-            <li>
-              <span className="pubTitle">
-                <Link href="/talks/2020-01-22-datacouncil-meetup">
-                  Interactive Queries over Billions of Trips: Using ClickHouse for Mobility Data
-                </Link>
-              </span>{' '}
+            </Talk>
+
+            <Talk>
+              <TalkTitle href="/talks/2020-01-22-datacouncil-meetup">
+                Interactive Queries over Billions of Trips: Using ClickHouse for Mobility Data
+              </TalkTitle>{' '}
               at the{' '}
-              <Go to="https://www.meetup.com/en-AU/DataCouncil-AI-Zurich-Data-Engineering-Science/events/267081855/">
+              <TalkVenue url="https://www.meetup.com/en-AU/DataCouncil-AI-Zurich-Data-Engineering-Science/events/267081855/">
                 DataCouncil Meetup
-              </Go>
+              </TalkVenue>
               , Zurich, 2020
-            </li>
-            <li>
-              <span className="pubTitle">
-                <Link href="/talks/2019-11-17-on-data-and-design/">Visualizing Mobility</Link>
-              </span>{' '}
-              at the <Go to="https://datafest.ge">DataFest</Go>, Tbilisi, 2019
-            </li>
-            <li>
-              <span className="pubTitle">
-                Meet-up talk on{' '}
-                <Link href="/talks/2019-11-05-on-data-and-design/">Visualizing Mobility</Link>
-              </span>{' '}
+            </Talk>
+
+            <Talk>
+              <TalkTitle href="/talks/2019-11-17-datafest/">Visualizing Mobility</TalkTitle>{' '}
+              at the <TalkVenue url="https://datafest.ge">DataFest</TalkVenue>, Tbilisi, 2019
+            </Talk>
+
+            <Talk>
+              <TalkTitle href="/talks/2019-11-05-on-data-and-design/">
+                Meet-up talk on Visualizing Mobility
+              </TalkTitle>{' '}
               at{' '}
-              <Go to="https://www.meetup.com/de-DE/ondataanddesign-Switzerland/events/265947767/">
+              <TalkVenue url="https://www.meetup.com/de-DE/ondataanddesign-Switzerland/events/265947767/">
                 On data and design
-              </Go>
+              </TalkVenue>
               , YAAY Studio, Basel, 2019
-            </li>
-            <li>
-              <span className="pubTitle">
-                <Link href="/talks/2019-10-11-urban-mobility-symp/">
-                  Scalability of OD-data visualizations
-                </Link>
-              </span>{' '}
+            </Talk>
+
+            <Talk>
+              <TalkTitle href="/talks/2019-10-11-urban-mobility-symp/">
+                Scalability of OD-data visualizations
+              </TalkTitle>{' '}
               at the{' '}
-              <Go to="https://www.citylab-berlin.org/events/mobilitysymposium_en/">
+              <TalkVenue url="https://www.citylab-berlin.org/events/mobilitysymposium_en/">
                 Urban Mobility Symposium
-              </Go>
+              </TalkVenue>
               , CityLAB Berlin, 2019
-            </li>
-            <li>
-              <span className="pubTitle">
-                <Link href="/talks/2019-04-03-unibern/">
-                  FlowmapBlue: Ein Tool zur Erstellung von Flow Maps
-                </Link>
-              </span>{' '}
+            </Talk>
+
+            <Talk>
+              <TalkTitle href="/talks/2019-04-03-unibern/">
+                FlowmapBlue: Ein Tool zur Erstellung von Flow Maps
+              </TalkTitle>{' '}
               (in German) at the{' '}
-              <Go to="http://www.digitale-nachhaltigkeit.unibe.ch/studium/data_visualization_group/index_ger.html">
+              <TalkVenue url="http://www.digitale-nachhaltigkeit.unibe.ch/studium/data_visualization_group/index_ger.html">
                 Data Visualization Group meeting
-              </Go>
+              </TalkVenue>
               , University of Bern, 2019
-            </li>
-            <li>
-              <span className="pubTitle">
-                <Link href="/talks/2019-03-22-ups/">Visualization of OD data</Link>
-              </span>{' '}
+            </Talk>
+
+            <Talk>
+              <TalkTitle href="/talks/2019-03-22-ups/">Visualization of OD data</TalkTitle>{' '}
               at the UPS Advanced Technology Group workshop, online, 2019
-            </li>
-            <li>
-              <span className="pubTitle">
-                <Link href="/talks/2019-03-03-clisel/">
-                  FlowmapBlue: Geographic flows visualisation tool for the people
-                </Link>
-              </span>{' '}
+            </Talk>
+
+            <Talk>
+              <TalkTitle href="/talks/2019-03-03-clisel/">
+                FlowmapBlue: Geographic flows visualisation tool for the people
+              </TalkTitle>{' '}
               at the workshop{' '}
-              <Go to="http://www.clisel.eu/Ascona">Environmental Changes and Human Mobility</Go> in
+              <TalkVenue url="http://www.clisel.eu/Ascona">Environmental Changes and Human Mobility</TalkVenue> in
               Ascona, 2019
-            </li>
-            <li>
-              <span className="pubTitle">
-                <Link href="/talks/2018-12-20-gflowiz/">
-                  Scalable Origin-Destination Data Visualization
-                </Link>
-              </span>{' '}
-              at <Go to="https://gflowizworkshop.sciencesconf.org">GFlowiz Workshop</Go> in Paris,
+            </Talk>
+
+            <Talk>
+              <TalkTitle href="/talks/2018-12-20-gflowiz/">
+                Scalable Origin-Destination Data Visualization
+              </TalkTitle>{' '}
+              at <TalkVenue url="https://gflowizworkshop.sciencesconf.org">GFlowiz Workshop</TalkVenue> in Paris,
               2018
-            </li>
-            <li>
-              <span className="pubTitle">
-                <Link href="/talks/2018-07-11-react-meetup/">Graphics with React</Link>
-              </span>{' '}
+            </Talk>
+
+            <Talk>
+              <TalkTitle href="/talks/2018-07-11-react-meetup/">Graphics with React</TalkTitle>{' '}
               at{' '}
-              <Go to="https://www.meetup.com/Zurich-ReactJS-Meetup/events/251517816/">
+              <TalkVenue url="https://www.meetup.com/Zurich-ReactJS-Meetup/events/251517816/">
                 React.js Meetup
-              </Go>{' '}
+              </TalkVenue>{' '}
               in Zurich, 2018
-            </li>
-            <li>
-              <span className="pubTitle">
-                <Go to="https://docs.google.com/presentation/d/e/2PACX-1vRNRaJFAwe13zoWrr7DPnJG4ujbvIccAmrfW-WCL4CGNU_GfYmRJlzbfJ7APOPl_9va1YzS0RNTrXjN/pub?start=false&loop=false&delayms=3000">
-                  Data Visualization Engineer: ist das ein Beruf?
-                </Go>
-              </span>{' '}
+            </Talk>
+
+            <Talk>
+              <TalkTitle href="https://docs.google.com/presentation/d/e/2PACX-1vRNRaJFAwe13zoWrr7DPnJG4ujbvIccAmrfW-WCL4CGNU_GfYmRJlzbfJ7APOPl_9va1YzS0RNTrXjN/pub?start=false&loop=false&delayms=3000">
+                Data Visualization Engineer: ist das ein Beruf?
+              </TalkTitle>{' '}
               (in German) guest lecture, Mannheim University of Applied Sciences, 2017
-            </li>
-            <li>
-              <span className="pubTitle">
-                <Link href="/talks/2015-11-27-react-meetup/">
-                  Visualizing People Movement with React
-                </Link>
-              </span>{' '}
+            </Talk>
+
+            <Talk>
+              <TalkTitle href="/talks/2015-11-27-react-meetup/">
+                Visualizing People Movement with React
+              </TalkTitle>{' '}
               at{' '}
-              <Go to="http://www.meetup.com/Zurich-ReactJS-Meetup/events/226391438/">
+              <TalkVenue url="http://www.meetup.com/Zurich-ReactJS-Meetup/events/226391438/">
                 React.js Meetup
-              </Go>{' '}
+              </TalkVenue>{' '}
               in Zurich, 2015
-            </li>
-            <li>
-              <span className="pubTitle">
-                <Link href="/talks/2015-04-03-openvis/">
-                  Interactive Data Visualization with React: Taming the Complexity of the Changing
-                  State
-                </Link>
-              </span>{' '}
-              at <Go to="http://openvisconf.com/">OpenVis Conf</Go> in Boston, 2015
-            </li>
-            <li>
-              <span className="pubTitle">Data Visualization for Media: Processes and Tools</span> at{' '}
-              <Go to="https://tech.ebu.ch/devcon14">EBU DevCon</Go> in Geneva, 2014
-            </li>
-            <li>
-              <span className="pubTitle">Making Sense of Data with Visualization</span> at SICHH
+            </Talk>
+
+            <Talk>
+              <TalkTitle href="/talks/2015-04-03-openvis/">
+                Interactive Data Visualization with React: Taming the Complexity of the Changing State
+              </TalkTitle>{' '}
+              at <TalkVenue url="http://openvisconf.com/">OpenVis Conf</TalkVenue> in Boston, 2015
+            </Talk>
+
+            <Talk>
+              <TalkTitle>Data Visualization for Media: Processes and Tools</TalkTitle> at{' '}
+              <TalkVenue url="https://tech.ebu.ch/devcon14">EBU DevCon</TalkVenue> in Geneva, 2014
+            </Talk>
+
+            <Talk>
+              <TalkTitle>Making Sense of Data with Visualization</TalkTitle> at SICHH
               Forum Data Visualization & Big Data, 2014
-            </li>
-            <li>
+            </Talk>
+
+            <Talk>
               Presented research work at the scientific data visualization conferences EuroVis and
               VisWeek
-            </li>
+            </Talk>
           </ul>
         </div>
 
