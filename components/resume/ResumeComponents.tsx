@@ -1,5 +1,7 @@
+import { Box, BoxProps, Heading } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 import Link from 'next/link';
+import { useState } from 'react';
 // import { NF_IMAGE_LOADER } from '../components/BlurImage';
 
 export const Header = styled('div')`
@@ -98,10 +100,6 @@ export const CV = styled('div')`
     // padding-left: 18px;
   }
 
-  div.jobTitle {
-    margin: 0 0 10px 0;
-    padding: 0;
-  }
 `;
 
 export const Go = ({ to, children }) => (
@@ -122,12 +120,63 @@ export const TalkTitle = ({ href, children }) => (
 export const TalkVenue = ({ url, children }) => (
   url ? <Go to={url}>{children}</Go> : <>{children}</>
 );
-
-export const ResumeSection = ({ title, children }) => (
+export const ResumeSection = ({ title, children, isExpanded = false, ...props }: { title: string; children: React.ReactNode; isExpanded?: boolean } & BoxProps) => (
   <>
-    <h2>{title}</h2>
-    <div className="block">
-      {children}
-    </div>
+    <Collapsible content={<Heading as="h2">{title}</Heading>} isExpanded={isExpanded}>
+      <Box className="block" {...props}>
+        {children}
+      </Box>
+    </Collapsible>
   </>
 );
+
+export const Collapsible = ({ children, content, isExpanded = false, ...props }) => {
+  const [isOpen, setIsOpen] = useState(isExpanded);
+  return (
+    <>
+      <Box
+        display="flex"
+        alignItems="center"
+        cursor="pointer"
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        <Box
+          as="span"
+          transform={isOpen ? 'rotate(90deg)' : undefined}
+          transition="transform 0.2s"
+          mr={2}
+        >
+          ▶
+        </Box>
+        {content}
+      </Box>
+      <Box display={isOpen ? 'block' : 'none'} {...props}>
+        <ul>{children}</ul>
+      </Box>
+    </>
+  );
+};
+
+export const Job = ({ title, employerName, employerUrl, startDate, endDate, location, children, isExpanded }) => {
+  const content = (
+    <div>
+      <span className="em">
+        {title}, {employerUrl ? <Go to={employerUrl}>{employerName}</Go> : employerName}
+        {location && <>, {location}</>}
+      </span>
+      &nbsp;&ndash;&nbsp;
+      <span className="wtime">
+        {startDate}
+        {endDate ? ` - ${endDate}` : ''}
+      </span>
+    </div>
+  );
+
+  return (
+    <Collapsible content={content} isExpanded={isExpanded}>
+      {children}
+    </Collapsible>
+  );
+};
+
+export const JobItem = ({ children }) => <li>{children}</li>;
