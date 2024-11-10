@@ -399,7 +399,7 @@ const Resume = () => (
         {/*<span className="em">Cloud:</span> Heroku, Digital Ocean, Netlify, AWS, Google Cloud, Marathon, Kubernetes<br/>*/}
       </ResumeSection>
 
-      <ResumeSection title="Public Speaking">
+      <ResumeSection title="Public Speaking" isExpanded>
         <ul>
           <Talk>
             <TalkTitle href="/talks/2024-11-04-ethz-guest-lecture/">
@@ -618,7 +618,7 @@ const Resume = () => (
         </ul>
       </ResumeSection>
 
-      <ResumeSection title="Workshops">
+      <ResumeSection title="Workshops" isExpanded>
         <ul>
           <li>
             <span className="pubTitle">
