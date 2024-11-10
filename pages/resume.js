@@ -598,6 +598,24 @@ const Resume = (props) => {
           <ul>
             <li>
               <span className="pubTitle">
+                <Link href="/talks/2024-11-04-ethz-guest-lecture/">
+                  Geographic data visualization with deck.gl
+                </Link>
+              </span>{' '}
+              guest lecture at the <Go to="https://ikg.ethz.ch/en/">ETH Zürich Institute of Cartography</Go>, 2024
+            </li>
+
+            <li>
+              <span className="pubTitle">
+                <Link href="/talks/2024-09-12-openjs-london/">
+                  Real-Time Collaborative Map Drawing with deck.gl
+                </Link>
+              </span>{' '}
+              at the OpenJS Visualization Summit, London, 2024
+            </li>
+
+            <li>
+              <span className="pubTitle">
                 <Link href="/talks/2022-10-06-novi-sad/">
                   Efficient data analytics and visualization in the browser
                 </Link>
