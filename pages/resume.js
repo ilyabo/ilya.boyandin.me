@@ -4,10 +4,16 @@ import Link from 'next/link';
 import * as React from 'react';
 import ProfileImg from '../public/profile-pic.jpg';
 import {
-  CV, Header, Title, Talk, 
-  TalkTitle, TalkVenue, Contact, ResumeSection, Go
+  CV,
+  Header,
+  Title,
+  Talk,
+  TalkTitle,
+  TalkVenue,
+  Contact,
+  ResumeSection,
+  Go,
 } from '../components/resume/ResumeComponents';
-
 
 const Resume = (props) => {
   return (
@@ -45,9 +51,7 @@ const Resume = (props) => {
 
       <br />
       <div className="content">
-        <h2>Education</h2>
-
-        <div className="block">
+        <ResumeSection title="Education">
           <span className="em">PhD in Computer Science, University of Fribourg, 2013</span>
           <br />
           <span className="flabel">Thesis title:</span> Visualization of Temporal Origin-Destination
@@ -66,9 +70,8 @@ const Resume = (props) => {
           a novel approach for visualizing and exploring temporal origin-destination data. Carried
           out a qualitative <Go to="/p/flowmap-user-study/">user study</Go> comparing animated and
           small-multiple representations of changes in flow maps.
-        </div>
-
-        <div className="block">
+          <br />
+          <br />
           <span className="em">MSc Computer Science, St. Petersburg State University, 2003</span>
           <br />
           <span className="flabel">Thesis title:</span> Statistical Query Transformations for
@@ -81,11 +84,9 @@ const Resume = (props) => {
           Developed an improvement for a state-of-the-art machine learning approach transforming
           natural language questions into search engine queries achieving a better quality of{' '}
           <Go to="http://en.wikipedia.org/wiki/Question_answering">question answering</Go>.
-        </div>
+        </ResumeSection>
 
-        <h2>Experience</h2>
-
-        <div className="block">
+        <ResumeSection title="Experience">
           <div className="jobTitle">
             <span className="em">
               Staff Software Engineer, Maps and Data Visualization,{' '}
@@ -468,10 +469,9 @@ const Resume = (props) => {
             <li>Taught school children programming.</li>
           </ul>
           <br />
-        </div>
+        </ResumeSection>
 
-        <h2>Computer Skills</h2>
-        <div className="block">
+        <ResumeSection title="Computer Skills">
           <span className="em">Languages: </span> TypeScript/JavaScript, Java, Python, Clojure,
           Scala, C<br />
           <span className="em">Web:</span> React, Node.js, Next.js, SVG, Canvas, WebGL
@@ -486,16 +486,19 @@ const Resume = (props) => {
           <span className="em">UI Design:</span> Figma, Sketch, Photoshop
           <br />
           {/*<span className="em">Cloud:</span> Heroku, Digital Ocean, Netlify, AWS, Google Cloud, Marathon, Kubernetes<br/>*/}
-        </div>
+        </ResumeSection>
 
-        <h2 id="talks">Public Speaking</h2>
-        <div className="block notitles">
+        <ResumeSection title="Public Speaking">
           <ul>
             <Talk>
               <TalkTitle href="/talks/2024-11-04-ethz-guest-lecture/">
                 Geographic data visualization with deck.gl
               </TalkTitle>{' '}
-              guest lecture at the <TalkVenue url="https://ikg.ethz.ch/en/">ETH Zürich Institute of Cartography</TalkVenue>, 2024
+              guest lecture at the{' '}
+              <TalkVenue url="https://ikg.ethz.ch/en/">
+                ETH Zürich Institute of Cartography
+              </TalkVenue>
+              , 2024
             </Talk>
 
             <Talk>
@@ -509,7 +512,8 @@ const Resume = (props) => {
               <TalkTitle href="/talks/2022-10-06-novi-sad/">
                 Efficient data analytics and visualization in the browser
               </TalkTitle>{' '}
-              at the <TalkVenue url="https://armada-js.com">Armada JS conference</TalkVenue>, Novi Sad, 2022
+              at the <TalkVenue url="https://armada-js.com">Armada JS conference</TalkVenue>, Novi
+              Sad, 2022
             </Talk>
 
             <Talk>
@@ -546,8 +550,8 @@ const Resume = (props) => {
             </Talk>
 
             <Talk>
-              <TalkTitle href="/talks/2021-05-20-cartohack/">Introduction to Unfolded</TalkTitle>{' '}
-              at the{' '}
+              <TalkTitle href="/talks/2021-05-20-cartohack/">Introduction to Unfolded</TalkTitle> at
+              the{' '}
               <TalkVenue url="https://visualisierung.dgfk.net/de/events/cartohack/07-unfolded/">
                 CartoHack #07
               </TalkVenue>
@@ -558,23 +562,23 @@ const Resume = (props) => {
               <TalkTitle href="/talks/2021-03-02-geohackmin/">
                 Tools for Geo Data Visualization from the Unfolded team
               </TalkTitle>{' '}
-              at the <TalkVenue url="https://cividi.ch/geohackmin-en/">Geo.Hackmin Week</TalkVenue>, 2021
+              at the <TalkVenue url="https://cividi.ch/geohackmin-en/">Geo.Hackmin Week</TalkVenue>,
+              2021
             </Talk>
 
             <Talk>
               <TalkTitle href="/talks/2020-07-30-uc.foundation/">Presenting FlowmapBlue</TalkTitle>{' '}
-              at the <TalkVenue url="https://uc.foundation/">Urban Computing Foundation</TalkVenue> Technical
-              Advisory Council meeting, 2020
+              at the <TalkVenue url="https://uc.foundation/">Urban Computing Foundation</TalkVenue>{' '}
+              Technical Advisory Council meeting, 2020
             </Talk>
 
             <Talk>
-              <TalkTitle href="/talks/2020-07-07-agit/">FlowmapBlue</TalkTitle>{' '}
-              (in German) at the <TalkVenue url="https://agit.at/">AGIT symposium</TalkVenue>, 2020
+              <TalkTitle href="/talks/2020-07-07-agit/">FlowmapBlue</TalkTitle> (in German) at the{' '}
+              <TalkVenue url="https://agit.at/">AGIT symposium</TalkVenue>, 2020
             </Talk>
 
             <Talk>
-              <TalkTitle href="/talks/2020-05-13-datavis-meetup/">Flow Maps</TalkTitle>{' '}
-              at the{' '}
+              <TalkTitle href="/talks/2020-05-13-datavis-meetup/">Flow Maps</TalkTitle> at the{' '}
               <TalkVenue url="https://www.meetup.com/datavis-zurich/events/270384574/">
                 Data Visualization Zurich Meetup
               </TalkVenue>
@@ -593,8 +597,8 @@ const Resume = (props) => {
             </Talk>
 
             <Talk>
-              <TalkTitle href="/talks/2019-11-17-datafest/">Visualizing Mobility</TalkTitle>{' '}
-              at the <TalkVenue url="https://datafest.ge">DataFest</TalkVenue>, Tbilisi, 2019
+              <TalkTitle href="/talks/2019-11-17-datafest/">Visualizing Mobility</TalkTitle> at the{' '}
+              <TalkVenue url="https://datafest.ge">DataFest</TalkVenue>, Tbilisi, 2019
             </Talk>
 
             <Talk>
@@ -631,8 +635,8 @@ const Resume = (props) => {
             </Talk>
 
             <Talk>
-              <TalkTitle href="/talks/2019-03-22-ups/">Visualization of OD data</TalkTitle>{' '}
-              at the UPS Advanced Technology Group workshop, online, 2019
+              <TalkTitle href="/talks/2019-03-22-ups/">Visualization of OD data</TalkTitle> at the
+              UPS Advanced Technology Group workshop, online, 2019
             </Talk>
 
             <Talk>
@@ -640,21 +644,23 @@ const Resume = (props) => {
                 FlowmapBlue: Geographic flows visualisation tool for the people
               </TalkTitle>{' '}
               at the workshop{' '}
-              <TalkVenue url="http://www.clisel.eu/Ascona">Environmental Changes and Human Mobility</TalkVenue> in
-              Ascona, 2019
+              <TalkVenue url="http://www.clisel.eu/Ascona">
+                Environmental Changes and Human Mobility
+              </TalkVenue>{' '}
+              in Ascona, 2019
             </Talk>
 
             <Talk>
               <TalkTitle href="/talks/2018-12-20-gflowiz/">
                 Scalable Origin-Destination Data Visualization
               </TalkTitle>{' '}
-              at <TalkVenue url="https://gflowizworkshop.sciencesconf.org">GFlowiz Workshop</TalkVenue> in Paris,
-              2018
+              at{' '}
+              <TalkVenue url="https://gflowizworkshop.sciencesconf.org">GFlowiz Workshop</TalkVenue>{' '}
+              in Paris, 2018
             </Talk>
 
             <Talk>
-              <TalkTitle href="/talks/2018-07-11-react-meetup/">Graphics with React</TalkTitle>{' '}
-              at{' '}
+              <TalkTitle href="/talks/2018-07-11-react-meetup/">Graphics with React</TalkTitle> at{' '}
               <TalkVenue url="https://www.meetup.com/Zurich-ReactJS-Meetup/events/251517816/">
                 React.js Meetup
               </TalkVenue>{' '}
@@ -681,7 +687,8 @@ const Resume = (props) => {
 
             <Talk>
               <TalkTitle href="/talks/2015-04-03-openvis/">
-                Interactive Data Visualization with React: Taming the Complexity of the Changing State
+                Interactive Data Visualization with React: Taming the Complexity of the Changing
+                State
               </TalkTitle>{' '}
               at <TalkVenue url="http://openvisconf.com/">OpenVis Conf</TalkVenue> in Boston, 2015
             </Talk>
@@ -692,8 +699,8 @@ const Resume = (props) => {
             </Talk>
 
             <Talk>
-              <TalkTitle>Making Sense of Data with Visualization</TalkTitle> at SICHH
-              Forum Data Visualization & Big Data, 2014
+              <TalkTitle>Making Sense of Data with Visualization</TalkTitle> at SICHH Forum Data
+              Visualization & Big Data, 2014
             </Talk>
 
             <Talk>
@@ -701,10 +708,9 @@ const Resume = (props) => {
               VisWeek
             </Talk>
           </ul>
-        </div>
+        </ResumeSection>
 
-        <h2>Workshops</h2>
-        <div className="block notitles">
+        <ResumeSection title="Workshops">
           <ul>
             <li>
               <span className="pubTitle">
@@ -731,10 +737,9 @@ const Resume = (props) => {
               Kantonsschule Solothurn, 2012 and Gymnasium Brig, 2011
             </li>
           </ul>
-        </div>
+        </ResumeSection>
 
-        <h2>Publications</h2>
-        <div className="block">
+        <ResumeSection title="Publications">
           <span className="pubTitle">
             <Go to="https://medium.com/teralytics/visualizing-mobility-data-the-scalability-challenge-2575fe819702">
               Visualizing mobility data: the scalability challenge
@@ -793,10 +798,9 @@ const Resume = (props) => {
             <Go to="/assets/thesis.pdf">Visualization of Temporal Origin-Destination Data</Go>
           </span>
           , PhD thesis, University of Fribourg, March 2013.
-        </div>
+        </ResumeSection>
 
-        <h2>Awards</h2>
-        <div className="block notitles">
+        <ResumeSection title="Awards">
           <ul>
             <li>
               Bronze award in the “Visualization & Information Design” category of the{' '}
@@ -820,10 +824,9 @@ const Resume = (props) => {
               for the <Go to="/p/swiss-maps">Swiss maps series</Go> in 2013.
             </li>
           </ul>
-        </div>
+        </ResumeSection>
 
-        <h2>Other Activities</h2>
-        <div className="block notitles">
+        <ResumeSection title="Other Activities">
           <ul>
             <li>
               Developed a{' '}
@@ -863,7 +866,7 @@ const Resume = (props) => {
               }
             </li>
           </ul>
-        </div>
+        </ResumeSection>
 
         {/*<h2>Spoken Languages</h2>*/}
         {/*<div className="block notitles">*/}
@@ -875,11 +878,10 @@ const Resume = (props) => {
         {/*  </ul>*/}
         {/*</div>*/}
 
-        <h2>Hobbies</h2>
-        <div className="block">
+        <ResumeSection title="Hobbies">
           <Go to="http://soundcloud.com/ibananti">Electronic music production</Go>,{' '}
           <Go to="http://www.flickr.com/photos/ibananti/sets/">photography</Go>, hiking, traveling.
-        </div>
+        </ResumeSection>
       </div>
     </CV>
   );
