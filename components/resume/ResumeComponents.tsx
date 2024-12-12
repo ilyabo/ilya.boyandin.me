@@ -99,7 +99,6 @@ export const CV = styled('div')`
   .notitles ul {
     // padding-left: 18px;
   }
-
 `;
 
 export const Go = ({ to, children }) => (
@@ -108,19 +107,20 @@ export const Go = ({ to, children }) => (
   </a>
 );
 
-
 export const Talk = ({ children }) => <li>{children}</li>;
 
 export const TalkTitle = ({ href, children }) => (
-  <span className="pubTitle">
-    {href ? <Link href={href}>{children}</Link> : children}
-  </span>
+  <span className="pubTitle">{href ? <Link href={href}>{children}</Link> : children}</span>
 );
 
-export const TalkVenue = ({ url, children }) => (
-  url ? <Go to={url}>{children}</Go> : <>{children}</>
-);
-export const ResumeSection = ({ title, children, isExpanded = false, ...props }: { title: string; children: React.ReactNode; isExpanded?: boolean } & BoxProps) => (
+export const TalkVenue = ({ url, children }) =>
+  url ? <Go to={url}>{children}</Go> : <>{children}</>;
+export const ResumeSection = ({
+  title,
+  children,
+  isExpanded = false,
+  ...props
+}: { title: string; children: React.ReactNode; isExpanded?: boolean } & BoxProps) => (
   <>
     <Collapsible content={<Heading as="h2">{title}</Heading>} isExpanded={isExpanded}>
       <Box className="block" {...props}>
@@ -134,12 +134,7 @@ export const Collapsible = ({ children, content, isExpanded = false, ...props })
   const [isOpen, setIsOpen] = useState(isExpanded);
   return (
     <>
-      <Box
-        display="flex"
-        alignItems="center"
-        cursor="pointer"
-        onClick={() => setIsOpen(!isOpen)}
-      >
+      <Box display="flex" alignItems="center" cursor="pointer" onClick={() => setIsOpen(!isOpen)}>
         <Box
           as="span"
           transform={isOpen ? 'rotate(90deg)' : undefined}
@@ -157,17 +152,26 @@ export const Collapsible = ({ children, content, isExpanded = false, ...props })
   );
 };
 
-export const Job = ({ title, employerName, employerUrl, startDate, endDate, location, children, isExpanded }) => {
+export const Job = ({
+  title,
+  employerName,
+  employerUrl,
+  startDate,
+  endDate,
+  location,
+  children,
+  isExpanded,
+}) => {
   const content = (
     <div>
       <span className="em">
         {title}, {employerUrl ? <Go to={employerUrl}>{employerName}</Go> : employerName}
-        {location && <>, {location}</>}
+        {(employerUrl || employerName) && <>, </>}
+        {location && <>{location}, </>}
       </span>
-      &nbsp;&ndash;&nbsp;
+
       <span className="wtime">
-        {startDate}
-        {endDate ? ` - ${endDate}` : ''}
+        {startDate} &ndash; {endDate ? endDate : 'Present'}
       </span>
     </div>
   );

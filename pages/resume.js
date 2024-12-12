@@ -29,7 +29,9 @@ const Resume = () => (
 
       <Title>
         Ilya Boyandin
-        <h2 className="subtitle">Web and Data Visualization Software Engineer</h2>
+        <h2 className="subtitle">
+          Principal Software Engineer | Interactive Systems & Data Visualization
+        </h2>
       </Title>
 
       <Contact>
@@ -41,7 +43,35 @@ const Resume = () => (
     </Header>
 
     <br />
+
+    <div className="summary">
+      Experienced software engineer with a PhD in Computer Science and many years of expertise in
+      scalable web architectures, interactive front-end development, and data visualization.
+      Passionate about leveraging AI and large-scale models to create transformative user
+      experiences.
+    </div>
     <div className="content">
+      <ResumeSection title="Executive Summary" isExpanded>
+        <JobItem>
+          20+ years of experience in software engineering with deep expertise in data visualization,
+          front-end development, distributed systems, and technical leadership.
+        </JobItem>
+        <JobItem>
+          PhD in Computer Science with focus on data visualization and interactive systems.
+        </JobItem>
+        <JobItem>
+          Experience with ML systems including development of statistical classification systems,
+          question-answering models, natural language processing for chatbots. Strong background in
+          data processing pipelines and real-time ML model integration.
+        </JobItem>
+        <JobItem>Experience architecting and scaling real-time collaborative systems.</JobItem>
+        <JobItem>
+          Track record of leading technical teams and mentoring engineers while driving technical
+          excellence and innovation. Led development of multiple large-scale web applications
+          serving thousands of users.
+        </JobItem>
+      </ResumeSection>
+
       <ResumeSection title="Education" isExpanded display="flex" flexDirection="column" gap={2}>
         <Collapsible
           content={
@@ -95,23 +125,30 @@ const Resume = () => (
           isExpanded
         >
           <JobItem>
-            Working on <Go to="https://studio.foursquare.com/">Foursquare Studio</Go>. Responsible
-            for implementing various geospatial visualization features: 3d animated trip layer, flow
+            Technical leadership, architecture and development of{' '}
+            <Go to="/p/fsq-studio">Foursquare Studio</Go>, a complex web-based visualization
+            platform. Mentoring a team of 10+ engineers.
+          </JobItem>
+
+          <JobItem>
+            Implementing various geospatial visualization features: 3d animated trip layer, flow
             layer for mobility visualization, time scale synchronization for multi-dataset
             animations, swipe mode, editable rich text map annotations, JSON config editor,
             draggable legend, map scale widget, etc.
           </JobItem>
+
           <JobItem>
-            Contributed to the development of the{' '}
+            Contributed to the design and development of the{' '}
             <Go to="https://docs.foursquare.com/developer/docs/studio-map-sdk-overview">
               Foursquare Map SDK
-            </Go>{' '}
-            (both JavaScript and Python versions) allowing developers to embed map visualizations in
-            third-party apps and interactive Python notebooks.
+            </Go>
+            , enabling seamless integration of complex geospatial visualizations across multiple
+            platforms (Web and Jupyter notebooks).
           </JobItem>
+
           <JobItem>
-            Pilot implementation of <Go to="/p/fsq-notebooks">SQL notebooks</Go> with map
-            visualizations of the query results.
+            Architecture and implementation of <Go to="/p/fsq-notebooks">SQL notebooks</Go> with map
+            visualizations of the query results. LLM model integration for SQL generation.
           </JobItem>
           <JobItem>
             Developed the <Go to="/p/fsq-paris-2024">Paris Olympics Places</Go> app showcasing
@@ -128,10 +165,15 @@ const Resume = () => (
           isExpanded
         >
           <JobItem>Interactive maps and geographic data visualization consultancy.</JobItem>
+          <li>
+            Architecture and development of <Go to="/p/mapcanv">MapCanv</Go>, a collaborative
+            GeoJSON editor with highly efficient real-time messaging and CRDT conflict resolution.
+          </li>
+
           <JobItem>
-            Developing the <Go to="/p/flowmap-city">Flowmap City</Go> – a web-based interactive
-            analysis tool for cities, transport and mobility providers for understanding travel
-            demand.
+            Architecture and development of <Go to="/p/flowmap-city">Flowmap City</Go> – a web-based
+            interactive analysis tool used by cities, transport and mobility providers for
+            understanding travel demand.
           </JobItem>
           <JobItem>
             Developed the <Go to="/p/cobalt">Cobalt Supply Chain</Go> and{' '}
@@ -156,7 +198,7 @@ const Resume = () => (
         </Job>
 
         <Job
-          title="Staff Software Engineer, Front End and Data Visualization"
+          title="Staff Software Engineer, Front End and Data Visualization Lead"
           employerName="Teralytics"
           employerUrl="https://teralytics.net/"
           startDate="February 2015"
@@ -164,6 +206,10 @@ const Resume = () => (
           location="Zurich"
           isExpanded
         >
+          <JobItem>
+            Technical and strategic leadership, platform architecture, mentoring a team of
+            developers.
+          </JobItem>
           <JobItem>
             Designed and developed <Go to="/p/tera-transport/">exploratory data</Go>{' '}
             <Go to="/p/street-flow-zh/">visualization tools</Go> for the analysis of people mobility
@@ -180,7 +226,6 @@ const Resume = () => (
             <Go to="/talks/2018-12-20-gflowiz/">scalable OD-data visualization</Go> to support
             interactive data analysis across billions of rows.
           </JobItem>
-          <JobItem>Technical and strategic leadership in a team of several developers.</JobItem>
           <JobItem>
             Published <Go to="/p/flowmap.gl/">Flowmap.gl</Go>, an open-source library for drawing
             flow lines representing movement on geographic maps in WebGL.
@@ -263,6 +308,10 @@ const Resume = () => (
           startDate="March 2007"
           endDate="April 2009"
         >
+          <JobItem>
+            Technical and strategic leadership, platform architecture, mentoring a team of
+            developers.
+          </JobItem>
           <JobItem>
             Developed <Go to="/p/joanna">web applications</Go> used by the students, lecturers and
             employees of the university for the online administration.
@@ -380,24 +429,28 @@ const Resume = () => (
         </Job>
       </ResumeSection>
 
-      <ResumeSection title="Computer Skills">
-        <span className="em">Languages: </span> TypeScript/JavaScript, Java, Python, Elixir,
-        Clojure, Scala, C
+      <ResumeSection title="Technical Expertise">
+        <span className="em">Architecture & Systems: </span>
+        Distributed Systems, Real-time Collaboration, Performance Optimization, Scalable
+        Architectures
         <br />
-        <span className="em">Web:</span> React, Node.js, Next.js, Phoenix framework
+        <span className="em">Front-end Excellence: </span>
+        React, Next.js, Node.js, Phoenix, WebGL, Modern Web APIs
         <br />
-        <span className="em">Graphics:</span> SVG, Canvas, WebGL
+        <span className="em">AI & ML Experience: </span>
+        Question Answering Systems, Classification, Clustering, Machine Learning Integration
         <br />
-        <span className="em">Visualization:</span> D3, Tableau
+        <span className="em">Languages: </span>
+        TypeScript/JavaScript, Java, Python, Elixir, Clojure, Scala, C
         <br />
-        <span className="em">Geo:</span> Deck.gl, Mapbox GL JS, PostGIS, QGIS
+        <span className="em">Cloud & Infrastructure: </span>
+        Google Cloud, Cloudflare, Vercel, AWS, Kubernetes
         <br />
-        <span className="em">Databases:</span> PostgreSQL, MySQL, DuckDB, BigQuery, ClickHouse, SQL
-        Server, Redis
+        <span className="em">Databases:</span> PostgreSQL, DuckDB, BigQuery, ClickHouse, Redis,
+        MySQL, SQL Server
         <br />
         <span className="em">UI Design:</span> Figma, Sketch, Photoshop
         <br />
-        {/*<span className="em">Cloud:</span> Heroku, Digital Ocean, Netlify, AWS, Google Cloud, Marathon, Kubernetes<br/>*/}
       </ResumeSection>
 
       <ResumeSection title="Public Speaking" isExpanded>
@@ -737,10 +790,6 @@ const Resume = () => (
 
       <ResumeSection title="Other Activities">
         <ul>
-          <li>
-            Developed <Go to="/p/mapcanv">MapCanv</Go>, a collaborative GeoJSON editor with highly
-            efficient real-time messaging and CRDT conflict resolution.
-          </li>
           <li>
             Developed a{' '}
             <Go to="/p/covid19-charite-lus/">web app used for the COVID-19 medical study</Go>{' '}
