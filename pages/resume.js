@@ -350,13 +350,11 @@ const Resume = () => (
           endDate="July 2003"
         >
           <JobItem>
-            Designed and developed a web based e-commerce system with
-            {
-              // <!--user authentication and authorization, -->
-            }
-            order tracking, credit card processing, back-office, inventory, statistical reports,
-            etc. Developed the whole system from scratch, supported and customized it adapting it to
-            changing requirements. The system is still in use on several e-commerce websites.
+            Designed and developed a <Go to="/p/daisy">web based e-commerce system</Go> with user
+            authentication, order tracking, credit card processing, back-office, inventory,
+            statistical reports, etc. Developed the whole system from scratch, supported and
+            customized it adapting it to changing requirements. The system is still in use on
+            several e-commerce websites.
           </JobItem>
         </Job>
 
@@ -366,10 +364,10 @@ const Resume = () => (
           endDate="January 2001"
         >
           <JobItem>
-            Participated in the development of a system of intelligent agents capable of chatting to
-            visitors of a website in a natural language and promoting its products. Implemented a
-            highly dynamic web-interface for the subsystem that controlled the chats and let
-            operators intervene in a chat if a bot was in trouble.
+            Participated in the development of a <Go to="/p/alife">system of intelligent agents</Go>{' '}
+            capable of chatting to visitors of a website in a natural language and promoting its
+            products. Implemented a highly dynamic web-interface for the subsystem that controlled
+            the chats and let operators intervene in a chat if a bot was in trouble.
           </JobItem>
         </Job>
 
@@ -383,9 +381,12 @@ const Resume = () => (
       </ResumeSection>
 
       <ResumeSection title="Computer Skills">
-        <span className="em">Languages: </span> TypeScript/JavaScript, Java, Python, Clojure, Scala,
-        C<br />
-        <span className="em">Web:</span> React, Node.js, Next.js, SVG, Canvas, WebGL
+        <span className="em">Languages: </span> TypeScript/JavaScript, Java, Python, Elixir,
+        Clojure, Scala, C
+        <br />
+        <span className="em">Web:</span> React, Node.js, Next.js, Phoenix framework
+        <br />
+        <span className="em">Graphics:</span> SVG, Canvas, WebGL
         <br />
         <span className="em">Visualization:</span> D3, Tableau
         <br />
@@ -736,6 +737,10 @@ const Resume = () => (
 
       <ResumeSection title="Other Activities">
         <ul>
+          <li>
+            Developed <Go to="/p/mapcanv">MapCanv</Go>, a collaborative GeoJSON editor with highly
+            efficient real-time messaging and CRDT conflict resolution.
+          </li>
           <li>
             Developed a{' '}
             <Go to="/p/covid19-charite-lus/">web app used for the COVID-19 medical study</Go>{' '}
