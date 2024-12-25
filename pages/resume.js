@@ -111,9 +111,7 @@ const Resume = () => (
           <br />
           <span className="flabel">Summary:</span>
           Developed an{' '}
-          <Go to="/assets/rcdl_2003_en.pdf">
-            improvement for a state-of-the-art machine learning approach
-          </Go>{' '}
+          <Go to="/p/simqa">improvement for a state-of-the-art machine learning approach</Go>{' '}
           transforming natural language questions into search engine queries achieving a better
           quality of{' '}
           <Go to="http://en.wikipedia.org/wiki/Question_answering">question answering</Go>.
