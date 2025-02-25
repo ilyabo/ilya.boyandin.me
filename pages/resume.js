@@ -29,9 +29,7 @@ const Resume = () => (
 
       <Title>
         Ilya Boyandin
-        <h2 className="subtitle">
-          Principal Software Engineer | Interactive Systems & Data Visualization
-        </h2>
+        <h2 className="subtitle">Software Engineer | Interactive Systems & Data Visualization</h2>
       </Title>
 
       <Contact>
