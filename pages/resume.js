@@ -108,8 +108,10 @@ const Resume = () => (
           <Go to="https://www.linkedin.com/in/igornekrestyanov/">Igor Nekrestyanov</Go>
           <br />
           <span className="flabel">Summary:</span>
-          Developed an improvement for a state-of-the-art machine learning approach transforming
-          natural language questions into search engine queries achieving a better quality of{' '}
+          Developed an{' '}
+          <Go to="/p/simqa">improvement for a state-of-the-art machine learning approach</Go>{' '}
+          transforming natural language questions into search engine queries achieving a better
+          quality of{' '}
           <Go to="http://en.wikipedia.org/wiki/Question_answering">question answering</Go>.
         </Collapsible>
       </ResumeSection>
@@ -746,7 +748,7 @@ const Resume = () => (
         <br />
         <br />
         <span className="pubTitle">
-          <Go to="/assets/rcdl.pdf">
+          <Go to="/assets/rcdl_2003_en.pdf">
             Statistical Query Transformations for Question Answering in the Web
           </Go>
         </span>

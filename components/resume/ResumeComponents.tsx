@@ -134,7 +134,13 @@ export const Collapsible = ({ children, content, isExpanded = false, ...props })
   const [isOpen, setIsOpen] = useState(isExpanded);
   return (
     <>
-      <Box display="flex" alignItems="center" cursor="pointer" onClick={() => setIsOpen(!isOpen)}>
+      <Box
+        display="flex"
+        alignItems="center"
+        cursor="pointer"
+        onClick={() => setIsOpen(!isOpen)}
+        mb={2}
+      >
         <Box
           as="span"
           transform={isOpen ? 'rotate(90deg)' : undefined}
