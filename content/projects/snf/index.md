@@ -7,7 +7,6 @@ preview: snf.png
 ---
 
 As a member of the team at <a href="http://interactivethings.com">Interactive Things</a>
-I worked on this exploratory tool for the Swiss National Foundation. 
+I worked on this exploratory tool for the Swiss National Foundation.
 
 ![](snf.png)
-
