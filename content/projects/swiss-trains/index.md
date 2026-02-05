@@ -13,6 +13,8 @@ preview: trains-stations-zoom1.png
 Animated interactive visualization of train flows in Switzerland showing the numbers and the speeds of the trains during different time of the day.
 Developed in a team of fellow hackers during the [make.opendata camp](http://make.opendata.ch/)  in Zurich.
 
+<embed src="swiss-trains-ixt2.mp4"> 
+
 ![](trains.png)
 
 ![](trains-stations.png)
