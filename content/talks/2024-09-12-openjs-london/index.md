@@ -8,10 +8,9 @@ preview: preview.png
 
 # Real-Time Collaborative Map Drawing with deck.gl
 
-<button href="https://mapcanv.com">Live demo</button>
+
 <button href="https://github.com/ilyabo/mapcanv" variant=outline>GitHub</button>
 <button  variant=outline href="https://www.youtube.com/watch?v=feMRman7iSo&list=PLyspMSh4XhLN1_EQY-_eyg_gs8z3psSJ2&index=17">Video</button>
-<button href="https://vimeo.com/1027410793">Video #2</button>
 <button href="https://docs.google.com/presentation/d/1MYJyhuwWawoC4MRmYsPxAwblP1QxNGY6A6l6ogeyvZc/edit?usp=sharing" variant=outline>Slides</button>
 
 ![MapCanv collaborative map drawing app](mapcanv.png)
@@ -30,10 +29,6 @@ By leveraging these technologies, I developed a collaborative GeoJSON editor. In
 Video:
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/feMRman7iSo?si=rOH_ho9EQpPS8OQn" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-
-Video 2 (same talk, different venue):
-
-<iframe src="https://player.vimeo.com/video/1027410793" width="640" height="360" frameborder="0" allow="autoplay; fullscreen" allowfullscreen style="width:100%"></iframe>
 
 Slides:
 
