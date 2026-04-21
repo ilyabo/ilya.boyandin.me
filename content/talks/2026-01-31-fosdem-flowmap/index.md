@@ -8,6 +8,7 @@ category: talk
 
 # Scaling Mobility Flow Visualization: Origin-Destination Data with DuckDB, Flowmap.gl, and SQLRooms
 
+<button href="https://video.fosdem.org/2026/k3601/DC9M73-sqlrooms-flowmap.av1.webm">Video</button>
 <button href="https://fosdem.org/2026/schedule/event/DC9M73-sqlrooms-flowmap/">FOSDEM page</button>
 <button href="/p/flowmap-city" variant=outline>Flowmap City</button>
 <button href="/p/sqlrooms" variant=outline>SQLRooms</button>
@@ -22,7 +23,7 @@ For the live demo I used Switzerland's National Passenger Transport Model data a
 
 Video:
 
-<video preload="none" controls="controls" width="75%">
+<video preload="preload" controls="controls" width="75%">
   <source src="https://video.fosdem.org/2026/k3601/DC9M73-sqlrooms-flowmap.av1.webm" type="video/webm; codecs=&quot;av01.0.08M.08.0.110.01.01.01.0&quot;" />
   <source src="https://video.fosdem.org/2026/k3601/DC9M73-sqlrooms-flowmap.mp4" type="video/mp4" />
 </video>

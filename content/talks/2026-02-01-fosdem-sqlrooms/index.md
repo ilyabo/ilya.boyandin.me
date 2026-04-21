@@ -9,7 +9,7 @@ category: talk
 # SQLRooms: Local-First Analytics with DuckDB, Collaborative Canvas, and Loro CRDT Sync
 
 
-<button href="https://mirrors.dotsrc.org/fosdem/2026/k3201/FGDCP7-sqlrooms-local-first-analytics-duckdb-loro.av1.webm">Video</button>
+<button href="https://video.fosdem.org/2026/k3201/FGDCP7-sqlrooms-local-first-analytics-duckdb-loro.av1.webm">Video</button>
 <button href="https://fosdem.org/2026/schedule/event/FGDCP7-sqlrooms-local-first-analytics-duckdb-loro/">FOSDEM page</button>
 <button href="/p/sqlrooms" variant=outline>SQLRooms</button>
 
@@ -22,7 +22,7 @@ I also presented our ongoing work on collaborative canvases, notebooks, and depe
 
 Video:
 
-<video preload="none" controls="controls" width="75%">
+<video preload="preload" controls="controls" width="75%">
   <source src="https://video.fosdem.org/2026/k3201/FGDCP7-sqlrooms-local-first-analytics-duckdb-loro.av1.webm" type="video/webm; codecs=&quot;av01.0.08M.08.0.110.01.01.01.0&quot;" />
   <source src="https://video.fosdem.org/2026/k3201/FGDCP7-sqlrooms-local-first-analytics-duckdb-loro.mp4" type="video/mp4" />
 </video>
