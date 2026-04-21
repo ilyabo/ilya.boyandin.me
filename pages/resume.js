@@ -456,12 +456,67 @@ const Resume = () => (
       <ResumeSection title="Public Speaking" isExpanded>
         <ul>
           <Talk>
+            <TalkTitle href="/talks/2026-04-02-geospatial-serbia-meetup/">
+              Democratizing Geospatial Intelligence with FSQ Spatial Agent
+            </TalkTitle>{' '}
+            at the Geospatial Community of Serbia Meetup #7, TomTom office, Belgrade, 2026
+          </Talk>
+
+          <Talk>
+            <TalkTitle href="/talks/2026-02-01-fosdem-sqlrooms/">
+              SQLRooms: Local-First Analytics with DuckDB, Collaborative Canvas, and Loro CRDT
+              Sync
+            </TalkTitle>{' '}
+            at <TalkVenue url="https://fosdem.org/2026/">FOSDEM</TalkVenue>, Brussels, 2026
+          </Talk>
+
+          <Talk>
+            <TalkTitle href="/talks/2026-01-31-fosdem-flowmap/">
+              Scaling Mobility Flow Visualization: Origin-Destination Data with DuckDB, Flowmap.gl,
+              and SQLRooms
+            </TalkTitle>{' '}
+            at <TalkVenue url="https://fosdem.org/2026/">FOSDEM</TalkVenue>, Brussels, 2026
+          </Talk>
+
+          <Talk>
+            <TalkTitle href="/talks/2025-11-18-dinacon/">
+              SQLRooms: Building browser-based AI-assisted analytics apps with DuckDB
+            </TalkTitle>{' '}
+            at <TalkVenue url="https://dinacon.ch/dinacon-2025/">DINAcon</TalkVenue>, Bern, 2025
+          </Talk>
+
+          <Talk>
+            <TalkTitle href="/talks/2025-10-08-openvis-seattle/">
+              SQLRooms: Build powerful analytics apps with DuckDB in browser
+            </TalkTitle>{' '}
+            at the{' '}
+            <TalkVenue url="https://deck.gl/events/seattle-summit-2025/">
+              Open Visualization Collaborator Summit
+            </TalkVenue>
+            , Seattle, 2025
+          </Talk>
+
+          <Talk>
+            <TalkTitle href="/talks/2024-11-21-dinacon/">
+              Flowmap City - Visuelle Analytik von Mobilitätsdaten
+            </TalkTitle>{' '}
+            at <TalkVenue url="https://dinacon.ch/rueckblick/">DINAcon</TalkVenue>, Bern, 2024
+          </Talk>
+
+          <Talk>
             <TalkTitle href="/talks/2024-11-04-ethz-guest-lecture/">
               Geographic data visualization with deck.gl
             </TalkTitle>{' '}
             guest lecture at the{' '}
             <TalkVenue url="https://ikg.ethz.ch/en/">ETH Zürich Institute of Cartography</TalkVenue>
             , 2024
+          </Talk>
+
+          <Talk>
+            <TalkTitle href="/talks/2024-09-17-techtalks-foursquare/">
+              Real-time Collaborative Map Drawing with deck.gl
+            </TalkTitle>{' '}
+            at TechTalks@Foursquare, 2024
           </Talk>
 
           <Talk>
