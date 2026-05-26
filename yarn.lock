@@ -850,12 +850,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^20.2.5":
-  version: 20.16.12
-  resolution: "@types/node@npm:20.16.12"
+"@types/node@npm:^22.19.0":
+  version: 22.19.19
+  resolution: "@types/node@npm:22.19.19"
   dependencies:
-    undici-types: "npm:~6.19.2"
-  checksum: 10c0/f6a3c90c6745881d47f8dae7eb39d0dd6df9a4060c8f1ab7004690f60b9b183d862c9c6b380b9e8d5a17dd670ac7b19d6318f24c170897c85a9729f9804f47cf
+    undici-types: "npm:~6.21.0"
+  checksum: 10c0/402e0f088c94cabda3cd721546bd8e4e75e098e0b342f6e03b90ca1e19c28986f9650112c64fcfd09fc8cebc0f8b20291a513153e90489331cf666e1e5503e16
   languageName: node
   linkType: hard
 
@@ -1472,7 +1472,7 @@ __metadata:
     "@chakra-ui/system": "npm:^2.6.2"
     "@emotion/react": "npm:^11.10.0"
     "@emotion/styled": "npm:^11.10.0"
-    "@types/node": "npm:^20.2.5"
+    "@types/node": "npm:^22.19.0"
     "@types/react": "npm:^18.2.7"
     "@vercel/analytics": "npm:^1.2.2"
     date-fns: "npm:^2.29.1"
@@ -2784,10 +2784,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"undici-types@npm:~6.19.2":
-  version: 6.19.8
-  resolution: "undici-types@npm:6.19.8"
-  checksum: 10c0/078afa5990fba110f6824823ace86073b4638f1d5112ee26e790155f481f2a868cc3e0615505b6f4282bdf74a3d8caad715fd809e870c2bb0704e3ea6082f344
+"undici-types@npm:~6.21.0":
+  version: 6.21.0
+  resolution: "undici-types@npm:6.21.0"
+  checksum: 10c0/c01ed51829b10aa72fc3ce64b747f8e74ae9b60eafa19a7b46ef624403508a54c526ffab06a14a26b3120d055e1104d7abe7c9017e83ced038ea5cf52f8d5e04
   languageName: node
   linkType: hard
 
