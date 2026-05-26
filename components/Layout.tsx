@@ -34,6 +34,10 @@ const Layout = ({ children }) => {
         <meta property="og:title" content={metadata.title} />
         <meta property="og:description" content={metadata.description} />
         <meta property="og:url" content={canonicalUrl} />
+        <meta
+          name="google-site-verification"
+          content="bqFGGRdnZTQbjlUfQG7NoYqovZUQA6rg3rxbIUl9HgA"
+        />
         <meta name="twitter:card" content="summary" />
       </Head>
       <Navbar />
