@@ -4,9 +4,9 @@ title: About me
 category: work
 ---
 
-👋 Hi there,
-
 <img width="922" height="922" float="right" src="me-userpic.jpg" mt="0" mb="10">
+
+👋 Hi there,
 
 I am Ilya. I am a software engineer. I design and develop geographic data visualizations and
 geo data analytics tools.
