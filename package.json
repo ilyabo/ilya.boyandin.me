@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "next",
+    "prebuild": "node scripts/generate-sitemap.js",
     "build": "next build",
     "start": "next start",
     "export": "npm run build && next export"
