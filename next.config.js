@@ -25,6 +25,21 @@ module.exports = {
   experimental: {
     scrollRestoration: true,
   },
+  async redirects() {
+    return [
+      {
+        source: '/:path*',
+        has: [
+          {
+            type: 'host',
+            value: 'ilya-boyandin-me-next.vercel.app',
+          },
+        ],
+        destination: 'https://ilya.boyandin.me/:path*',
+        permanent: true,
+      },
+    ];
+  },
   // webpack: (configuration) => {
   //   configuration.module.rules.push(
   //     //   {
