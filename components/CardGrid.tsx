@@ -6,6 +6,8 @@ import formatDate from '../lib/formatDate';
 const CardGrid = ({ items, path, linkPath }) => {
   return (
     <Grid
+      width="100%"
+      justifyItems="center"
       templateColumns={{
         xl: 'repeat(3, 1fr)',
         lg: 'repeat(2, 1fr)',

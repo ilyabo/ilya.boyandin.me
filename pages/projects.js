@@ -10,14 +10,14 @@ const HomePage = ({ allProjects }) => {
     'Selected interactive maps, geospatial analytics tools, data visualization projects, and exploratory interfaces by Ilya Boyandin.';
 
   return (
-    <VStack spacing="40px" mt={10}>
+    <VStack spacing="40px" mt={10} maxW="7xl" mx="auto" alignItems="stretch">
       <Head>
         <title>{title}</title>
         <meta key="description" name="description" content={description} />
         <meta key="og:title" property="og:title" content={title} />
         <meta key="og:description" property="og:description" content={description} />
       </Head>
-      <Heading as="h1" size="2xl" alignSelf="flex-start">
+      <Heading as="h1" size="2xl" px="20px">
         Projects
       </Heading>
       {/* <VStack spacing={7}>

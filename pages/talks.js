@@ -11,14 +11,14 @@ const TalksPage = ({ talks }) => {
     'Conference talks, meetups, guest lectures, and presentations by Ilya Boyandin about data visualization, geospatial analytics, and web tools.';
 
   return (
-    <VStack spacing="40px">
+    <VStack spacing="40px" maxW="7xl" mx="auto" alignItems="stretch">
       <Head>
         <title>{title}</title>
         <meta key="description" name="description" content={description} />
         <meta key="og:title" property="og:title" content={title} />
         <meta key="og:description" property="og:description" content={description} />
       </Head>
-      <Heading as="h1" size="2xl" alignSelf="flex-start" mt={10}>
+      <Heading as="h1" size="2xl" mt={10} px="20px">
         Talks
       </Heading>
       <Flex as="section" flexGrow={1} alignItems="center">

@@ -4,7 +4,7 @@ import MarkdownContent from '../components/MarkdownContent';
 import fs from 'fs';
 import matter from 'gray-matter';
 import { CONTENT_DIR } from '../config';
-import { Box } from '@chakra-ui/react';
+import { Box, Heading } from '@chakra-ui/react';
 import Head from 'next/head';
 
 const MusicPage = (props: any) => {
@@ -20,6 +20,9 @@ const MusicPage = (props: any) => {
         <meta key="og:title" property="og:title" content={title} />
         <meta key="og:description" property="og:description" content={description} />
       </Head>
+      <Heading as="h1" size="2xl" mb={10}>
+        Music
+      </Heading>
       <MarkdownContent content={content} slug={'music'} />
     </Box>
   );
