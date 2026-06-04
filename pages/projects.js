@@ -1,11 +1,25 @@
 import React from 'react';
-import { VStack } from '@chakra-ui/react';
+import Head from 'next/head';
+import { Heading, VStack } from '@chakra-ui/react';
 import { getAllPosts } from '../lib/api';
 import CardGrid from '../components/CardGrid';
 
 const HomePage = ({ allProjects }) => {
+  const title = 'Projects | Ilya Boyandin';
+  const description =
+    'Selected interactive maps, geospatial analytics tools, data visualization projects, and exploratory interfaces by Ilya Boyandin.';
+
   return (
-    <VStack spacing="100px" mt={10}>
+    <VStack spacing="40px" mt={10}>
+      <Head>
+        <title>{title}</title>
+        <meta key="description" name="description" content={description} />
+        <meta key="og:title" property="og:title" content={title} />
+        <meta key="og:description" property="og:description" content={description} />
+      </Head>
+      <Heading as="h1" size="2xl" alignSelf="flex-start">
+        Projects
+      </Heading>
       {/* <VStack spacing={7}>
         <VStack mt={10}>
           <Heading as="h2" size="xl" fontWeight="extrabold" letterSpacing="tight">

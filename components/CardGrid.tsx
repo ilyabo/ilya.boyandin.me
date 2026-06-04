@@ -70,6 +70,7 @@ const CardGrid = ({ items, path, linkPath }) => {
                     <BlurImage
                       sizes="360px"
                       src={`/media/${path}/${md.slug}/${md.preview}`}
+                      alt={`${md.title} preview`}
                       // placeholder="blur"
                       // blurDataURL={`/media/${md.slug}/${md.preview}`}
                       layout="fill"

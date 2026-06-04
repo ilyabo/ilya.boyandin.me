@@ -42,6 +42,16 @@ const HomePage = (props: any) => {
   return (
     <Box maxW="7xl" mx="auto" mt={50}>
       <Head>
+        <meta
+          key="description"
+          name="description"
+          content="Ilya Boyandin is a data visualization engineer building interactive maps, geospatial analytics tools, flow maps, and browser-based data applications."
+        />
+        <meta
+          key="og:description"
+          property="og:description"
+          content="Ilya Boyandin is a data visualization engineer building interactive maps, geospatial analytics tools, flow maps, and browser-based data applications."
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}

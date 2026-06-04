@@ -1,4 +1,5 @@
 import { Box } from '@chakra-ui/react';
+import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import * as React from 'react';
@@ -20,6 +21,20 @@ import {
 
 const Resume = () => (
   <CV>
+    <Head>
+      <title>Resume | Ilya Boyandin</title>
+      <meta
+        key="description"
+        name="description"
+        content="Resume of Ilya Boyandin, software engineer specializing in interactive systems, maps, geospatial analytics, and data visualization."
+      />
+      <meta key="og:title" property="og:title" content="Resume | Ilya Boyandin" />
+      <meta
+        key="og:description"
+        property="og:description"
+        content="Resume of Ilya Boyandin, software engineer specializing in interactive systems, maps, geospatial analytics, and data visualization."
+      />
+    </Head>
     <Header>
       <Link href="/">
         <Box width={120} height={120} sx={{ img: { borderRadius: '50%' } }} position="relative">
