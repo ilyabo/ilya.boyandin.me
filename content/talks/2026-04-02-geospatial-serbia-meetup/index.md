@@ -1,6 +1,7 @@
 ---
 kind: talk
 title: "Geospatial Community of Serbia Meetup #7"
+description: "Talk about FSQ Spatial Agent and how reasoning AI can make geospatial analysis workflows more accessible beyond GIS specialists."
 date: 2026-04-02
 preview: photo.webp
 category: talk
@@ -15,5 +16,4 @@ category: talk
 I gave this talk at the 7th Geospatial Community of Serbia Meetup on April 2, 2026, hosted at the TomTom office in Belgrade. The evening was centered on geospatial AI agents, with talks by Nikola Bebic from Microsoft, Daniel Fornies Soria from TomTom, and myself representing Foursquare.
 
 My talk focused on how [FSQ Spatial Agent](https://foursquare.com/products/spatial-desktop/) makes geospatial analysis more accessible beyond GIS specialists. I showed how reasoning AI can translate natural language questions into complete analytical workflows, helping users explore topics like climate risk, urban road networks, and location discovery without manually stitching together every step themselves.
-
 

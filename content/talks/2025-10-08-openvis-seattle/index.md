@@ -1,6 +1,7 @@
 ---
 kind: talk
 title: "Open Visualization Collaborator Summit 2025"
+description: "Talk introducing SQLRooms as a modular React framework for building browser-based analytics applications powered by DuckDB."
 date: 2025-10-08
 preview: preview2.webp
 category: talk

@@ -1,6 +1,7 @@
 ---
 kind: talk
 title: "DINAcon 2025"
+description: "Talk about SQLRooms, browser-based AI-assisted analytics applications, DuckDB-WASM, visualization components, and local-first workflows."
 date: 2025-11-18
 preview: preview2.webp
 category: talk

@@ -1,6 +1,7 @@
 ---
 kind: talk
 title: "FOSDEM 2026: SQLRooms and Loro"
+description: "FOSDEM talk about local-first analytics with SQLRooms, DuckDB, collaborative canvases, notebooks, and Loro CRDT sync."
 date: 2026-02-01
 preview: fosdem-sqlrooms.webp
 category: talk
