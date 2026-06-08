@@ -49,3 +49,8 @@ export function previewMediaPath(entry: Pick<ContentEntry, 'type' | 'slug' | 'pr
 export function markdownMediaPath(entry: Pick<ContentEntry, 'type' | 'slug'>, mediaPath: string) {
   return publicMediaPath(entry, mediaPath);
 }
+
+export function pageMediaPath(slug: string, mediaPath: string) {
+  if (isExternalUrl(mediaPath) || isRootRelativePath(mediaPath)) return mediaPath;
+  return `/media/${slug}/${mediaPath.replace(/^\.?\//, '')}`;
+}

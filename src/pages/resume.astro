@@ -1,0 +1,116 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getEntries } from '../lib/content';
+import { formatDate } from '../lib/format';
+import { pageTitle } from '../lib/seo';
+
+const talks = getEntries('talks');
+const title = pageTitle('Resume');
+const description = 'Resume of Ilya Boyandin, software engineer specializing in interactive systems, maps, geospatial analytics, and data visualization.';
+---
+
+<BaseLayout title={title} description={description} canonicalPath="/resume">
+  <article class="resume">
+    <header class="resume-header">
+      <a href="/" aria-label="Ilya Boyandin home">
+        <img src="/profile-pic.jpg" alt="Ilya Boyandin" width="120" height="120" />
+      </a>
+      <div>
+        <h1>Ilya Boyandin</h1>
+        <p>Software Engineer | Interactive Systems & Data Visualization</p>
+      </div>
+      <address>
+        <a href="mailto:ilya@boyandin.me">ilya@boyandin.me</a>
+        <a href="https://github.com/ilyabo">GitHub</a>
+        <a href="https://www.linkedin.com/in/ilyabo/">LinkedIn</a>
+      </address>
+    </header>
+
+    <p class="resume-summary">
+      Experienced software engineer with a PhD in Computer Science and deep expertise in scalable
+      web architectures, interactive front-end development, geospatial analytics, and data
+      visualization.
+    </p>
+
+    <section>
+      <h2>Executive Summary</h2>
+      <ul>
+        <li>20+ years of experience in software engineering, data visualization, front-end development, distributed systems, and technical leadership.</li>
+        <li>PhD in Computer Science focused on data visualization and interactive systems.</li>
+        <li>Experience with ML systems, statistical classification, question answering, NLP, data processing pipelines, and LLM-powered workflows.</li>
+        <li>Experience architecting and scaling real-time collaborative systems.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Experience</h2>
+      <div class="resume-item">
+        <h3>Staff Software Engineer, Maps and Data Visualization, Foursquare</h3>
+        <p>July 2021 - present</p>
+        <ul>
+          <li>Technical leadership, architecture, and development of <a href="/p/fsq-studio">Foursquare Studio</a>, a complex web-based geospatial visualization platform.</li>
+          <li>Contributed geospatial visualization features including trips, flows, time controls, annotations, legends, and SQL notebooks with maps.</li>
+          <li>Contributed to the <a href="https://docs.foursquare.com/developer/docs/studio-map-sdk-overview">Foursquare Map SDK</a> and LLM-assisted SQL workflows.</li>
+        </ul>
+      </div>
+      <div class="resume-item">
+        <h3>Founder, GeoVisually</h3>
+        <p>November 2020 - present</p>
+        <ul>
+          <li>Interactive maps and geographic data visualization consultancy.</li>
+          <li>Architected and developed <a href="/p/mapcanv">MapCanv</a>, <a href="/p/flowmap-city">Flowmap City</a>, and NGO-facing supply-chain visualization apps.</li>
+        </ul>
+      </div>
+      <div class="resume-item">
+        <h3>Founding Engineer, Unfolded</h3>
+        <p>January 2021 - May 2021</p>
+        <ul>
+          <li>Helped build <a href="/p/fsq-studio">Unfolded Studio</a>, later acquired by Foursquare.</li>
+        </ul>
+      </div>
+      <div class="resume-item">
+        <h3>Staff Software Engineer, Front End and Data Visualization Lead, Teralytics</h3>
+        <p>February 2015 - December 2020</p>
+        <ul>
+          <li>Led front-end and visualization work for transport analytics and mobility products.</li>
+          <li>Developed scalable origin-destination visualization tools and interactive map interfaces.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <h2>Education</h2>
+      <div class="resume-item">
+        <h3>PhD in Computer Science, University of Fribourg, 2013</h3>
+        <p>Thesis: <a href="/assets/thesis.pdf">Visualization of Temporal Origin-Destination Data</a></p>
+      </div>
+      <div class="resume-item">
+        <h3>MSc Computer Science, St. Petersburg State University, 2003</h3>
+        <p>Thesis: Statistical Query Transformations for Question Answering in the Web</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Skills</h2>
+      <p>
+        TypeScript, React, JavaScript, WebGL, deck.gl, Mapbox GL, D3, geospatial analytics,
+        data visualization, real-time collaboration, Node.js, Python, SQL, LLM integrations,
+        Cloudflare, Vercel, AWS, and Google Cloud.
+      </p>
+    </section>
+
+    <section id="talks">
+      <h2>Talks</h2>
+      <ul class="talk-list">
+        {
+          talks.map((talk) => (
+            <li>
+              <a href={talk.route}>{talk.title}</a>
+              <span>{formatDate(talk.date)}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+  </article>
+</BaseLayout>

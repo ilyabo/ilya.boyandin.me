@@ -4,12 +4,30 @@ import '../styles/global.css';
 interface Props {
   title?: string;
   description?: string;
+  canonicalPath?: string;
+  image?: string | null;
+  type?: string;
+  jsonLd?: Record<string, unknown> | null;
 }
 
+const siteUrl = 'https://ilya.boyandin.me';
 const {
   title = 'Ilya Boyandin - Data Visualization Engineer',
   description = 'I develop interactive maps and data visualizations for the web.',
+  canonicalPath = Astro.url.pathname,
+  image = null,
+  type = 'website',
+  jsonLd = null,
 } = Astro.props;
+
+const normalizedCanonicalPath = canonicalPath === '/' ? '/' : canonicalPath.replace(/\/$/, '');
+const canonicalUrl = normalizedCanonicalPath === '/' ? siteUrl : `${siteUrl}${normalizedCanonicalPath}`;
+const activePath = Astro.url.pathname.replace(/\/$/, '') || '/';
+
+function isActive(path: string) {
+  if (path === '/') return activePath === '/';
+  return activePath === path || activePath.startsWith(`${path}/`);
+}
 ---
 
 <!doctype html>
@@ -19,17 +37,26 @@ const {
     <meta name="viewport" content="width=device-width" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+    <meta property="og:type" content={type} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    {image ? <meta property="og:image" content={image} /> : null}
+    {image ? <meta name="twitter:card" content="summary_large_image" /> : null}
+    {image ? <meta name="twitter:image" content={image} /> : null}
+    {jsonLd ? <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} /> : null}
   </head>
   <body>
     <header class="bg-site-blue text-white">
-      <nav class="mx-auto flex max-w-7xl items-center justify-center gap-2 px-6 font-bold">
-        <a class="px-4 py-3 hover:bg-white/80 hover:text-site-blue" href="/">Home</a>
-        <a class="px-4 py-3 hover:bg-white/80 hover:text-site-blue" href="/projects">Projects</a>
-        <a class="px-4 py-3 hover:bg-white/80 hover:text-site-blue" href="/talks">Talks</a>
-        <a class="px-4 py-3 hover:bg-white/80 hover:text-site-blue" href="/music">Music</a>
+      <nav class="mx-auto flex max-w-7xl items-center justify-center gap-1 px-4 font-bold sm:gap-2 sm:px-6">
+        <a class:list={['nav-link', { active: isActive('/') }]} href="/">Home</a>
+        <a class:list={['nav-link', { active: isActive('/projects') || isActive('/p') }]} href="/projects">Projects</a>
+        <a class:list={['nav-link', { active: isActive('/talks') }]} href="/talks">Talks</a>
+        <a class:list={['nav-link', { active: isActive('/music') }]} href="/music">Music</a>
       </nav>
     </header>
-    <main class="mx-auto max-w-7xl px-8 py-10 sm:px-12">
+    <main class="mx-auto max-w-7xl px-6 py-10 sm:px-10 lg:px-12">
       <slot />
     </main>
   </body>

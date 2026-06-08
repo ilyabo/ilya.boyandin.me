@@ -1,35 +1,36 @@
 ---
+import CardGrid from '../components/CardGrid.astro';
+import MarkdownContent from '../components/MarkdownContent.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { getEntries, getPageContent } from '../lib/content';
+import { renderMarkdown } from '../lib/markdown';
 
-import { getEntries } from '../lib/content';
-import { previewMediaPath } from '../lib/media';
-
-const projects = getEntries('projects');
-const projectCount = projects.length;
-const talkCount = getEntries('talks').length;
-const firstProject = projects[0];
-const firstProjectPreview = firstProject ? previewMediaPath(firstProject) : null;
+const home = getPageContent('home');
+const html = await renderMarkdown(home.content, { kind: 'page', slug: 'home' });
+const projects = getEntries('projects').slice(0, 6);
+const talks = getEntries('talks').slice(0, 3);
+const description = 'Ilya Boyandin is a software engineer designing and developing geographic data visualizations, maps, and geo data analytics tools.';
 ---
 
-<BaseLayout>
-  <section class="space-y-6">
-    <p class="text-sm font-semibold uppercase tracking-wide text-site-blue">Astro migration</p>
-    <h1 class="text-5xl font-bold">Ilya Boyandin</h1>
-    <p class="max-w-2xl text-xl leading-8">
-      This is the Astro replacement shell. Stage 1 establishes the build, Tailwind styling,
-      routing surface, and layout frame before porting the existing content routes.
-    </p>
-    <p class="text-sm text-site-text/70">
-      Stage 2 content loader sees {projectCount} projects and {talkCount} talks in the existing
-      content tree.
-    </p>
-    {
-      firstProjectPreview ? (
-        <p class="text-sm text-site-text/70">
-          Stage 3 media resolver maps the latest project preview to{' '}
-          <code>{firstProjectPreview}</code>.
-        </p>
-      ) : null
-    }
+<BaseLayout title="Ilya Boyandin - Data Visualization Engineer" description={description} canonicalPath="/">
+  <section class="page-section home-intro">
+    <h1 class="home-title">Ilya Boyandin</h1>
+    <MarkdownContent html={html} />
+  </section>
+
+  <section class="page-section">
+    <div class="section-heading">
+      <h1>Projects</h1>
+      <a href="/projects">All projects</a>
+    </div>
+    <CardGrid entries={projects} />
+  </section>
+
+  <section class="page-section">
+    <div class="section-heading">
+      <h1>Talks</h1>
+      <a href="/talks">All talks</a>
+    </div>
+    <CardGrid entries={talks} />
   </section>
 </BaseLayout>

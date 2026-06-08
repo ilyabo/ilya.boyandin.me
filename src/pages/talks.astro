@@ -1,0 +1,18 @@
+---
+import CardGrid from '../components/CardGrid.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getEntries } from '../lib/content';
+import { pageTitle } from '../lib/seo';
+
+const talks = getEntries('talks');
+const title = pageTitle('Talks');
+const description = 'Conference talks, meetups, guest lectures, and presentations by Ilya Boyandin about data visualization, geospatial analytics, and web tools.';
+---
+
+<BaseLayout title={title} description={description} canonicalPath="/talks">
+  <section class="page-section">
+    <h1 class="page-title">Talks</h1>
+    <CardGrid entries={talks} />
+    <p class="section-link"><a href="/resume#talks">Full list of talks</a></p>
+  </section>
+</BaseLayout>

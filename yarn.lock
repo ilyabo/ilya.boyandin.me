@@ -3381,8 +3381,12 @@ __metadata:
     react-markdown: "npm:^8.0.3"
     react-shadow: "npm:^19.0.3"
     rehype-raw: "npm:^6.1.1"
+    rehype-stringify: "npm:^10.0.1"
+    remark-parse: "npm:^11.0.0"
+    remark-rehype: "npm:^11.1.2"
     tailwindcss: "npm:^4.3.0"
     typescript: "npm:^5.9.3"
+    unified: "npm:^11.0.5"
     vite: "npm:^7.3.5"
     zod: "npm:^4.4.3"
   languageName: unknown

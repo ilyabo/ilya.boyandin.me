@@ -1,0 +1,53 @@
+---
+import MarkdownContent from '../../components/MarkdownContent.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getEntries, getEntrySlugs } from '../../lib/content';
+import { formatFullDate } from '../../lib/format';
+import { renderMarkdown } from '../../lib/markdown';
+import { creativeWorkJsonLd, entryDescription, entryImageUrl, pageTitle } from '../../lib/seo';
+
+export function getStaticPaths() {
+  return getEntrySlugs('talks').map((slug) => ({ params: { slug } }));
+}
+
+const { slug } = Astro.params;
+const entries = getEntries('talks');
+const entry = entries.find((item) => item.slug === slug);
+
+if (!entry) {
+  throw new Error(`Talk not found: ${slug}`);
+}
+
+const index = entries.findIndex((item) => item.slug === entry.slug);
+const previous = index > 0 ? entries[index - 1] : null;
+const next = index < entries.length - 1 ? entries[index + 1] : null;
+const html = await renderMarkdown(entry.content, { kind: 'entry', entry });
+---
+
+<BaseLayout
+  title={pageTitle(entry.title)}
+  description={entryDescription(entry)}
+  canonicalPath={entry.route}
+  image={entryImageUrl(entry)}
+  type="article"
+  jsonLd={creativeWorkJsonLd(entry)}
+>
+  <article class="article">
+    <header class="article-header">
+      <h1>{entry.title}</h1>
+      <time datetime={entry.date.toISOString()}>{formatFullDate(entry.date)}</time>
+    </header>
+
+    <nav class="prev-next" aria-label="Talk navigation">
+      {previous ? <a href={previous.route}>Previous</a> : <span />}
+      {next ? <a href={next.route}>Next</a> : <span />}
+    </nav>
+
+    <MarkdownContent html={html} />
+
+    <nav class="prev-next prev-next-bottom" aria-label="Talk navigation">
+      {previous ? <a href={previous.route}>Previous</a> : <span />}
+      {next ? <a href={next.route}>Next</a> : <span />}
+    </nav>
+  </article>
+</BaseLayout>
