@@ -1,4 +1,5 @@
 ---
+import Footer from '../components/Footer.astro';
 import '../styles/global.css';
 
 interface Props {
@@ -59,5 +60,6 @@ function isActive(path: string) {
     <main class="mx-auto max-w-7xl px-6 py-10 sm:px-10 lg:px-12">
       <slot />
     </main>
+    <Footer />
   </body>
 </html>

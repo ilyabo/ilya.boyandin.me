@@ -72,12 +72,75 @@ function preprocessMarkdown(content: string, context: MarkdownContext) {
     );
 }
 
+function findImageAlt(node: any): string | null {
+  if (!node || typeof node !== 'object') return null;
+  if (node.type === 'element' && node.tagName === 'img') {
+    const alt = node.properties?.alt;
+    return typeof alt === 'string' && alt.trim() ? alt.trim() : null;
+  }
+
+  for (const child of node.children ?? []) {
+    const alt = findImageAlt(child);
+    if (alt) return alt;
+  }
+
+  return null;
+}
+
+function isImageOnlyParagraph(node: any) {
+  if (node?.type !== 'element' || node.tagName !== 'p') return false;
+  const meaningfulChildren = (node.children ?? []).filter((child: any) => {
+    return child.type !== 'text' || child.value.trim();
+  });
+
+  if (meaningfulChildren.length !== 1) return false;
+  const child = meaningfulChildren[0];
+  if (child.type === 'element' && child.tagName === 'img') return true;
+  return child.type === 'element' && child.tagName === 'a' && Boolean(findImageAlt(child));
+}
+
+function rehypeImageFigures() {
+  return (tree: any) => {
+    function visit(node: any) {
+      if (!node?.children) return;
+
+      node.children = node.children.map((child: any) => {
+        if (!isImageOnlyParagraph(child)) {
+          visit(child);
+          return child;
+        }
+
+        const alt = findImageAlt(child);
+        if (!alt) return child;
+
+        return {
+          type: 'element',
+          tagName: 'figure',
+          properties: {},
+          children: [
+            ...(child.children ?? []),
+            {
+              type: 'element',
+              tagName: 'figcaption',
+              properties: {},
+              children: [{ type: 'text', value: alt }],
+            },
+          ],
+        };
+      });
+    }
+
+    visit(tree);
+  };
+}
+
 export async function renderMarkdown(content: string, context: MarkdownContext) {
   const processed = preprocessMarkdown(content, context);
   const file = await unified()
     .use(remarkParse)
     .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeRawPlugin)
+    .use(rehypeImageFigures)
     .use(rehypeStringify)
     .process(processed);
 
