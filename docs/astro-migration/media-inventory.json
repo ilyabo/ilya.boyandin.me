@@ -1,0 +1,228 @@
+{
+  "generatedAt": "2026-06-08T12:13:20.091Z",
+  "publicFileCount": 483,
+  "mediaFileCount": 470,
+  "assetFileCount": 8,
+  "filesByExtension": {
+    "[none]": 64,
+    ".pdf": 10,
+    ".png": 253,
+    ".jpeg": 3,
+    ".jpg": 107,
+    ".mp4": 29,
+    ".webp": 12,
+    ".gif": 1,
+    ".mp3": 1,
+    ".wav": 1,
+    ".txt": 1,
+    ".xml": 1
+  },
+  "mediaFilesBySection": {
+    "public/media/.DS_Store": 1,
+    "public/media/home": 4,
+    "public/media/projects": 399,
+    "public/media/talks": 66
+  },
+  "largestFiles": [
+    {
+      "path": "public/media/projects/simqa/simqa.wav",
+      "extension": ".wav",
+      "bytes": 58170284
+    },
+    {
+      "path": "public/assets/thesis.pdf",
+      "extension": ".pdf",
+      "bytes": 32153229
+    },
+    {
+      "path": "public/media/talks/2025-10-08-openvis-seattle/openvis-seattle-2025-talk.pdf",
+      "extension": ".pdf",
+      "bytes": 27044093
+    },
+    {
+      "path": "public/media/projects/simqa/simqa.mp3",
+      "extension": ".mp3",
+      "bytes": 15208820
+    },
+    {
+      "path": "public/media/projects/flowmap.blue/flowmapblue-brisbane-zoom-anim-4mapbox.mp4",
+      "extension": ".mp4",
+      "bytes": 15102798
+    },
+    {
+      "path": "public/media/projects/flowmap.blue/Australia-zoom-480.gif",
+      "extension": ".gif",
+      "bytes": 12351773
+    },
+    {
+      "path": "public/media/projects/density-map/hex-zoom.mp4",
+      "extension": ".mp4",
+      "bytes": 10435087
+    },
+    {
+      "path": "public/media/projects/swiss-trains/swiss-trains-ixt2.mp4",
+      "extension": ".mp4",
+      "bytes": 8356755
+    },
+    {
+      "path": "public/media/projects/flowmap.blue/color-schemes.png",
+      "extension": ".png",
+      "bytes": 7194940
+    },
+    {
+      "path": "public/media/projects/flowmap.blue/commuters-in-netherlands.png",
+      "extension": ".png",
+      "bytes": 7129476
+    },
+    {
+      "path": "public/assets/jflowmap-geova10.pdf",
+      "extension": ".pdf",
+      "bytes": 5681099
+    },
+    {
+      "path": "public/media/projects/fsq-studio/fsq-annotations.mp4",
+      "extension": ".mp4",
+      "bytes": 5595995
+    },
+    {
+      "path": "public/media/projects/fsq-studio/layer-config-json-editor.mp4",
+      "extension": ".mp4",
+      "bytes": 5503455
+    },
+    {
+      "path": "public/media/projects/flight-replay/flight-replay-cut-50-30.mp4",
+      "extension": ".mp4",
+      "bytes": 5367689
+    },
+    {
+      "path": "public/media/talks/2018-12-20-gflowiz/whole-germany.png",
+      "extension": ".png",
+      "bytes": 5227158
+    },
+    {
+      "path": "public/media/projects/ukraine-civilian-harm/ukraine-civilian-harm.mp4",
+      "extension": ".mp4",
+      "bytes": 5088966
+    },
+    {
+      "path": "public/media/projects/flowmap.blue/london.png",
+      "extension": ".png",
+      "bytes": 4185965
+    },
+    {
+      "path": "public/media/talks/2018-12-20-gflowiz/irma.png",
+      "extension": ".png",
+      "bytes": 4055755
+    },
+    {
+      "path": "public/media/projects/matrix-app/irma0.png",
+      "extension": ".png",
+      "bytes": 4049315
+    },
+    {
+      "path": "public/media/projects/berlin-streets/edge-map.png",
+      "extension": ".png",
+      "bytes": 3897600
+    },
+    {
+      "path": "public/media/projects/stellar-commutes/0.png",
+      "extension": ".png",
+      "bytes": 3520026
+    },
+    {
+      "path": "public/media/projects/flowmap-city/flowmap-city-vbz.png",
+      "extension": ".png",
+      "bytes": 3518867
+    },
+    {
+      "path": "public/media/projects/tera-transport/img/transport-berlin.png",
+      "extension": ".png",
+      "bytes": 3433379
+    },
+    {
+      "path": "public/media/projects/graphnavi/graphnavi-video.mp4",
+      "extension": ".mp4",
+      "bytes": 3399241
+    },
+    {
+      "path": "public/media/projects/density-map/china-hexagons.png",
+      "extension": ".png",
+      "bytes": 3394502
+    },
+    {
+      "path": "public/assets/flowstrates-eurovis11-fin.pdf",
+      "extension": ".pdf",
+      "bytes": 3290843
+    },
+    {
+      "path": "public/media/projects/density-map/germany.png",
+      "extension": ".png",
+      "bytes": 3286547
+    },
+    {
+      "path": "public/media/projects/flowmap.gl/swiss-cantons-new.png",
+      "extension": ".png",
+      "bytes": 2918479
+    },
+    {
+      "path": "public/media/projects/matrix-app/atlanta-corridor.png",
+      "extension": ".png",
+      "bytes": 2811952
+    },
+    {
+      "path": "public/assets/jflowmap-user-study.pdf",
+      "extension": ".pdf",
+      "bytes": 2592635
+    },
+    {
+      "path": "public/media/projects/fsq-paris-2024/fsq-olympics2.mp4",
+      "extension": ".mp4",
+      "bytes": 2538179
+    },
+    {
+      "path": "public/media/projects/aiddata/aiddata.mp4",
+      "extension": ".mp4",
+      "bytes": 2521508
+    },
+    {
+      "path": "public/media/projects/ukraine-civilian-harm/0.jpg",
+      "extension": ".jpg",
+      "bytes": 2341695
+    },
+    {
+      "path": "public/media/projects/ukraine-civilian-harm/1.jpg",
+      "extension": ".jpg",
+      "bytes": 2333294
+    },
+    {
+      "path": "public/media/projects/covid-19/de.png",
+      "extension": ".png",
+      "bytes": 2246795
+    },
+    {
+      "path": "public/media/projects/sg-trains/od-2.png",
+      "extension": ".png",
+      "bytes": 2206923
+    },
+    {
+      "path": "public/media/projects/flowmap.blue/flowmapblue-palermo-anim-4mapbox.mp4",
+      "extension": ".mp4",
+      "bytes": 2144701
+    },
+    {
+      "path": "public/media/projects/flowmap.gl/swiss-migration-3d.png",
+      "extension": ".png",
+      "bytes": 2128212
+    },
+    {
+      "path": "public/media/projects/russia-protests/flatbush-labels.mp4",
+      "extension": ".mp4",
+      "bytes": 2048038
+    },
+    {
+      "path": "public/media/projects/fsq-notebooks/workbook-us-hospitals5.mp4",
+      "extension": ".mp4",
+      "bytes": 2039921
+    }
+  ]
+}
