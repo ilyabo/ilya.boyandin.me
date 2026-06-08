@@ -4,11 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "next",
-    "prebuild": "node scripts/generate-sitemap.js",
-    "build": "next build",
-    "start": "next start",
-    "export": "npm run build && next export"
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "dev:next": "next",
+    "prebuild:next": "node scripts/generate-sitemap.js",
+    "build:next": "next build",
+    "start:next": "next start",
+    "export:next": "npm run build:next && next export"
   },
   "keywords": [],
   "author": "",
@@ -19,7 +22,9 @@
     "@chakra-ui/system": "^2.6.2",
     "@emotion/react": "^11.10.0",
     "@emotion/styled": "^11.10.0",
+    "@tailwindcss/vite": "^4.3.0",
     "@vercel/analytics": "^1.2.2",
+    "astro": "^6.4.4",
     "date-fns": "^2.29.1",
     "framer-motion": "^6.3.3",
     "gray-matter": "^4.0.3",
@@ -30,14 +35,16 @@
     "react-icons": "^4.4.0",
     "react-markdown": "^8.0.3",
     "react-shadow": "^19.0.3",
-    "rehype-raw": "^6.1.1"
+    "rehype-raw": "^6.1.1",
+    "tailwindcss": "^4.3.0"
   },
   "devDependencies": {
     "@types/node": "^22.19.0",
     "@types/react": "^18.2.7",
     "prettier": "^2.7.1",
     "react-headroom": "^3.2.0",
-    "typescript": "^4.7.4"
+    "typescript": "^5.9.3",
+    "vite": "^7.3.5"
   },
   "volta": {
     "node": "22.20.0"

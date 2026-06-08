@@ -1,0 +1,22 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: Lato, ui-sans-serif, system-ui, sans-serif;
+  --color-site-blue: #055385;
+  --color-site-text: #2f4a59;
+}
+
+html {
+  font-family: var(--font-sans);
+  color: var(--color-site-text);
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: #fff;
+}
+
+a {
+  color: inherit;
+}
