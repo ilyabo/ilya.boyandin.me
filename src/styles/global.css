@@ -18,7 +18,7 @@ body {
 }
 
 a {
-  color: #1181d5;
+  color: #0b6faf;
   text-decoration: none;
 }
 
@@ -105,7 +105,7 @@ a:hover {
 }
 
 .card-heading h2 {
-  color: #1181d5;
+  color: #0b6faf;
   font-size: 1.15rem;
   font-weight: 400;
   line-height: 1.25;
@@ -116,7 +116,7 @@ a:hover {
 }
 
 .card-heading span {
-  color: #a3a4b8;
+  color: #66717c;
   font-size: 0.95rem;
   white-space: nowrap;
 }
@@ -164,7 +164,7 @@ a:hover {
 }
 
 .article-header time {
-  color: #777c88;
+  color: #66717c;
   font-size: 1rem;
   white-space: nowrap;
 }
@@ -187,6 +187,11 @@ a:hover {
 .markdown-content {
   font-size: 1.05rem;
   line-height: 1.6;
+}
+
+.markdown-content a {
+  text-decoration: underline;
+  text-underline-offset: 0.14em;
 }
 
 .markdown-content p,
@@ -387,7 +392,7 @@ a:hover {
 }
 
 .talk-list span {
-  color: #777c88;
+  color: #66717c;
   white-space: nowrap;
 }
 
