@@ -50,7 +50,7 @@ function isActive(path: string) {
     {jsonLd ? <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} /> : null}
   </head>
   <body>
-    <header class="bg-site-blue text-white">
+    <header class="site-header bg-site-blue text-white">
       <nav class="mx-auto flex max-w-7xl items-center justify-center gap-1 px-4 font-bold sm:gap-2 sm:px-6">
         <a class:list={['nav-link', { active: isActive('/') }]} href="/">Home</a>
         <a class:list={['nav-link', { active: isActive('/projects') || isActive('/p') }]} href="/projects">Projects</a>

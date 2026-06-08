@@ -309,6 +309,10 @@ a:hover {
   gap: 2rem;
 }
 
+.resume[data-resume-mode="short"] [data-short="false"] {
+  display: none;
+}
+
 .resume-header {
   align-items: center;
   display: grid;
@@ -347,6 +351,35 @@ a:hover {
   margin: 0;
 }
 
+.resume-controls {
+  border: 1px solid #c7d1d9;
+  border-radius: 8px;
+  display: inline-flex;
+  justify-self: start;
+  overflow: hidden;
+}
+
+.resume-controls button {
+  appearance: none;
+  background: #fff;
+  border: 0;
+  color: var(--color-site-text);
+  cursor: pointer;
+  font: inherit;
+  font-weight: 700;
+  min-width: 7.5rem;
+  padding: 0.55rem 0.8rem;
+}
+
+.resume-controls button + button {
+  border-left: 1px solid #c7d1d9;
+}
+
+.resume-controls button[aria-pressed="true"] {
+  background: var(--color-site-blue);
+  color: #fff;
+}
+
 .resume h2 {
   color: var(--color-site-text);
   font-size: 1.8rem;
@@ -377,6 +410,41 @@ a:hover {
   margin: 0 0 0.5rem;
 }
 
+.resume-details,
+.resume-expertise {
+  display: grid;
+  gap: 0.45rem;
+  margin: 0;
+}
+
+.resume-details div,
+.resume-expertise div {
+  display: grid;
+  gap: 0.5rem;
+  grid-template-columns: 9rem minmax(0, 1fr);
+}
+
+.resume-details dt,
+.resume-expertise dt {
+  color: #66717c;
+  font-weight: 700;
+}
+
+.resume-details dd,
+.resume-expertise dd {
+  margin: 0;
+}
+
+.resume-more {
+  border-top: 1px solid #d8dee4;
+  margin: 0;
+  padding-top: 1.5rem;
+}
+
+.resume-more a {
+  font-weight: 700;
+}
+
 .talk-list {
   display: grid;
   gap: 0.45rem;
@@ -394,6 +462,62 @@ a:hover {
 .talk-list span {
   color: #66717c;
   white-space: nowrap;
+}
+
+.public-speaking-list {
+  display: grid;
+  gap: 0.9rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.public-speaking-list li {
+  align-items: baseline;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: minmax(0, 1fr) auto;
+  padding: 0.45rem 0;
+}
+
+.public-speaking-list li + li {
+  border-top: 1px solid #e0e5ea;
+}
+
+.public-speaking-list a,
+.public-speaking-title {
+  font-size: 1.15rem;
+  line-height: 1.3;
+}
+
+.public-speaking-list p {
+  color: #66717c;
+  line-height: 1.4;
+  margin: 0.25rem 0 0;
+}
+
+.public-speaking-list p a {
+  color: inherit;
+  font-size: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.14em;
+}
+
+.public-speaking-list time {
+  color: #66717c;
+  white-space: nowrap;
+}
+
+.public-speaking-kind {
+  background: #edf3f7;
+  border-radius: 999px;
+  color: #50616c;
+  display: inline-flex;
+  font-size: 0.78rem;
+  font-weight: 700;
+  margin-right: 0.55rem;
+  padding: 0.12rem 0.45rem;
+  text-transform: uppercase;
 }
 
 .site-footer {
@@ -437,6 +561,15 @@ a:hover {
     justify-items: start;
   }
 
+  .resume-details div,
+  .resume-expertise div {
+    grid-template-columns: 1fr;
+  }
+
+  .public-speaking-list li {
+    grid-template-columns: 1fr;
+  }
+
   .markdown-content img[float="right"] {
     float: none;
     margin-left: auto;
@@ -452,9 +585,10 @@ a:hover {
 }
 
 @media print {
-  header,
+  .site-header,
   .site-footer,
-  .prev-next {
+  .prev-next,
+  .resume-controls {
     display: none;
   }
 
