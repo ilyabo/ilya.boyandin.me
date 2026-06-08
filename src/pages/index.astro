@@ -2,9 +2,13 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 
 import { getEntries } from '../lib/content';
+import { previewMediaPath } from '../lib/media';
 
-const projectCount = getEntries('projects').length;
+const projects = getEntries('projects');
+const projectCount = projects.length;
 const talkCount = getEntries('talks').length;
+const firstProject = projects[0];
+const firstProjectPreview = firstProject ? previewMediaPath(firstProject) : null;
 ---
 
 <BaseLayout>
@@ -19,5 +23,13 @@ const talkCount = getEntries('talks').length;
       Stage 2 content loader sees {projectCount} projects and {talkCount} talks in the existing
       content tree.
     </p>
+    {
+      firstProjectPreview ? (
+        <p class="text-sm text-site-text/70">
+          Stage 3 media resolver maps the latest project preview to{' '}
+          <code>{firstProjectPreview}</code>.
+        </p>
+      ) : null
+    }
   </section>
 </BaseLayout>
