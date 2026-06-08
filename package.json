@@ -10,6 +10,7 @@
     "preview": "astro preview",
     "audit:links": "node scripts/audit-astro-links.js",
     "audit:seo": "node scripts/audit-astro-seo.js",
+    "deploy:cloudflare": "npm run build && npm run audit:links && npm run audit:seo && npx wrangler pages deploy dist --project-name=ilya-boyandin-me",
     "dev:next": "next",
     "prebuild:next": "node scripts/generate-sitemap.js",
     "build:next": "next build",
@@ -52,7 +53,8 @@
     "prettier": "^2.7.1",
     "react-headroom": "^3.2.0",
     "typescript": "^5.9.3",
-    "vite": "^7.3.5"
+    "vite": "^7.3.5",
+    "wrangler": "^4.98.0"
   },
   "volta": {
     "node": "22.20.0"
