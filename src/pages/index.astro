@@ -1,5 +1,10 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+
+import { getEntries } from '../lib/content';
+
+const projectCount = getEntries('projects').length;
+const talkCount = getEntries('talks').length;
 ---
 
 <BaseLayout>
@@ -9,6 +14,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <p class="max-w-2xl text-xl leading-8">
       This is the Astro replacement shell. Stage 1 establishes the build, Tailwind styling,
       routing surface, and layout frame before porting the existing content routes.
+    </p>
+    <p class="text-sm text-site-text/70">
+      Stage 2 content loader sees {projectCount} projects and {talkCount} talks in the existing
+      content tree.
     </p>
   </section>
 </BaseLayout>
