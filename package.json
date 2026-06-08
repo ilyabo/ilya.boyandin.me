@@ -4,9 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "prebuild": "node scripts/generate-sitemap.js",
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "audit:seo": "node scripts/audit-astro-seo.js",
     "dev:next": "next",
     "prebuild:next": "node scripts/generate-sitemap.js",
     "build:next": "next build",

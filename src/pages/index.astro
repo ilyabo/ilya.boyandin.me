@@ -4,6 +4,7 @@ import MarkdownContent from '../components/MarkdownContent.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getEntries, getPageContent } from '../lib/content';
 import { renderMarkdown } from '../lib/markdown';
+import { homepageJsonLd } from '../lib/seo';
 
 const home = getPageContent('home');
 const html = await renderMarkdown(home.content, { kind: 'page', slug: 'home' });
@@ -12,7 +13,12 @@ const talks = getEntries('talks').slice(0, 3);
 const description = 'Ilya Boyandin is a software engineer designing and developing geographic data visualizations, maps, and geo data analytics tools.';
 ---
 
-<BaseLayout title="Ilya Boyandin - Data Visualization Engineer" description={description} canonicalPath="/">
+<BaseLayout
+  title="Ilya Boyandin - Data Visualization Engineer"
+  description={description}
+  canonicalPath="/"
+  jsonLd={homepageJsonLd()}
+>
   <section class="page-section home-intro">
     <h1 class="home-title">Ilya Boyandin</h1>
     <MarkdownContent html={html} />

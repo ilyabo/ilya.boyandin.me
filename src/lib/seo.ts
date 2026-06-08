@@ -86,3 +86,37 @@ export function creativeWorkJsonLd(entry: ContentEntry) {
 
   return data;
 }
+
+export function homepageJsonLd() {
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'Person',
+        '@id': `${SITE_URL}/#person`,
+        name: 'Ilya Boyandin',
+        url: SITE_URL,
+        image: absoluteUrl('/profile-pic.jpg'),
+        jobTitle: 'Software Engineer',
+        knowsAbout: [
+          'Data visualization',
+          'Geographic information systems',
+          'Interactive maps',
+          'Geospatial analytics',
+          'Web development',
+        ],
+        sameAs: ['https://github.com/ilyabo', 'https://www.linkedin.com/in/ilyabo/'],
+      },
+      {
+        '@type': 'WebSite',
+        '@id': `${SITE_URL}/#website`,
+        url: SITE_URL,
+        name: 'Ilya Boyandin',
+        description: metadata.description,
+        author: {
+          '@id': `${SITE_URL}/#person`,
+        },
+      },
+    ],
+  };
+}
