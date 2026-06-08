@@ -7,7 +7,7 @@ tags: [ "Java", "LibSVM" ]
 date: 2007-03-01
 preview: crossvalidationresults.png 
 ---
-A Web version of [ProClassify](/proclassify) developed to facilitate sharing of datasets and computational capacities by the users. The features of the web version are mostly identical to the standalone version except the data visualization which is missing in the web version. 
+A Web version of [ProClassify](/p/proclassify) developed to facilitate sharing of datasets and computational capacities by the users. The features of the web version are mostly identical to the standalone version except the data visualization which is missing in the web version.
 
 
 

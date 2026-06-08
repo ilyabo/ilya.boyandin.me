@@ -8,6 +8,7 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "audit:links": "node scripts/audit-astro-links.js",
     "audit:seo": "node scripts/audit-astro-seo.js",
     "dev:next": "next",
     "prebuild:next": "node scripts/generate-sitemap.js",
