@@ -29,9 +29,18 @@ function generatedPathForUrl(value) {
   const clean = cleanUrl(value);
   if (!clean || clean === '/') return path.join(DIST_DIR, 'index.html');
   const relative = clean.replace(/^\//, '');
-  return hasExtension(clean)
-    ? path.join(DIST_DIR, relative)
-    : path.join(DIST_DIR, relative, 'index.html');
+
+  const exactPath = path.join(DIST_DIR, relative);
+  const filePath = path.join(DIST_DIR, `${relative}.html`);
+  const directoryPath = path.join(DIST_DIR, relative, 'index.html');
+  if (fs.existsSync(exactPath)) return exactPath;
+  return fs.existsSync(filePath) ? filePath : directoryPath;
+}
+
+function urlForGeneratedHtml(file) {
+  const relative = path.relative(DIST_DIR, file);
+  if (relative === 'index.html') return '/';
+  return `/${relative.replace(/\/index\.html$/, '').replace(/\.html$/, '')}`;
 }
 
 const htmlFiles = walk(DIST_DIR).filter((file) => file.endsWith('.html'));
@@ -39,7 +48,7 @@ const issues = [];
 
 for (const file of htmlFiles) {
   const html = fs.readFileSync(file, 'utf8');
-  const page = `/${path.relative(DIST_DIR, file).replace(/\/index\.html$/, '').replace(/^index\.html$/, '')}`;
+  const page = urlForGeneratedHtml(file);
 
   for (const match of html.matchAll(/\b(?:href|src)="([^"]+)"/g)) {
     const value = match[1];

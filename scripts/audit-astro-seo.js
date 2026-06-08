@@ -16,7 +16,10 @@ function attr(html, pattern) {
 function pathForUrl(url) {
   const sitePath = url.replace(SITE_URL, '') || '/';
   if (sitePath === '/') return path.join(DIST_DIR, 'index.html');
-  return path.join(DIST_DIR, sitePath.replace(/^\//, ''), 'index.html');
+  const relative = sitePath.replace(/^\//, '');
+  const filePath = path.join(DIST_DIR, `${relative}.html`);
+  const directoryPath = path.join(DIST_DIR, relative, 'index.html');
+  return fs.existsSync(filePath) ? filePath : directoryPath;
 }
 
 function sitemapUrls() {
