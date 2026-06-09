@@ -36,8 +36,8 @@ function soundCloudEmbed(id: string) {
 }
 
 function attributeValue(attrs: string, name: string) {
-  const match = attrs.match(new RegExp(`${name}=["']([^"']+)["']`, 'i'));
-  return match?.[1] ?? null;
+  const match = attrs.match(new RegExp(`${name}=(?:"([^"]+)"|'([^']+)'|([^\\s>]+))`, 'i'));
+  return match?.[1] ?? match?.[2] ?? match?.[3] ?? null;
 }
 
 function preprocessMarkdown(content: string, context: MarkdownContext) {
@@ -46,8 +46,9 @@ function preprocessMarkdown(content: string, context: MarkdownContext) {
       return `![${alt}](${resolveMediaPath(context, src.trim())})`;
     })
     .replace(
-      /<(img|video|source)([^>]*?)\bsrc=["']([^"']+)["']([^>]*)>/gi,
-      (_match, tag: string, before: string, src: string, after: string) => {
+      /<(img|video|source)([^>]*?)\bsrc=(?:"([^"]+)"|'([^']+)'|([^\s>]+))([^>]*)>/gi,
+      (_match, tag: string, before: string, doubleQuotedSrc: string, singleQuotedSrc: string, unquotedSrc: string, after: string) => {
+        const src = doubleQuotedSrc ?? singleQuotedSrc ?? unquotedSrc;
         return `<${tag}${before}src="${resolveMediaPath(context, src)}"${after}>`;
       }
     )
@@ -87,47 +88,157 @@ function findImageAlt(node: any): string | null {
   return null;
 }
 
-function isImageOnlyParagraph(node: any) {
-  if (node?.type !== 'element' || node.tagName !== 'p') return false;
-  const meaningfulChildren = (node.children ?? []).filter((child: any) => {
+function meaningfulChildren(node: any) {
+  return (node?.children ?? []).filter((child: any) => {
     return child.type !== 'text' || child.value.trim();
   });
+}
 
-  if (meaningfulChildren.length !== 1) return false;
-  const child = meaningfulChildren[0];
+function nextMeaningfulSibling(children: any[], index: number): { node: any; index: number } | null {
+  for (let nextIndex = index + 1; nextIndex < children.length; nextIndex += 1) {
+    const node = children[nextIndex];
+    if (node.type !== 'text' || node.value.trim()) {
+      return { node, index: nextIndex };
+    }
+  }
+
+  return null;
+}
+
+function textContent(node: any): string {
+  if (!node || typeof node !== 'object') return '';
+  if (node.type === 'text') return node.value ?? '';
+  return (node.children ?? []).map(textContent).join('');
+}
+
+function isImageOnlyParagraph(node: any) {
+  if (node?.type !== 'element' || node.tagName !== 'p') return false;
+  const children = meaningfulChildren(node);
+
+  if (children.length !== 1) return false;
+  const child = children[0];
   if (child.type === 'element' && child.tagName === 'img') return true;
   return child.type === 'element' && child.tagName === 'a' && Boolean(findImageAlt(child));
 }
 
-function rehypeImageFigures() {
+function captionFromParagraph(node: any): string | null {
+  if (node?.type !== 'element' || node.tagName !== 'p') return null;
+  const children = meaningfulChildren(node);
+  if (children.length !== 1) return null;
+
+  return captionFromNode(children[0]);
+}
+
+function captionFromNode(node: any): string | null {
+  if (node?.type !== 'element' || !['em', 'i'].includes(node.tagName)) return null;
+
+  const caption = textContent(node).trim();
+  return caption || null;
+}
+
+function mediaChildrenFromNode(node: any): any[] | null {
+  if (node?.type === 'element' && ['img', 'video', 'iframe'].includes(node.tagName)) {
+    return [node];
+  }
+
+  if (node?.type !== 'element' || node.tagName !== 'p') return null;
+
+  const children = meaningfulChildren(node);
+  if (children.length !== 1) return null;
+
+  const child = children[0];
+  if (child.type === 'element' && ['img', 'video', 'iframe'].includes(child.tagName)) {
+    return [child];
+  }
+
+  if (child.type === 'element' && child.tagName === 'a' && findImageAlt(child)) {
+    return [child];
+  }
+
+  return null;
+}
+
+function figureFromCaptionedMediaParagraph(node: any): any | null {
+  if (node?.type !== 'element' || node.tagName !== 'p') return null;
+
+  const children = meaningfulChildren(node);
+  if (children.length !== 2) return null;
+
+  const [first, second] = children;
+  const captionNode = ['em', 'i'].includes(first.tagName) ? first : second;
+  const mediaNode = captionNode === first ? second : first;
+  if (captionNode.type !== 'element' || !['em', 'i'].includes(captionNode.tagName)) return null;
+
+  const mediaChildren = mediaChildrenFromNode(mediaNode);
+  if (!mediaChildren) return null;
+
+  const caption = textContent(captionNode).trim();
+  return caption ? figureNode(mediaChildren, caption) : null;
+}
+
+function figureNode(mediaChildren: any[], caption: string) {
+  return {
+    type: 'element',
+    tagName: 'figure',
+    properties: {},
+    children: [
+      ...mediaChildren,
+      {
+        type: 'element',
+        tagName: 'figcaption',
+        properties: {},
+        children: [{ type: 'text', value: caption }],
+      },
+    ],
+  };
+}
+
+function rehypeMediaFigures() {
   return (tree: any) => {
     function visit(node: any) {
       if (!node?.children) return;
 
-      node.children = node.children.map((child: any) => {
+      const children = [];
+
+      for (let index = 0; index < node.children.length; index += 1) {
+        const child = node.children[index];
+        const next = nextMeaningfulSibling(node.children, index);
+        const paragraphFigure = figureFromCaptionedMediaParagraph(child);
+
+        if (paragraphFigure) {
+          children.push(paragraphFigure);
+          continue;
+        }
+
+        const mediaOnlyChildren = mediaChildrenFromNode(child);
+        const followingCaption = mediaOnlyChildren && next ? captionFromParagraph(next.node) ?? captionFromNode(next.node) : null;
+
+        if (mediaOnlyChildren && followingCaption) {
+          children.push(figureNode(mediaOnlyChildren, followingCaption));
+          index = next!.index;
+          continue;
+        }
+
+        const caption = captionFromParagraph(child) ?? captionFromNode(child);
+        const mediaChildren = caption && next ? mediaChildrenFromNode(next.node) : null;
+
+        if (caption && mediaChildren) {
+          children.push(figureNode(mediaChildren, caption));
+          index = next!.index;
+          continue;
+        }
+
         if (!isImageOnlyParagraph(child)) {
           visit(child);
-          return child;
+          children.push(child);
+          continue;
         }
 
         const alt = findImageAlt(child);
-        if (!alt) return child;
+        children.push(alt ? figureNode(child.children ?? [], alt) : child);
+      }
 
-        return {
-          type: 'element',
-          tagName: 'figure',
-          properties: {},
-          children: [
-            ...(child.children ?? []),
-            {
-              type: 'element',
-              tagName: 'figcaption',
-              properties: {},
-              children: [{ type: 'text', value: alt }],
-            },
-          ],
-        };
-      });
+      node.children = children;
     }
 
     visit(tree);
@@ -140,7 +251,7 @@ export async function renderMarkdown(content: string, context: MarkdownContext) 
     .use(remarkParse)
     .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeRawPlugin)
-    .use(rehypeImageFigures)
+    .use(rehypeMediaFigures)
     .use(rehypeStringify)
     .process(processed);
 

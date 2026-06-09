@@ -1,5 +1,6 @@
 ---
 import Footer from '../components/Footer.astro';
+import criticalCss from '../styles/critical.css?raw';
 import '../styles/global.css';
 
 interface Props {
@@ -36,6 +37,7 @@ function isActive(path: string) {
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
+    <style is:inline set:html={criticalCss} />
     <title>{title}</title>
     <link rel="icon" href="/favicon.png" />
     <meta name="description" content={description} />
@@ -50,15 +52,15 @@ function isActive(path: string) {
     {jsonLd ? <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} /> : null}
   </head>
   <body>
-    <header class="site-header bg-site-blue text-white">
-      <nav class="mx-auto flex max-w-7xl items-center justify-center gap-1 px-4 font-bold sm:gap-2 sm:px-6">
+    <header class="site-header">
+      <nav class="site-nav">
         <a class:list={['nav-link', { active: isActive('/') }]} href="/">Home</a>
         <a class:list={['nav-link', { active: isActive('/projects') || isActive('/p') }]} href="/projects">Projects</a>
         <a class:list={['nav-link', { active: isActive('/talks') }]} href="/talks">Talks</a>
         <a class:list={['nav-link', { active: isActive('/music') }]} href="/music">Music</a>
       </nav>
     </header>
-    <main class="mx-auto max-w-7xl px-6 py-10 sm:px-10 lg:px-12">
+    <main class="site-main">
       <slot />
     </main>
     <Footer />

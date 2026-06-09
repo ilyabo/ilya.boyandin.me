@@ -39,15 +39,15 @@ const html = await renderMarkdown(entry.content, { kind: 'entry', entry });
     </header>
 
     <nav class="prev-next" aria-label="Project navigation">
-      {previous ? <a href={previous.route}>Previous</a> : <span />}
-      {next ? <a href={next.route}>Next</a> : <span />}
+      {previous ? <a href={previous.route}>← Previous</a> : <span />}
+      {next ? <a href={next.route}>Next →</a> : <span />}
     </nav>
 
     <MarkdownContent html={html} />
 
     <nav class="prev-next prev-next-bottom" aria-label="Project navigation">
-      {previous ? <a href={previous.route}>Previous</a> : <span />}
-      {next ? <a href={next.route}>Next</a> : <span />}
+      {previous ? <a href={previous.route}>← Previous</a> : <span />}
+      {next ? <a href={next.route}>Next →</a> : <span />}
     </nav>
   </article>
 </BaseLayout>

@@ -1,0 +1,133 @@
+:root {
+  --color-site-text: #dce9ee;
+  --color-site-muted: #98acb8;
+  --color-site-bg: #071923;
+  --color-site-bg-deep: #041018;
+  --color-site-surface: #0f2836;
+  --color-site-surface-soft: #143545;
+  --color-site-border: #284b5c;
+  --color-site-link: #86d7e9;
+  --color-site-link-hover: #a8ead8;
+}
+
+html {
+  background: var(--color-site-bg-deep) !important;
+  color: var(--color-site-text);
+  font-family: Lato, ui-sans-serif, system-ui, sans-serif;
+  font-size: 95%;
+}
+
+body {
+  background: linear-gradient(
+      180deg,
+      rgba(8, 29, 42, 0.96) 0%,
+      rgba(8, 28, 40, 0.92) 42%,
+      rgba(5, 17, 25, 0.98) 100%
+    ),
+    linear-gradient(115deg, #071923 0%, #0d3142 58%, #102536 100%) !important;
+  color: var(--color-site-text);
+  margin: 0;
+  min-height: 100vh;
+}
+
+a {
+  color: var(--color-site-link);
+}
+
+.site-header {
+  background: rgba(4, 16, 24, 0.78);
+  border-bottom: 1px solid rgba(134, 215, 233, 0.14);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.18);
+}
+
+.site-nav {
+  align-items: center;
+  display: flex;
+  font-weight: 700;
+  gap: 0.25rem;
+  justify-content: center;
+  margin: 0 auto;
+  max-width: 1280px;
+  padding: 0 1rem;
+}
+
+.nav-link {
+  align-items: center;
+  border-bottom: 2px solid transparent;
+  color: #d9edf2;
+  display: inline-flex;
+  font-size: 0.95rem;
+  min-height: 3rem;
+  padding: 0.7rem 0.95rem 0.65rem;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  background: rgba(134, 215, 233, 0.09);
+  border-bottom-color: rgba(168, 234, 216, 0.8);
+  color: #f2fbfd;
+  text-decoration: none;
+}
+
+.site-main {
+  margin: 0 auto;
+  max-width: 1280px;
+  padding: 2.5rem 1.5rem;
+}
+
+.home-title {
+  font-size: clamp(2.65rem, 4.1vw, 4.25rem) !important;
+}
+
+.page-title {
+  font-size: clamp(2.35rem, 3.5vw, 3.75rem) !important;
+}
+
+.section-heading h1 {
+  font-size: clamp(1.85rem, 2.7vw, 2.65rem) !important;
+}
+
+.article-header h1 {
+  font-size: clamp(2.2rem, 3.8vw, 3.6rem) !important;
+}
+
+.resume-header h1 {
+  font-size: clamp(2.15rem, 3.7vw, 3.35rem) !important;
+}
+
+@media (max-width: 700px) {
+  .page-title {
+    font-size: 2.5rem !important;
+  }
+}
+
+@media (min-width: 640px) {
+  .site-main {
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+  }
+
+  .site-nav {
+    gap: 0.5rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .site-main {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+}
+
+@media print {
+  html {
+    font-size: 100%;
+  }
+
+  body {
+    background: #fff !important;
+    color: #111;
+  }
+}
