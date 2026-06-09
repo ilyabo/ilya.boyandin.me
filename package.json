@@ -11,7 +11,7 @@
     "preview": "astro preview",
     "audit:links": "node scripts/audit-astro-links.js",
     "audit:seo": "node scripts/audit-astro-seo.js",
-    "deploy:cloudflare": "pnpm run build && pnpm run audit:links && pnpm run audit:seo && pnpm exec wrangler pages deploy dist --project-name=ilya-boyandin-me"
+    "deploy:cloudflare": "pnpm run build && pnpm run audit:links && pnpm run audit:seo && pnpm exec wrangler deploy"
   },
   "keywords": [],
   "author": "",

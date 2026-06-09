@@ -1,6 +1,17 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "ilya-boyandin-me",
-  "pages_build_output_dir": "./dist",
-  "compatibility_date": "2026-06-08"
+  "compatibility_date": "2026-06-09",
+  "workers_dev": true,
+  "routes": [
+    {
+      "pattern": "ilya.boyandin.me",
+      "custom_domain": true
+    }
+  ],
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "404-page",
+    "html_handling": "auto-trailing-slash"
+  }
 }
