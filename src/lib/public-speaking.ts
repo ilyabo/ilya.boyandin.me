@@ -31,7 +31,7 @@ function sortKey(item: z.infer<typeof publicSpeakingItemSchema>) {
 }
 
 export function getPublicSpeakingItems(): PublicSpeakingItem[] {
-  const filePath = path.join(process.cwd(), 'src', 'data', 'public-speaking.yml');
+  const filePath = path.join(process.cwd(), 'content', 'data', 'public-speaking.yml');
   const parsed = publicSpeakingSchema.parse(parse(fs.readFileSync(filePath, 'utf8')));
 
   return parsed.items

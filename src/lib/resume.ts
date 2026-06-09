@@ -139,7 +139,7 @@ async function withExpertiseHtml(group: ExpertiseGroup) {
 }
 
 export async function getResume() {
-  const filePath = path.join(process.cwd(), 'src', 'data', 'resume.yml');
+  const filePath = path.join(process.cwd(), 'content', 'data', 'resume.yml');
   const parsed = resumeSchema.parse(parse(fs.readFileSync(filePath, 'utf8'))) as Resume;
 
   return {
