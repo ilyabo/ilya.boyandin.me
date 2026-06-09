@@ -1,0 +1,443 @@
+profile:
+  name: Ilya Boyandin
+  subtitle: Software Engineer | Interactive Systems & Data Visualization
+  image: /profile-pic.jpg
+  contacts:
+    - label: ilya@boyandin.me
+      href: mailto:ilya@boyandin.me
+    - label: GitHub
+      href: https://github.com/ilyabo
+    - label: LinkedIn
+      href: https://www.linkedin.com/in/ilyabo/
+summary: >-
+  Experienced software engineer with a PhD in Computer Science and many years of
+  expertise in scalable web architectures, interactive front-end development,
+  geospatial analytics, and data visualization. Passionate about leveraging AI
+  and large-scale models to create transformative user experiences.
+sections:
+  - id: executive-summary
+    title: Executive Summary
+    type: bullets
+    short: true
+    items:
+      - short: true
+        text: >-
+          20+ years of experience in software engineering with deep expertise in
+          data visualization, front-end development, distributed systems, and
+          technical leadership.
+      - short: true
+        text: PhD in Computer Science with focus on data visualization and interactive systems.
+      - short: true
+        text: >-
+          Experience with ML systems including statistical classification,
+          question answering, natural language processing for chatbots, data
+          processing pipelines, and real-time ML model integration.
+      - short: true
+        text: Experience architecting and scaling real-time collaborative systems.
+      - short: false
+        text: >-
+          Track record of leading technical teams and mentoring engineers while
+          driving technical excellence and innovation. Led development of
+          multiple large-scale web applications serving thousands of users.
+
+  - id: education
+    title: Education
+    type: education
+    short: true
+    items:
+      - short: true
+        title: PhD in Computer Science
+        institution: University of Fribourg
+        date: 2013
+        details:
+          - short: true
+            label: Thesis title
+            text: "[Visualization of Temporal Origin-Destination Data](/assets/thesis.pdf)"
+          - short: false
+            label: Supervised by
+            text: "[Enrico Bertini](https://enrico.bertini.io/) and [Denis Lalanne](https://human-ist.unifr.ch/en/institute/team/denis-lalanne.html)"
+          - short: false
+            label: Summary
+            text: >-
+              Carried out an [in-depth study](/assets/thesis.pdf) of temporal
+              origin-destination data which can represent movement of people,
+              energy, material, etc. between locations in geographic space.
+              Developed [Flowstrates](/p/flowstrates), a novel approach for
+              visualizing and exploring temporal origin-destination data.
+              Carried out a qualitative [user study](/p/flowmap-user-study)
+              comparing animated and small-multiple representations of changes
+              in flow maps.
+      - short: true
+        title: MSc Computer Science
+        institution: St. Petersburg State University
+        date: 2003
+        details:
+          - short: true
+            label: Thesis title
+            text: Statistical Query Transformations for Question Answering in the Web
+          - short: false
+            label: Supervised by
+            text: "[Igor Nekrestyanov](https://www.linkedin.com/in/igornekrestyanov/)"
+          - short: false
+            label: Summary
+            text: >-
+              Developed an [improvement for a state-of-the-art machine learning
+              approach](/p/simqa) transforming natural language questions into
+              search engine queries achieving a better quality of
+              [question answering](http://en.wikipedia.org/wiki/Question_answering).
+
+  - id: experience
+    title: Experience
+    type: experience
+    short: true
+    items:
+      - short: true
+        title: Staff Software Engineer, Maps and Data Visualization
+        employer: Foursquare
+        employerUrl: https://location.foursquare.com/products-studio/
+        start: July 2021
+        end: present
+        bullets:
+          - short: true
+            text: >-
+              Technical leadership, architecture and development of
+              [Foursquare Studio](/p/fsq-studio), a complex web-based
+              visualization platform. Mentoring a team of 10+ engineers.
+          - short: true
+            text: >-
+              Implementing geospatial visualization features including 3D
+              animated trip layers, flow layers for mobility visualization, time
+              scale synchronization for multi-dataset animations, swipe mode,
+              editable rich text map annotations, JSON config editor, draggable
+              legend, and map scale widget.
+          - short: true
+            text: >-
+              Contributed to the design and development of the
+              [Foursquare Map SDK](https://docs.foursquare.com/developer/docs/studio-map-sdk-overview),
+              enabling integration of complex geospatial visualizations across
+              web apps and Jupyter notebooks.
+          - short: true
+            text: >-
+              Architecture and implementation of [SQL notebooks](/p/fsq-notebooks)
+              with map visualizations of query results. LLM model integration
+              for SQL generation.
+          - short: false
+            text: >-
+              Developed the [Paris Olympics Places](/p/fsq-paris-2024) app
+              showcasing various APIs and Map SDK features.
+      - short: true
+        title: Founder
+        employer: GeoVisually
+        employerUrl: https://www.geovisually.com/
+        location: Zurich
+        start: November 2020
+        end: present
+        bullets:
+          - short: true
+            text: Interactive maps and geographic data visualization consultancy.
+          - short: true
+            text: >-
+              Architecture and development of [MapCanv](/p/mapcanv), a
+              collaborative GeoJSON editor with highly efficient real-time
+              messaging and CRDT conflict resolution.
+          - short: true
+            text: >-
+              Architecture and development of [Flowmap City](/p/flowmap-city),
+              a web-based interactive analysis tool used by cities, transport
+              and mobility providers for understanding travel demand.
+          - short: false
+            text: >-
+              Developed the [Cobalt Supply Chain](/p/cobalt) and
+              [Mining in Democratic Republic of the Congo](/p/makuta) apps for
+              the NGO [Resource Matters](https://www.resourcematters.org/).
+      - short: true
+        title: Founding Engineer
+        employer: Unfolded
+        employerUrl: https://www.unfolded.ai/
+        location: San Francisco (remote)
+        start: January 2021
+        end: May 2021
+        bullets:
+          - short: true
+            text: >-
+              Helped build [Unfolded Studio](/p/fsq-studio), the next generation
+              geospatial analytics platform. The company Unfolded was later
+              acquired by Foursquare.
+      - short: true
+        title: Staff Software Engineer, Front End and Data Visualization Lead
+        employer: Teralytics
+        employerUrl: https://teralytics.net/
+        location: Zurich
+        start: February 2015
+        end: December 2020
+        bullets:
+          - short: true
+            text: Technical and strategic leadership, platform architecture, and mentoring a team of developers.
+          - short: true
+            text: >-
+              Designed and developed [exploratory data](/p/tera-transport)
+              [visualization tools](/p/street-flow-zh) for the analysis of
+              people mobility in cities and countries around the world.
+          - short: true
+            text: >-
+              Designed and developed [interactive dashboards and data
+              visualizations](/p/sg-trains) for real-time transportation network
+              monitoring, incident analysis, and transportation planning in
+              Singapore.
+          - short: true
+            text: >-
+              Devised a system architecture for [scalable OD-data visualization](/talks/2018-12-20-gflowiz)
+              to support interactive data analysis across billions of rows.
+          - short: true
+            text: >-
+              Published [Flowmap.gl](/p/flowmap.gl), an open-source library for
+              drawing flow lines representing movement on geographic maps in WebGL.
+          - short: false
+            text: >-
+              Developed [FlowmapBlue](/p/flowmap.blue), an open-source tool for
+              geographic flow map visualization from spreadsheets published in
+              Google Sheets.
+          - short: false
+            text: >-
+              Developed a series of interactive maps showing the [effect the
+              lock-down had on mobility](/p/covid-19), published in La
+              Repubblica, Forbes, Daily Mail, Bild, and Osnabruecker Zeitung.
+      - short: false
+        title: Data Visualization Engineer
+        employer: Interactive Things
+        employerUrl: http://interactivethings.com/
+        location: Zurich
+        start: June 2013
+        end: January 2015
+        bullets:
+          - text: >-
+              Developed numerous interactive visualizations for Neue Zuercher
+              Zeitung, including [geographic visualizations about Switzerland](/p/swiss-maps),
+              [Interactive timeline of WWI](/p/ww1), and pieces on unemployment
+              and medical care.
+          - text: >-
+              Developed an interactive visualization of the [trade of the world's
+              countries with Africa](/p/african-trade).
+          - text: Developed a [visualization of research expertise](/p/comp-browser) for Zurich University of Applied Sciences.
+          - text: Developed [Public Value Atlas](/p/gemeinwohl) with the University of St. Gallen.
+          - text: >-
+              Developed an [exploratory data analysis tool](/p/snf) for Swiss
+              National Science Foundation related to research proposals and activities.
+      - short: false
+        title: PhD Student, Assistant
+        employer: University of Fribourg
+        start: April 2009
+        end: May 2013
+        bullets:
+          - text: Developed [JFlowMap](/p/jflowmap), an experimental tool for the visualization of spatial interactions.
+          - text: Developed web-based [visualizations of AidData](/p/aiddata), financial aid given to developing countries.
+          - text: Contributed to the [BirdEye](/p/birdeye) visualization library developed at the UN Centre for Advanced Visual Analytics.
+          - text: >-
+              Assisted in courses on Web technologies and Functional programming:
+              tutoring, occasional lectures, preparing materials, and building
+              supporting websites and utilities.
+          - text: Tutored workshops on programming and computer graphics for students and school children.
+      - short: false
+        title: Senior Software Engineer, Technical Team Lead, IT Department
+        employer: University of Applied Sciences FH Joanneum
+        location: Graz
+        start: March 2007
+        end: April 2009
+        bullets:
+          - text: Technical and strategic leadership, platform architecture, mentoring a team of developers.
+          - text: >-
+              Developed [web applications](/p/joanna) used by students,
+              lecturers, and employees of the university for online administration.
+          - text: Maintained the web and database server infrastructure for online administration.
+          - text: >-
+              Designed and developed a [web application for collaborative data
+              collection](/p/wissensbilanz) and consolidation to provide a
+              statistical overview of study- and research-relevant indicators.
+      - short: false
+        title: Software Engineer/Research Assistant, Dept of Information Design
+        employer: University of Applied Sciences FH Joanneum
+        location: Graz
+        start: September 2005
+        end: March 2007
+        bullets:
+          - text: >-
+              Designed and developed [CGVis](/p/cgvis), a visualization tool
+              facilitating hierarchical clustering, zooming, and animation for
+              exploration of multidimensional datasets.
+          - text: >-
+              Designed and developed standalone and web versions of a
+              [proteomic data classification tool](/p/proclassify) implementing
+              a cancer diagnosis method based on mass-spectrometry data with
+              multi-step feature reduction and SVM classification.
+          - text: >-
+              Participated in the development of a [presentation management
+              tool](/p/fhlite) for university information screens. Developed
+              the visual layout editor and schedule editor.
+          - text: >-
+              Improved an algorithm detecting behavior type of a user looking at
+              a web page based on real-time eye-tracking data.
+      - short: false
+        title: Software Engineer
+        employer: Ecofinance Finanzsoftware & Consulting GmbH
+        location: Graz
+        start: June 2004
+        end: August 2005
+        bullets:
+          - text: Participated in development of a web-based treasury system for Deutsche Bahn and Commerzbank.
+          - text: Implemented Java infrastructure and XSLT stylesheets for runtime generation of front-end UI code from XML sources.
+          - text: Evaluated and optimized performance of XSL transformations.
+          - text: Implemented support for long running jobs on the server side of the system.
+          - text: Developed context-sensitive help and help authoring infrastructure based on DocBook.
+      - short: false
+        title: Software Engineer
+        employer: Elbrus MCST (by contract with Sun Microsystems)
+        location: St. Petersburg
+        start: August 2003
+        end: May 2004
+        bullets:
+          - text: >-
+              Worked in Sun's [Java Swing UI library](https://en.wikipedia.org/wiki/Swing_(Java))
+              maintenance team. Fixed bugs and implemented enhancements in
+              button classes including JButton, JRadioButton, and JCheckBox.
+      - short: false
+        title: Software Engineer
+        employer: Aloha
+        location: St. Petersburg
+        start: January 2001
+        end: July 2003
+        bullets:
+          - text: >-
+              Designed and developed a [web-based e-commerce system](/p/daisy)
+              with user authentication, order tracking, credit card processing,
+              back office, inventory, and statistical reports. Developed the
+              whole system from scratch and supported/customized it over time.
+      - short: false
+        title: Web Developer
+        employer: ALife
+        location: St. Petersburg
+        start: March 2000
+        end: January 2001
+        bullets:
+          - text: >-
+              Participated in development of a [system of intelligent agents](/p/alife)
+              capable of chatting to website visitors in natural language and
+              promoting products. Implemented a dynamic web interface for the
+              subsystem that controlled chats and let operators intervene.
+      - short: false
+        title: Teacher
+        employer: Anichkov Lyceum
+        location: St. Petersburg
+        start: September 1998
+        end: April 2000
+        bullets:
+          - text: Taught school children programming.
+
+  - id: technical-expertise
+    title: Technical Expertise
+    type: expertise
+    short: true
+    groups:
+      - short: true
+        label: Architecture & Systems
+        text: Distributed Systems, Real-time Collaboration, Performance Optimization, Scalable Architectures
+      - short: true
+        label: Front-end Excellence
+        text: React, Astro, TypeScript, JavaScript, WebGL, Modern Web APIs
+      - short: true
+        label: AI & ML Experience
+        text: Question Answering Systems, Classification, Clustering, Machine Learning Integration, LLM-assisted workflows
+      - short: true
+        label: Languages
+        text: TypeScript/JavaScript, Java, Python, Elixir, Clojure, Scala, C
+      - short: false
+        label: Cloud & Infrastructure
+        text: Google Cloud, Cloudflare, Vercel, AWS, Kubernetes
+      - short: false
+        label: Databases
+        text: PostgreSQL, DuckDB, BigQuery, ClickHouse, Redis, MySQL, SQL Server
+      - short: false
+        label: UI Design
+        text: Figma, Sketch, Photoshop
+
+  - id: publications
+    title: Publications
+    type: bullets
+    short: false
+    items:
+      - text: >-
+          [Visualizing mobility data: the scalability challenge](https://medium.com/teralytics/visualizing-mobility-data-the-scalability-challenge-2575fe819702),
+          Ilya Boyandin. Medium, Dec 2019.
+      - text: >-
+          [Flowstrates: An Approach for Visual Exploration of Temporal
+          Origin-Destination Data](/assets/flowstrates-eurovis11-fin.pdf),
+          Ilya Boyandin, Enrico Bertini, Peter Bak, Denis Lalanne. Computer
+          Graphics Forum, International Journal of the Eurographics Association,
+          Eurographics/IEEE-VGTC Symposium on Visualization, Bergen, Norway,
+          June 2011.
+      - text: >-
+          [A Qualitative Study on the Exploration of Temporal Changes in Flow
+          Maps with Animation and Small-Multiples](/assets/jflowmap-user-study.pdf),
+          Ilya Boyandin, Enrico Bertini, Denis Lalanne. Computer Graphics Forum,
+          International Journal of the Eurographics Association,
+          Eurographics/IEEE-VGTC Symposium on Visualization, Vienna, June 2012.
+      - text: >-
+          [Using Flow Maps to Explore Migrations Over Time](/assets/jflowmap-geova10.pdf),
+          Ilya Boyandin, Enrico Bertini, Denis Lalanne. Workshop in Geospatial
+          Visual Analytics: Focus on Time, GeoVA(t), Guimaraes, Portugal, May 2010.
+      - text: >-
+          [Statistical Query Transformations for Question Answering in the Web](/assets/rcdl_2003_en.pdf),
+          Ilya Boyandin, Igor Nekrestyanov. Conference on Digital Libraries
+          (RCDL'2003), St. Petersburg, October 2003.
+      - text: >-
+          [Visualization of Temporal Origin-Destination Data](/assets/thesis.pdf),
+          PhD thesis, University of Fribourg, March 2013.
+
+  - id: awards
+    title: Awards
+    type: bullets
+    short: false
+    items:
+      - text: >-
+          Bronze award in the "Visualization & Information Design" category of
+          the [Information is Beautiful Awards](https://www.informationisbeautifulawards.com/showcase/3815-flowmap-blue)
+          for [flowmap.blue](https://flowmap.blue) in 2019.
+      - text: >-
+          Shortlisted in the "Interactive Visualization" category of the
+          [Information is Beautiful Awards](https://iibawards.herokuapp.com/showcase/552-public-value-atlas)
+          for [Gemeinwohl](/p/gemeinwohl) in 2014.
+      - text: >-
+          First prize in the "Interactive Graphics" category of the
+          [dpa-infografik award](https://www.wan-ifra.org/de/articles/2013/10/24/preistraeger-des-dpa-infografik-awards-2013-ausgezeichnet)
+          for the [Swiss maps series](/p/swiss-maps) in 2013.
+
+  - id: other-activities
+    title: Other Activities
+    type: bullets
+    short: false
+    items:
+      - text: >-
+          Developed a [web app used for the COVID-19 medical study](/p/covid19-charite-lus)
+          carried out at Charite Universitaetsmedizin Berlin.
+      - text: >-
+          Developed an interactive [visualization of worldwide remittance flows](/p/remittances)
+          published by TagesWoche.ch and derStandard.at.
+      - text: >-
+          Developed a [visualization of SBB train flows](/p/swiss-trains) in a
+          team at the Make Opendata Camp in Zurich.
+      - text: >-
+          Maintained the [website](http://www.romip.ru/en/index.html) of the
+          ROMIP information retrieval evaluation seminar with a self-made Java
+          XSLT engine.
+      - text: >-
+          Developed [phpObjectForms](http://pof.sourceforge.net), an open-source
+          library for building user-friendly web forms.
+
+  - id: hobbies
+    title: Hobbies
+    type: bullets
+    short: false
+    items:
+      - text: >-
+          [Electronic music production](http://soundcloud.com/ibananti),
+          [photography](http://www.flickr.com/photos/ibananti/sets/), hiking,
+          and traveling.

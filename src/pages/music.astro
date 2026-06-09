@@ -1,0 +1,19 @@
+---
+import MarkdownContent from '../components/MarkdownContent.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getPageContent } from '../lib/content';
+import { renderMarkdown } from '../lib/markdown';
+import { pageTitle } from '../lib/seo';
+
+const music = getPageContent('music');
+const html = await renderMarkdown(music.content, { kind: 'page', slug: 'music' });
+const title = pageTitle('Music');
+const description = 'Electronic music, guitar recordings, and sound experiments by Ilya Boyandin.';
+---
+
+<BaseLayout title={title} description={description} canonicalPath="/music">
+  <article class="article article-narrow">
+    <h1 class="page-title">Music</h1>
+    <MarkdownContent html={html} />
+  </article>
+</BaseLayout>

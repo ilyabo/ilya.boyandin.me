@@ -1,12 +1,12 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "ES2022",
     "lib": [
       "dom",
       "dom.iterable",
       "esnext"
     ],
-    "allowJs": true,
+    "allowJs": false,
     "skipLibCheck": true,
     "strict": false,
     "forceConsistentCasingInFileNames": true,
@@ -16,14 +16,13 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve",
     "incremental": true
   },
   "include": [
-    "next-env.d.ts",
-    "tsmodules.d.ts",
-    "**/*.ts",
-    "**/*.tsx"
+    "src/**/*.astro",
+    "src/**/*.ts",
+    "astro.config.mjs",
+    "scripts/**/*.js"
   ],
   "exclude": [
     "node_modules"

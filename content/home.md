@@ -28,7 +28,7 @@ and developed <a href="https://flowmap.blue" target="_blank" rel="noopener">Flow
 free online tool for visualizing origin-destination movement.
 I am passionate about building tools which help cities to shift to sustainable mobility.
 
-Check out <a href="/resume/">my full resume</a> and <a href="https://www.linkedin.com/in/ilyabo/" target="_blank" rel="noopener">my LinkedIn page</a> for more details on my professional background.
+Check out <a href="/resume">my full resume</a> and <a href="https://www.linkedin.com/in/ilyabo/" target="_blank" rel="noopener">my LinkedIn page</a> for more details on my professional background.
 
 I live in Switzerland. I like being in the ⛰ nature and 🚴🏻‍♂️ cycling. I am the father of 👦🏻🧒🏼.
 I play guitar and 🎹 and [make electronic music](/music).

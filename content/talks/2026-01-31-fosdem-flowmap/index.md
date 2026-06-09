@@ -1,6 +1,7 @@
 ---
 kind: talk
 title: "FOSDEM 2026: Mobility Flow Visualization"
+description: "FOSDEM talk about scaling browser-based origin-destination mobility visualization with DuckDB, Flowmap.gl, SQLRooms, and tiled preprocessing."
 date: 2026-01-31
 preview: preview.webp
 category: talk

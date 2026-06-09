@@ -1,7 +1,7 @@
 ---
 kind: project
 title: "Flowmap.gl"
-description: ""
+description: "WebGL library for rendering large origin-destination flow maps in browser-based geospatial applications."
 category: works
 preview: swiss-cantons-new.png
 date: 2018-07-01
@@ -12,6 +12,8 @@ date: 2018-07-01
 [Flowmap.gl](https://flowmap.gl) is a library
 for visualizing movement of people (e.g. migration) or objects between
 geographic locations:
+
+It provides a GPU-accelerated flow layer for applications that need to render many curved origin-destination links interactively. I originally developed it while working on mobility analytics, where dense movement datasets quickly become too slow or visually cluttered for traditional SVG or canvas rendering.
 
 
 ![Flowmap.gl](flowmap-gl.jpg)
@@ -26,4 +28,3 @@ large numbers of flows with a good rendering performance:
 Morning and evening peaks:
 
 <embed src="morning-evening-peaks.mp4" maxwidth=500 />
-

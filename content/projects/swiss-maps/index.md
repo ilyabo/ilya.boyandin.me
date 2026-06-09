@@ -1,8 +1,7 @@
 ---
 kind: project
 title: "NZZ Summer Series: Swiss maps"
-description: "A series of twenty visualizations for Neue Zürcher Zeitung 
-              telling stories about Switzerland."
+description: "A series of twenty interactive visualizations for Neue Zürcher Zeitung telling data-driven stories about Switzerland."
 date: "2013-08-30"
 category: work
 tags: [ "D3", "JavaScript", "Backbone" ]
@@ -77,4 +76,3 @@ The series won the first prize in the category of interactive graphics in the Ge
 
 ![](img/anthems.png)
 <button href="https://storytelling.nzz.ch/2013/sommerserie/#anthems" align=center variant=outline>Try live</button>
-

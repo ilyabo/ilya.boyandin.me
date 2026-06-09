@@ -1,0 +1,40 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getPublicSpeakingItems } from '../lib/public-speaking';
+import { pageTitle } from '../lib/seo';
+
+const items = getPublicSpeakingItems();
+const title = pageTitle('Talks');
+const description = 'Conference talks, meetups, guest lectures, workshops, and presentations by Ilya Boyandin about data visualization, geospatial analytics, and web tools.';
+---
+
+<BaseLayout title={title} description={description} canonicalPath="/talks">
+  <section class="page-section">
+    <h1 class="page-title">Talks</h1>
+    <ol class="public-speaking-list">
+      {
+        items.map((item) => {
+          const hasMeta = item.venue || item.location || item.note;
+          return (
+            <li>
+              <div>
+                <span class="public-speaking-kind">{item.kind}</span>
+                {item.url ? <a href={item.url}>{item.title}</a> : <span class="public-speaking-title">{item.title}</span>}
+                {
+                  hasMeta && (
+                    <p>
+                      {item.venueUrl ? <a href={item.venueUrl}>{item.venue}</a> : item.venue}
+                      {item.location ? `${item.venue ? ', ' : ''}${item.location}` : ''}
+                      {item.note ? `${item.venue || item.location ? ' ' : ''}(${item.note})` : ''}
+                    </p>
+                  )
+                }
+              </div>
+              <time>{item.displayDate}</time>
+            </li>
+          );
+        })
+      }
+    </ol>
+  </section>
+</BaseLayout>

@@ -1,7 +1,7 @@
 ---
 kind: project
 title: 'FlowmapBlue'
-description: ''
+description: 'Free web tool for publishing interactive flow maps from origin-destination data stored in Google Sheets.'
 category: works
 preview: ny.jpg
 orderDate: 2040-01-01
@@ -17,6 +17,8 @@ locations as flow maps. It is used to visualize urban mobility, commuting behavi
 bus, subway and air travels, bicycle sharing, human and bird migration, refugee flows,
 marine traffic, freight transportation, trade, supply chains, scientific collaborations,
 epidemiological and historical data and data on many other topics.
+
+The main goal is accessibility: people who are not programmers or GIS specialists can prepare a simple spreadsheet, connect it to FlowmapBlue, and publish an interactive map. The tool handles the visual encoding, map interaction, filtering, clustering, and sharing mechanics that would otherwise require custom development.
 
 The project [won bronze](https://twitter.com/kachkaev/status/1197262339935997952)
 at the [Information is Beautiful Awards](https://www.informationisbeautifulawards.com/showcase/3815-flowmap-blue)

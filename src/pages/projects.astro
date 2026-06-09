@@ -1,0 +1,17 @@
+---
+import CardGrid from '../components/CardGrid.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getEntries } from '../lib/content';
+import { pageTitle } from '../lib/seo';
+
+const projects = getEntries('projects');
+const title = pageTitle('Projects');
+const description = 'Selected interactive maps, geospatial analytics tools, data visualization projects, and exploratory interfaces by Ilya Boyandin.';
+---
+
+<BaseLayout title={title} description={description} canonicalPath="/projects">
+  <section class="page-section">
+    <h1 class="page-title">Projects</h1>
+    <CardGrid entries={projects} />
+  </section>
+</BaseLayout>

@@ -1,0 +1,68 @@
+---
+import Footer from '../components/Footer.astro';
+import criticalCss from '../styles/critical.css?raw';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  canonicalPath?: string;
+  image?: string | null;
+  type?: string;
+  jsonLd?: Record<string, unknown> | null;
+}
+
+const siteUrl = 'https://ilya.boyandin.me';
+const {
+  title = 'Ilya Boyandin - Data Visualization Engineer',
+  description = 'I develop interactive maps and data visualizations for the web.',
+  canonicalPath = Astro.url.pathname,
+  image = `${siteUrl}/profile-pic.jpg`,
+  type = 'website',
+  jsonLd = null,
+} = Astro.props;
+
+const normalizedCanonicalPath = canonicalPath === '/' ? '/' : canonicalPath.replace(/\/$/, '');
+const canonicalUrl = normalizedCanonicalPath === '/' ? siteUrl : `${siteUrl}${normalizedCanonicalPath}`;
+const activePath = Astro.url.pathname.replace(/\/$/, '') || '/';
+
+function isActive(path: string) {
+  if (path === '/') return activePath === '/';
+  return activePath === path || activePath.startsWith(`${path}/`);
+}
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <style is:inline set:html={criticalCss} />
+    <title>{title}</title>
+    <link rel="icon" href="/favicon.png" />
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+    <meta property="og:type" content={type} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    {image ? <meta property="og:image" content={image} /> : null}
+    {image ? <meta name="twitter:card" content="summary_large_image" /> : null}
+    {image ? <meta name="twitter:image" content={image} /> : null}
+    {jsonLd ? <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} /> : null}
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="site-nav">
+        <a class:list={['nav-link', { active: isActive('/') }]} href="/">Home</a>
+        <a class:list={['nav-link', { active: isActive('/projects') || isActive('/p') }]} href="/projects">Projects</a>
+        <a class:list={['nav-link', { active: isActive('/talks') }]} href="/talks">Talks</a>
+        <a class:list={['nav-link', { active: isActive('/music') }]} href="/music">Music</a>
+      </nav>
+    </header>
+    <main class="site-main">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

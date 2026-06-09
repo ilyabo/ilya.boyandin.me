@@ -1,13 +1,15 @@
 ---
 kind: project
 title: Foursquare Studio
-description: ''
+description: 'Web-based geospatial analytics and visualization platform for creating interactive maps, movement analyses, and location intelligence workflows.'
 date: '2022-09-01'
 orderDate: 2045-01-01
 preview: flights-with-clouds-crop.jpg
 ---
 
 As part of the Unfolded/Foursquare team I am contributing to the development of [Foursquare Studio](https://studio.foursquare.com).
+
+Studio is a web-based geospatial analytics platform for exploring large spatial datasets, building interactive maps, and communicating location intelligence. My work has focused on advanced visualization layers, map interaction, annotation workflows, configuration tools, and notebook-style analysis experiences.
 
 Here are some of the features I've worked on:
 

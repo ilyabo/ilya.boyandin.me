@@ -1,0 +1,42 @@
+---
+import CardGrid from '../components/CardGrid.astro';
+import MarkdownContent from '../components/MarkdownContent.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getEntries, getPageContent } from '../lib/content';
+import { renderMarkdown } from '../lib/markdown';
+import { homepageJsonLd } from '../lib/seo';
+
+const home = getPageContent('home');
+const html = await renderMarkdown(home.content, { kind: 'page', slug: 'home' });
+const projects = getEntries('projects').slice(0, 6);
+const talks = getEntries('talks').slice(0, 3);
+const description = 'Ilya Boyandin is a software engineer designing and developing geographic data visualizations, maps, and geo data analytics tools.';
+---
+
+<BaseLayout
+  title="Ilya Boyandin - Data Visualization Engineer"
+  description={description}
+  canonicalPath="/"
+  jsonLd={homepageJsonLd()}
+>
+  <section class="page-section home-intro">
+    <h1 class="home-title">Ilya Boyandin</h1>
+    <MarkdownContent html={html} />
+  </section>
+
+  <section class="page-section">
+    <div class="section-heading">
+      <h1>Projects</h1>
+      <a href="/projects">All projects</a>
+    </div>
+    <CardGrid entries={projects} />
+  </section>
+
+  <section class="page-section">
+    <div class="section-heading">
+      <h1>Talks</h1>
+      <a href="/talks">All talks</a>
+    </div>
+    <CardGrid entries={talks} />
+  </section>
+</BaseLayout>
