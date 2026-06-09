@@ -10,7 +10,7 @@ category: talk
 # SQLRooms: Build powerful analytics apps with DuckDB in browser
 
 <button href="https://deck.gl/events/seattle-summit-2025/">Summit page</button>
-<button href="/media/talks/2025-10-08-openvis-seattle/openvis-seattle-2025-talk.pdf" variant=outline>Slides</button>
+<button href="openvis-seattle-2025-talk.pdf" variant=outline>Slides</button>
 <button href="https://www.youtube.com/watch?v=6Rn52PXLtT4" variant=outline>Video</button>
 <button href="https://www.openvisualization.org/" variant=outline>Open Visualization</button>
 
@@ -26,4 +26,4 @@ Video:
 
 Slides:
 
-<iframe src="/media/talks/2025-10-08-openvis-seattle/openvis-seattle-2025-talk.pdf" width="100%" height="720" style="border: 0;"></iframe>
+<iframe src="openvis-seattle-2025-talk.pdf" width="100%" height="720" style="border: 0;"></iframe>

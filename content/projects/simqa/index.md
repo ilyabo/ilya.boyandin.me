@@ -6,10 +6,10 @@ date: 2003-10-03
 preview: simqa.png
 ---
 
-<button href="/media/projects/simqa/simqa.pdf">Summary Slides</button>
+<button href="simqa.pdf">Summary Slides</button>
 <button href="/assets/rcdl_2003_en.pdf" variant=outline>RCDL 2003 Paper</button>
-<button href="/media/projects/simqa/simqa.mp3" variant=outline>Audio Overview (NotebookLM)</button>
-<button href="/media/projects/simqa/simqa-thesis.pdf" variant=outline>Thesis (in Russian)</button>
+<button href="simqa.mp3" variant=outline>Audio Overview (NotebookLM)</button>
+<button href="simqa-thesis.pdf" variant=outline>Thesis (in Russian)</button>
 
 <img src=simqa.png alt="Components of a Question Answering System">
 

@@ -93,7 +93,8 @@ export function getEntrySlugs(type: ContentType) {
 }
 
 export function getPageContent(slug: string): PageContent {
-  const filePath = path.join(CONTENT_ROOT, `${slug}.md`);
+  const folderIndexPath = path.join(CONTENT_ROOT, slug, 'index.md');
+  const filePath = fs.existsSync(folderIndexPath) ? folderIndexPath : path.join(CONTENT_ROOT, `${slug}.md`);
   const file = fs.readFileSync(filePath, 'utf8');
   const parsed = matter(file);
 

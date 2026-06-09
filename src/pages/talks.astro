@@ -15,20 +15,16 @@ const description = 'Conference talks, meetups, guest lectures, workshops, and p
       {
         items.map((item) => {
           const hasMeta = item.venue || item.location || item.note;
+          const venue = item.venueUrl ? <a href={item.venueUrl}>{item.venue}</a> : item.venue;
+          const location = item.location ? `${item.venue ? ', ' : ''}${item.location}` : '';
+          const note = item.note ? `${item.venue || item.location ? ' ' : ''}(${item.note})` : '';
+
           return (
             <li>
               <div>
                 <span class="public-speaking-kind">{item.kind}</span>
                 {item.url ? <a href={item.url}>{item.title}</a> : <span class="public-speaking-title">{item.title}</span>}
-                {
-                  hasMeta && (
-                    <p>
-                      {item.venueUrl ? <a href={item.venueUrl}>{item.venue}</a> : item.venue}
-                      {item.location ? `${item.venue ? ', ' : ''}${item.location}` : ''}
-                      {item.note ? `${item.venue || item.location ? ' ' : ''}(${item.note})` : ''}
-                    </p>
-                  )
-                }
+                {hasMeta && <p>{venue}{location}{note}</p>}
               </div>
               <time>{item.displayDate}</time>
             </li>

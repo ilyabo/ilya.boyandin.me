@@ -46,7 +46,7 @@ function preprocessMarkdown(content: string, context: MarkdownContext) {
       return `![${alt}](${resolveMediaPath(context, src.trim())})`;
     })
     .replace(
-      /<(img|video|source)([^>]*?)\bsrc=(?:"([^"]+)"|'([^']+)'|([^\s>]+))([^>]*)>/gi,
+      /<(img|video|source|iframe)([^>]*?)\bsrc=(?:"([^"]+)"|'([^']+)'|([^\s>]+))([^>]*)>/gi,
       (_match, tag: string, before: string, doubleQuotedSrc: string, singleQuotedSrc: string, unquotedSrc: string, after: string) => {
         const src = doubleQuotedSrc ?? singleQuotedSrc ?? unquotedSrc;
         return `<${tag}${before}src="${resolveMediaPath(context, src)}"${after}>`;
@@ -68,7 +68,7 @@ function preprocessMarkdown(content: string, context: MarkdownContext) {
         const align = attributeValue(attrs, 'align');
         const wrapperStart = align ? `<span class="action-link-wrap" style="text-align:${align}">` : '';
         const wrapperEnd = align ? '</span>' : '';
-        return `${wrapperStart}<a class="action-link" href="${href}" target="_blank" rel="noopener">${label}</a>${wrapperEnd}`;
+        return `${wrapperStart}<a class="action-link" href="${resolveMediaPath(context, href.trim())}" target="_blank" rel="noopener">${label}</a>${wrapperEnd}`;
       }
     );
 }

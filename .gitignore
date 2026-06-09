@@ -5,6 +5,7 @@ node_modules/
 /npm-debug.log
 .DS_Store
 out/
+public/media/
 .idea
 
 # Local Netlify folder

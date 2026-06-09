@@ -24,7 +24,7 @@ const {
 
 const normalizedCanonicalPath = canonicalPath === '/' ? '/' : canonicalPath.replace(/\/$/, '');
 const canonicalUrl = normalizedCanonicalPath === '/' ? siteUrl : `${siteUrl}${normalizedCanonicalPath}`;
-const activePath = Astro.url.pathname.replace(/\/$/, '') || '/';
+const activePath = normalizedCanonicalPath;
 
 function isActive(path: string) {
   if (path === '/') return activePath === '/';

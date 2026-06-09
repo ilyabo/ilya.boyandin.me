@@ -7,7 +7,7 @@
   "scripts": {
     "prebuild": "node scripts/generate-sitemap.js",
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "astro build && node scripts/copy-content-media.js dist",
     "preview": "astro preview",
     "audit:links": "node scripts/audit-astro-links.js",
     "audit:seo": "node scripts/audit-astro-seo.js",
