@@ -23,7 +23,7 @@ const {
 } = Astro.props;
 
 const normalizedCanonicalPath = canonicalPath === '/' ? '/' : canonicalPath.replace(/\/$/, '');
-const canonicalUrl = normalizedCanonicalPath === '/' ? siteUrl : `${siteUrl}${normalizedCanonicalPath}`;
+const canonicalUrl = normalizedCanonicalPath === '/' ? `${siteUrl}/` : `${siteUrl}${normalizedCanonicalPath}`;
 const activePath = normalizedCanonicalPath;
 
 function isActive(path: string) {

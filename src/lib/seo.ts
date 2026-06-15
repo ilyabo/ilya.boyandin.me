@@ -36,7 +36,7 @@ export function stripMarkdown(value = '') {
 }
 
 export function absoluteUrl(path = '') {
-  if (!path || path === '/') return SITE_URL;
+  if (!path || path === '/') return `${SITE_URL}/`;
   if (/^https?:\/\//.test(path)) return path;
   return `${SITE_URL}${path.startsWith('/') ? path : `/${path}`}`;
 }
@@ -77,7 +77,7 @@ export function creativeWorkJsonLd(entry: ContentEntry) {
     author: {
       '@type': 'Person',
       name: 'Ilya Boyandin',
-      url: SITE_URL,
+      url: absoluteUrl('/'),
     },
   };
 
@@ -95,7 +95,7 @@ export function homepageJsonLd() {
         '@type': 'Person',
         '@id': `${SITE_URL}/#person`,
         name: 'Ilya Boyandin',
-        url: SITE_URL,
+        url: absoluteUrl('/'),
         image: absoluteUrl('/profile-pic.jpg'),
         jobTitle: 'Software Engineer',
         knowsAbout: [
@@ -110,7 +110,7 @@ export function homepageJsonLd() {
       {
         '@type': 'WebSite',
         '@id': `${SITE_URL}/#website`,
-        url: SITE_URL,
+        url: absoluteUrl('/'),
         name: 'Ilya Boyandin',
         description: metadata.description,
         author: {
