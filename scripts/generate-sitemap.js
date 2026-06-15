@@ -36,7 +36,7 @@ function getContentPaths(contentType, urlPrefix) {
 }
 
 function toUrlEntry(sitePath) {
-  const normalizedPath = sitePath === '/' ? '' : sitePath.replace(/\/$/, '');
+  const normalizedPath = sitePath === '/' ? '/' : sitePath.replace(/\/$/, '');
   return `  <url><loc>${escapeXml(`${SITE_URL}${normalizedPath}`)}</loc></url>`;
 }
 

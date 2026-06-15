@@ -1,0 +1,2 @@
+# Permanently canonicalize extensionless HTML URLs to the no-trailing-slash form.
+/*/ /:splat 308
