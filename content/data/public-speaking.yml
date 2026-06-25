@@ -1,4 +1,12 @@
 items:
+  - title: "DuckDB as an analytical runtime: Building local-first analytics apps with SQLRooms"
+    kind: talk
+    year: 2026
+    date: 2026-06-24
+    route: /talks/2026-06-24-duckcon-sqlrooms
+    venue: "DuckCon #7"
+    venueUrl: https://duckdb.org/events/2026/06/24/duckcon7/
+    location: Royal Tropical Institute, Amsterdam
   - title: Democratizing Geospatial Intelligence with FSQ Spatial Agent
     kind: talk
     year: 2026
