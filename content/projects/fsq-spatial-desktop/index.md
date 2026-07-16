@@ -16,4 +16,12 @@ And... The app is built on [SQLRooms](/p/sqlrooms) - our open-source framework f
 
 My work connects the SQLRooms application model with Foursquare's geospatial visualization stack, helping make local data analysis feel fast, inspectable, and usable for analysts who need desktop-grade workflows without sending data to a cloud service.
 
-![](fsq-spatial-desktop-earthquakes.webp)
+![Earthquake data visualized in Foursquare Spatial Desktop](fsq-spatial-desktop-earthquakes.webp)
+
+![San Diego wildfire risk map with AI-generated analysis and charts](san-diego-wildfire-risk.webp)
+
+![Wine suitability map of Italy with AI-generated regional analysis](italy-wine-suitability.webp)
+
+![Holyhead buildings colored by type alongside an AI-generated distribution chart](holyhead-buildings-by-type.webp)
+
+![Himalayan vulture movements mapped alongside an AI-generated cumulative distance chart](himalayan-vultures.webp)
