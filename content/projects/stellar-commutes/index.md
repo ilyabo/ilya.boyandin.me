@@ -8,14 +8,14 @@ preview: '0.png'
 ---
 
 <button href="https://stellar-commutes.boyandin.me/">Try live</button>
-<button href="https://observablehq.com/@ilyabo/animated-flow-map-of-commuters-in-the-netherlands-in-2016" variant=outline>Source</button>
+<button href="https://observablehq.com/d/7ef91769a790dafe" variant=outline>Source</button>
 
 This is an experimental shader-based demo using
 Mapbox GL JS [custom style layer API](https://docs.mapbox.com/mapbox-gl-js/example/custom-style-layer/)
 showing commuters in the Netherlands in 2016. Inspired by the [cf. city flows](https://uclab.fh-potsdam.de/cf/) project.
 The data is from [Statistics Netherlands](https://opendata.cbs.nl/#/CBS/nl/dataset/83628NED/table?dl=F076).
 
-Or check the [Observable notebook](https://observablehq.com/@ilyabo/animated-flow-map-of-commuters-in-the-netherlands-in-2016)
+Or check the [Observable notebook](https://observablehq.com/d/7ef91769a790dafe)
 with the source code.
 
 ![](0.png)
