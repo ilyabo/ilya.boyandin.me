@@ -16,14 +16,14 @@ summary: >-
   and large-scale models to create transformative user experiences.
 sections:
   - id: executive-summary
-    title: Executive Summary
+    title: Summary
     type: bullets
     short: true
     items:
       - short: true
         text: >-
           20+ years of experience in software engineering with deep expertise in
-          data visualization, front-end development, distributed systems, and
+          data visualization, front-end development, data analytics, distributed systems, and
           technical leadership.
       - short: true
         text: PhD in Computer Science with focus on data visualization and interactive systems.
@@ -32,13 +32,13 @@ sections:
           Experience with ML systems including statistical classification,
           question answering, natural language processing for chatbots, data
           processing pipelines, and real-time ML model integration.
-      - short: true
-        text: Experience architecting and scaling real-time collaborative systems.
-      - short: false
-        text: >-
-          Track record of leading technical teams and mentoring engineers while
-          driving technical excellence and innovation. Led development of
-          multiple large-scale web applications serving thousands of users.
+      # - short: true
+      #   text: Experience architecting and scaling real-time collaborative systems.
+      # - short: false
+      #   text: >-
+      #     Track record of leading technical teams and mentoring engineers while
+      #     driving technical excellence and innovation. Led development of
+      #     multiple large-scale web applications serving thousands of users.
 
   - id: education
     title: Education
@@ -52,10 +52,10 @@ sections:
         details:
           - short: true
             label: Thesis title
-            text: "[Visualization of Temporal Origin-Destination Data](/assets/thesis.pdf)"
+            text: '[Visualization of Temporal Origin-Destination Data](/assets/thesis.pdf)'
           - short: false
             label: Supervised by
-            text: "[Enrico Bertini](https://enrico.bertini.io/) and [Denis Lalanne](https://human-ist.unifr.ch/en/institute/team/denis-lalanne.html)"
+            text: '[Enrico Bertini](https://enrico.bertini.io/) and [Denis Lalanne](https://human-ist.unifr.ch/en/institute/team/denis-lalanne.html)'
           - short: false
             label: Summary
             text: >-
@@ -77,7 +77,7 @@ sections:
             text: Statistical Query Transformations for Question Answering in the Web
           - short: false
             label: Supervised by
-            text: "[Igor Nekrestyanov](https://www.linkedin.com/in/igornekrestyanov/)"
+            text: '[Igor Nekrestyanov](https://www.linkedin.com/in/igornekrestyanov/)'
           - short: false
             label: Summary
             text: >-
@@ -342,22 +342,19 @@ sections:
         text: Distributed Systems, Real-time Collaboration, Performance Optimization, Scalable Architectures
       - short: true
         label: Front-end Excellence
-        text: React, Astro, TypeScript, JavaScript, WebGL, Modern Web APIs
+        text: TypeScript, JavaScript, React, SVG/Canvas/WebGL, Modern Web APIs
       - short: true
         label: AI & ML Experience
-        text: Question Answering Systems, Classification, Clustering, Machine Learning Integration, LLM-assisted workflows
+        text: LLM-assisted workflows, Question Answering Systems, Classification, Clustering
       - short: true
         label: Languages
         text: TypeScript/JavaScript, Java, Python, Elixir, Clojure, Scala, C
       - short: false
         label: Cloud & Infrastructure
-        text: Google Cloud, Cloudflare, Vercel, AWS, Kubernetes
+        text: Cloudflare, Vercel, Google Cloud, AWS, Kubernetes
       - short: false
         label: Databases
         text: PostgreSQL, DuckDB, BigQuery, ClickHouse, Redis, MySQL, SQL Server
-      - short: false
-        label: UI Design
-        text: Figma, Sketch, Photoshop
 
   - id: publications
     title: Publications
