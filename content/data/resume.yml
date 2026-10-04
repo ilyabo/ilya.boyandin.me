@@ -105,6 +105,15 @@ sections:
               visualization platform. Mentoring a team of 10+ engineers.
           - short: true
             text: >-
+              Developing an AI assistant for geospatial data analytics, including
+              a custom agent harness and evaluation suite.
+          - short: true
+            text: >-
+              Developing [SQLRooms](https://sqlrooms.org/), an open-source React
+              toolkit for building DuckDB-powered analytics applications with
+              AI agents and interactive visualizations.
+          - short: true
+            text: >-
               Implementing geospatial visualization features including 3D
               animated trip layers, flow layers for mobility visualization, time
               scale synchronization for multi-dataset animations, swipe mode,
