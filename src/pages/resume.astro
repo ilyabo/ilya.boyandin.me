@@ -1,132 +1,132 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { getResume } from '../lib/resume';
+import ResumeContent from '../components/ResumeContent.astro';
+import { getResume, resumeLanguages } from '../lib/resume';
 import { pageTitle } from '../lib/seo';
 
-const resume = await getResume();
-const title = pageTitle('Resume');
-const description = 'Resume of Ilya Boyandin, software engineer specializing in interactive systems, maps, geospatial analytics, and data visualization.';
+const resumes = await Promise.all(
+  resumeLanguages.map(async (language) => ({
+    language,
+    resume: await getResume(language),
+  }))
+);
+const english = resumes[0].resume;
+const german = resumes[1].resume;
 ---
 
-<BaseLayout title={title} description={description} canonicalPath="/resume">
-  <article class="resume" data-resume-mode="short">
-    <header class="resume-header">
-      <a href="/" aria-label="Ilya Boyandin home">
-        <img src={resume.profile.image} alt={resume.profile.name} width="120" height="120" />
-      </a>
-      <div>
-        <h1>{resume.profile.name}</h1>
-        <p>{resume.profile.subtitle}</p>
+<BaseLayout
+  title={pageTitle(english.ui.title)}
+  description={english.ui.description}
+  canonicalPath="/resume"
+>
+  <article class="resume" data-resume-mode="short" lang="en">
+    <div class="resume-toolbar">
+      <div
+        class="resume-controls"
+        role="group"
+        aria-label={english.ui.lengthLabel}
+        data-en-label={english.ui.lengthLabel}
+        data-de-label={german.ui.lengthLabel}
+      >
+        <button type="button" data-resume-mode-button="short" aria-pressed="true">
+          {resumes.map(({ language, resume }) => (
+            <span data-resume-translation={language} lang={language} hidden={language !== 'en'}>{resume.ui.short}</span>
+          ))}
+        </button>
+        <button type="button" data-resume-mode-button="full" aria-pressed="false">
+          {resumes.map(({ language, resume }) => (
+            <span data-resume-translation={language} lang={language} hidden={language !== 'en'}>{resume.ui.full}</span>
+          ))}
+        </button>
       </div>
-      <address>
-        {resume.profile.contacts.map((contact) => <a href={contact.href}>{contact.label}</a>)}
-      </address>
-    </header>
-
-    <div class="resume-controls" aria-label="Resume length">
-      <button type="button" data-resume-mode-button="short" aria-pressed="true">Short</button>
-      <button type="button" data-resume-mode-button="full" aria-pressed="false">Full version</button>
+      <div
+        class="resume-controls"
+        role="group"
+        aria-label={english.ui.languageLabel}
+        data-en-label={english.ui.languageLabel}
+        data-de-label={german.ui.languageLabel}
+      >
+        <button type="button" data-resume-language-button="en" aria-pressed="true" lang="en">English</button>
+        <button type="button" data-resume-language-button="de" aria-pressed="false" lang="de">Deutsch</button>
+      </div>
     </div>
 
-    <p class="resume-summary" set:html={resume.summaryHtml} />
-
-    {
-      resume.sections.map((section) => {
-        if (section.type === 'bullets') {
-          return (
-            <section id={section.id} data-short={String(section.short)}>
-              <h2>{section.title}</h2>
-              <ul>
-                {section.items.map((item) => (
-                  <li data-short={String(item.short)} set:html={item.html} />
-                ))}
-              </ul>
-            </section>
-          );
-        }
-
-        if (section.type === 'education') {
-          return (
-            <section id={section.id} data-short={String(section.short)}>
-              <h2>{section.title}</h2>
-              {section.items.map((item) => (
-                <div class="resume-item" data-short={String(item.short)}>
-                  <h3>{item.title}, {item.institution}, {item.date}</h3>
-                  <dl class="resume-details">
-                    {item.details.map((detail) => (
-                      <div data-short={String(detail.short)}>
-                        <dt>{detail.label}</dt>
-                        <dd set:html={detail.html} />
-                      </div>
-                    ))}
-                  </dl>
-                </div>
-              ))}
-            </section>
-          );
-        }
-
-        if (section.type === 'experience') {
-          return (
-            <section id={section.id} data-short={String(section.short)}>
-              <h2>{section.title}</h2>
-              {section.items.map((job) => (
-                <div class="resume-item" data-short={String(job.short)}>
-                  <h3>
-                    <span>{job.title}</span>
-                    {job.employer ? ', ' : ''}
-                    {job.employerUrl ? <a href={job.employerUrl}>{job.employer}</a> : job.employer}
-                  </h3>
-                  <p>
-                    {[job.start, job.end].filter(Boolean).join(' - ')}
-                    {job.location ? ` | ${job.location}` : ''}
-                  </p>
-                  <ul>
-                    {job.bullets.map((bullet) => (
-                      <li data-short={String(bullet.short)} set:html={bullet.html} />
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </section>
-          );
-        }
-
-        return (
-          <section id={section.id} data-short={String(section.short)}>
-            <h2>{section.title}</h2>
-            <dl class="resume-expertise">
-              {section.groups.map((group) => (
-                <div data-short={String(group.short)}>
-                  <dt>{group.label}</dt>
-                  <dd set:html={group.html} />
-                </div>
-              ))}
-            </dl>
-          </section>
-        );
-      })
-    }
-
-    <p class="resume-more"><a href="/talks">Full public speaking archive</a></p>
+    {resumes.map(({ language, resume }) => (
+      <div
+        class="resume-content"
+        data-resume-translation={language}
+        lang={language}
+        hidden={language !== 'en'}
+        data-page-title={pageTitle(resume.ui.title)}
+        data-description={resume.ui.description}
+      >
+        <ResumeContent resume={resume} language={language} />
+      </div>
+    ))}
   </article>
 
   <script>
-    const resume = document.querySelector('[data-resume-mode]');
-    const buttons = document.querySelectorAll('[data-resume-mode-button]');
-    const setMode = (mode) => {
-      if (!resume) return;
-      resume.setAttribute('data-resume-mode', mode);
-      buttons.forEach((button) => {
-        button.setAttribute('aria-pressed', String(button.getAttribute('data-resume-mode-button') === mode));
-      });
-    };
+    import type { ResumeLanguage } from '../lib/resume';
 
-    buttons.forEach((button) => {
-      button.addEventListener('click', () => {
-        const mode = button.getAttribute('data-resume-mode-button') || 'short';
-        setMode(mode);
+    const resume = document.querySelector<HTMLElement>('[data-resume-mode]');
+    if (resume) {
+      const modeButtons = resume.querySelectorAll<HTMLButtonElement>('[data-resume-mode-button]');
+      const languageButtons = resume.querySelectorAll<HTMLButtonElement>(
+        '[data-resume-language-button]'
+      );
+      const translations = resume.querySelectorAll<HTMLElement>('[data-resume-translation]');
+      const controls = resume.querySelectorAll<HTMLElement>('[data-en-label]');
+
+      const setMode = (mode: 'short' | 'full') => {
+        resume.dataset.resumeMode = mode;
+        modeButtons.forEach((button) => {
+          button.setAttribute('aria-pressed', String(button.dataset.resumeModeButton === mode));
+        });
+      };
+
+      const setLanguage = (language: ResumeLanguage) => {
+        resume.lang = language;
+        translations.forEach((translation) => {
+          translation.hidden = translation.dataset.resumeTranslation !== language;
+          if (!translation.hidden && translation.dataset.pageTitle) {
+            document.title = translation.dataset.pageTitle;
+            const description = translation.dataset.description;
+            if (description) {
+              document.querySelector('meta[name="description"]')?.setAttribute('content', description);
+            }
+          }
+        });
+        languageButtons.forEach((button) => {
+          button.setAttribute(
+            'aria-pressed',
+            String(button.dataset.resumeLanguageButton === language)
+          );
+        });
+        controls.forEach((control) => {
+          control.setAttribute('aria-label', control.getAttribute(`data-${language}-label`) || '');
+        });
+      };
+
+      const languageFromUrl = (): ResumeLanguage =>
+        new URLSearchParams(window.location.search).get('lang') === 'de' ? 'de' : 'en';
+      setLanguage(languageFromUrl());
+      window.addEventListener('popstate', () => setLanguage(languageFromUrl()));
+
+      modeButtons.forEach((button) => {
+        button.addEventListener('click', () => {
+          setMode(button.dataset.resumeModeButton === 'full' ? 'full' : 'short');
+        });
       });
-    });
+      languageButtons.forEach((button) => {
+        button.addEventListener('click', () => {
+          const language = button.dataset.resumeLanguageButton === 'de' ? 'de' : 'en';
+          setLanguage(language);
+          const url = new URL(window.location.href);
+          if (language === 'en') url.searchParams.delete('lang');
+          else url.searchParams.set('lang', language);
+          window.history.replaceState(window.history.state, '', url);
+        });
+      });
+    }
   </script>
 </BaseLayout>

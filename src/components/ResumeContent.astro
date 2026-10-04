@@ -1,0 +1,104 @@
+---
+import type { RenderedResume, ResumeLanguage } from '../lib/resume';
+
+interface Props {
+  resume: RenderedResume;
+  language: ResumeLanguage;
+}
+
+const { resume, language } = Astro.props;
+---
+<header class="resume-header">
+  <a href="/" aria-label={resume.ui.home}>
+    <img src={resume.profile.image} alt={resume.profile.name} width="120" height="120" />
+  </a>
+  <div>
+    <h1>{resume.profile.name}</h1>
+    <p>{resume.profile.subtitle}</p>
+  </div>
+  <address>
+    {resume.profile.contacts.map((contact) => <a href={contact.href}>{contact.label}</a>)}
+  </address>
+</header>
+
+<p class="resume-summary" set:html={resume.summaryHtml} />
+
+{
+  resume.sections.map((section) => {
+    const id = language === 'en' ? section.id : `${section.id}-de`;
+    if (section.type === 'bullets') {
+      return (
+        <section id={id} data-short={String(section.short)}>
+          <h2>{section.title}</h2>
+          <ul>
+            {section.items.map((item) => (
+              <li data-short={String(item.short)} set:html={item.html} />
+            ))}
+          </ul>
+        </section>
+      );
+    }
+
+    if (section.type === 'education') {
+      return (
+        <section id={id} data-short={String(section.short)}>
+          <h2>{section.title}</h2>
+          {section.items.map((item) => (
+            <div class="resume-item" data-short={String(item.short)}>
+              <h3>{item.title}, {item.institution}, {item.date}</h3>
+              <dl class="resume-details">
+                {item.details.map((detail) => (
+                  <div data-short={String(detail.short)}>
+                    <dt>{detail.label}</dt>
+                    <dd set:html={detail.html} />
+                  </div>
+                ))}
+              </dl>
+            </div>
+          ))}
+        </section>
+      );
+    }
+
+    if (section.type === 'experience') {
+      return (
+        <section id={id} data-short={String(section.short)}>
+          <h2>{section.title}</h2>
+          {section.items.map((job) => (
+            <div class="resume-item" data-short={String(job.short)}>
+              <h3>
+                <span>{job.title}{job.employer ? ',' : ''}</span>
+                {job.employerUrl ? <a href={job.employerUrl}>{job.employer}</a> : job.employer}
+              </h3>
+              <p>
+                {[job.start, job.end].filter(Boolean).join(' - ')}
+                {job.location ? ` | ${job.location}` : ''}
+              </p>
+              <ul>
+                {job.bullets.map((bullet) => (
+                  <li data-short={String(bullet.short)} set:html={bullet.html} />
+                ))}
+              </ul>
+            </div>
+          ))}
+        </section>
+      );
+    }
+
+    return (
+      <section id={id} data-short={String(section.short)}>
+        <h2>{section.title}</h2>
+        <dl class="resume-expertise">
+          {section.groups.map((group) => (
+            <div data-short={String(group.short)}>
+              <dt>{group.label}</dt>
+              <dd set:html={group.html} />
+            </div>
+          ))}
+        </dl>
+      </section>
+    );
+  })
+}
+
+<p class="resume-more"><a href="/talks">{resume.ui.more}</a></p>

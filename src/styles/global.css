@@ -312,9 +312,14 @@ a:hover {
   margin: 0;
 }
 
-.resume {
+.resume,
+.resume-content {
   display: grid;
   gap: 2rem;
+}
+
+.resume [hidden] {
+  display: none !important;
 }
 
 .resume[data-resume-mode="short"] [data-short="false"] {
@@ -356,6 +361,14 @@ a:hover {
   font-size: 1.25rem;
   line-height: 1.5;
   margin: 0;
+}
+
+.resume-toolbar {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: space-between;
 }
 
 .resume-controls {
@@ -591,7 +604,7 @@ a:hover {
   .site-header,
   .site-footer,
   .prev-next,
-  .resume-controls {
+  .resume-toolbar {
     display: none;
   }
 

@@ -6,97 +6,122 @@ import { renderMarkdown } from './markdown';
 
 const markdownContext = { kind: 'page', slug: 'resume' } as const;
 
-const shortSchema = z.object({
-  short: z.boolean().default(true),
-});
+export const resumeLanguages = ['en', 'de'] as const;
+export type ResumeLanguage = (typeof resumeLanguages)[number];
 
-const contactSchema = z.object({
-  label: z.string(),
-  href: z.string(),
-});
+function createResumeSchema(language: ResumeLanguage) {
+  const translatedText = z
+    .object({
+      en: z.string().min(1),
+      de: z.string().min(1),
+    })
+    .transform((text) => text[language]);
+  // Proper names and technical lists can be shared by both languages.
+  const sharedOrTranslatedText = z.union([z.string().min(1), translatedText]);
 
-const textItemSchema = shortSchema.extend({
-  text: z.string(),
-});
+  const shortSchema = z.object({
+    short: z.boolean().default(true),
+  });
 
-const detailSchema = textItemSchema.extend({
-  label: z.string(),
-});
+  const contactSchema = z.object({
+    label: z.string(),
+    href: z.string(),
+  });
 
-const educationItemSchema = shortSchema.extend({
-  title: z.string(),
-  institution: z.string(),
-  date: z.union([z.string(), z.number()]),
-  details: z.array(detailSchema).default([]),
-});
+  const textItemSchema = shortSchema.extend({
+    text: sharedOrTranslatedText,
+  });
 
-const jobSchema = shortSchema.extend({
-  title: z.string(),
-  employer: z.string().optional(),
-  employerUrl: z.string().optional(),
-  location: z.string().optional(),
-  start: z.string(),
-  end: z.string().optional(),
-  bullets: z.array(textItemSchema).default([]),
-});
+  const detailSchema = textItemSchema.extend({
+    label: translatedText,
+  });
 
-const expertiseGroupSchema = shortSchema.extend({
-  label: z.string(),
-  text: z.string(),
-});
+  const educationItemSchema = shortSchema.extend({
+    title: translatedText,
+    institution: sharedOrTranslatedText,
+    date: z.union([z.string(), z.number()]),
+    details: z.array(detailSchema).default([]),
+  });
 
-const bulletsSectionSchema = shortSchema.extend({
-  id: z.string(),
-  title: z.string(),
-  type: z.literal('bullets'),
-  items: z.array(textItemSchema),
-});
+  const jobSchema = shortSchema.extend({
+    title: translatedText,
+    employer: sharedOrTranslatedText.optional(),
+    employerUrl: z.string().optional(),
+    location: sharedOrTranslatedText.optional(),
+    start: translatedText,
+    end: translatedText.optional(),
+    bullets: z.array(textItemSchema).default([]),
+  });
 
-const educationSectionSchema = shortSchema.extend({
-  id: z.string(),
-  title: z.string(),
-  type: z.literal('education'),
-  items: z.array(educationItemSchema),
-});
+  const expertiseGroupSchema = shortSchema.extend({
+    label: translatedText,
+    text: sharedOrTranslatedText,
+  });
 
-const experienceSectionSchema = shortSchema.extend({
-  id: z.string(),
-  title: z.string(),
-  type: z.literal('experience'),
-  items: z.array(jobSchema),
-});
+  const bulletsSectionSchema = shortSchema.extend({
+    id: z.string(),
+    title: translatedText,
+    type: z.literal('bullets'),
+    items: z.array(textItemSchema),
+  });
 
-const expertiseSectionSchema = shortSchema.extend({
-  id: z.string(),
-  title: z.string(),
-  type: z.literal('expertise'),
-  groups: z.array(expertiseGroupSchema),
-});
+  const educationSectionSchema = shortSchema.extend({
+    id: z.string(),
+    title: translatedText,
+    type: z.literal('education'),
+    items: z.array(educationItemSchema),
+  });
 
-const sectionSchema = z.discriminatedUnion('type', [
-  bulletsSectionSchema,
-  educationSectionSchema,
-  experienceSectionSchema,
-  expertiseSectionSchema,
-]);
+  const experienceSectionSchema = shortSchema.extend({
+    id: z.string(),
+    title: translatedText,
+    type: z.literal('experience'),
+    items: z.array(jobSchema),
+  });
 
-const resumeSchema = z.object({
-  profile: z.object({
-    name: z.string(),
-    subtitle: z.string(),
-    image: z.string(),
-    contacts: z.array(contactSchema),
-  }),
-  summary: z.string(),
-  sections: z.array(sectionSchema),
-});
+  const expertiseSectionSchema = shortSchema.extend({
+    id: z.string(),
+    title: translatedText,
+    type: z.literal('expertise'),
+    groups: z.array(expertiseGroupSchema),
+  });
 
-type TextItem = z.infer<typeof textItemSchema>;
-type Detail = z.infer<typeof detailSchema>;
-type EducationItem = z.infer<typeof educationItemSchema>;
-type Job = z.infer<typeof jobSchema>;
-type ExpertiseGroup = z.infer<typeof expertiseGroupSchema>;
-type Resume = z.infer<typeof resumeSchema>;
+  const sectionSchema = z.discriminatedUnion('type', [
+    bulletsSectionSchema,
+    educationSectionSchema,
+    experienceSectionSchema,
+    expertiseSectionSchema,
+  ]);
+
+  return z.object({
+    ui: z.object({
+      lengthLabel: translatedText,
+      languageLabel: translatedText,
+      short: translatedText,
+      full: translatedText,
+      home: translatedText,
+      more: translatedText,
+      title: translatedText,
+      description: translatedText,
+    }),
+    profile: z.object({
+      name: z.string(),
+      subtitle: translatedText,
+      image: z.string(),
+      contacts: z.array(contactSchema),
+    }),
+    summary: translatedText,
+    sections: z.array(sectionSchema),
+  });
+}
+
+type Resume = z.infer<ReturnType<typeof createResumeSchema>>;
+type Section = Resume['sections'][number];
+type TextItem = Extract<Section, { type: 'bullets' }>['items'][number];
+type EducationItem = Extract<Section, { type: 'education' }>['items'][number];
+type Detail = EducationItem['details'][number];
+type Job = Extract<Section, { type: 'experience' }>['items'][number];
+type ExpertiseGroup = Extract<Section, { type: 'expertise' }>['groups'][number];
 
 async function renderInlineMarkdown(content: string) {
   const html = await renderMarkdown(content, markdownContext);
@@ -138,9 +163,9 @@ async function withExpertiseHtml(group: ExpertiseGroup) {
   };
 }
 
-export async function getResume() {
+export async function getResume(language: ResumeLanguage = 'en') {
   const filePath = path.join(process.cwd(), 'content', 'data', 'resume.yml');
-  const parsed = resumeSchema.parse(parse(fs.readFileSync(filePath, 'utf8'))) as Resume;
+  const parsed = createResumeSchema(language).parse(parse(fs.readFileSync(filePath, 'utf8')));
 
   return {
     ...parsed,
@@ -164,3 +189,5 @@ export async function getResume() {
     ),
   };
 }
+
+export type RenderedResume = Awaited<ReturnType<typeof getResume>>;
