@@ -12,6 +12,7 @@
     "audit:links": "node scripts/audit-astro-links.js",
     "audit:seo": "node scripts/audit-astro-seo.js",
     "test:resume": "node --test scripts/test-resume.mjs",
+    "resume:pdf": "node scripts/generate-resume-pdf.mjs",
     "deploy:cloudflare": "pnpm run build && pnpm run audit:links && pnpm run audit:seo && pnpm exec wrangler deploy"
   },
   "keywords": [],
@@ -41,6 +42,6 @@
     "node": "24.18.0"
   },
   "engines": {
-    "node": "24.x"
+    "node": ">=24.x"
   }
 }

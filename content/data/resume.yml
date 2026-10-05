@@ -5,8 +5,8 @@
 profile:
   name: Ilya Boyandin
   subtitle:
-    en: Software Engineer | Interactive Systems & Data Visualization
-    de: Softwareentwickler | Interaktive Systeme & Datenvisualisierung
+    en: Software Engineer | AI, Geospatial Analytics & Data Visualization
+    de: Softwareentwickler | KI, Geodatenanalyse & Datenvisualisierung
   image: /profile-pic.jpg
   contacts:
     - label: ilya@boyandin.me
@@ -17,159 +17,19 @@ profile:
       href: https://www.linkedin.com/in/ilyabo/
 summary:
   en: >-
-    Experienced software engineer with a PhD in Computer Science and many years of
-    expertise in scalable web architectures, interactive front-end development,
-    geospatial analytics, and data visualization. Passionate about leveraging AI and
-    large-scale models to create transformative user experiences.
+    20+ years of experience in software engineering.
+    Currently developing AI assistants and reusable frameworks
+    for data analytics, combining LLM integration with geospatial analysis, interactive
+    frontends, and data visualization. Experienced in technical leadership, direct
+    client collaboration, and independently delivering complete applications with cloud
+    deployments.
   de: >-
-    Erfahrener Softwareentwickler mit Promotion in Informatik und langjähriger Erfahrung
-    in skalierbaren Webarchitekturen, interaktiver Frontend-Entwicklung, Geodatenanalyse
-    und Datenvisualisierung. Begeistert davon, KI und grosse Sprachmodelle für
-    innovative Benutzererlebnisse einzusetzen.
+    Über 20 Jahre Erfahrung. Aktuell Entwicklung von KI-Assistenten und
+    wiederverwendbaren Frameworks für Datenanalyse, mit LLM-Integration,
+    Geodatenanalyse, interaktiven Frontends und Datenvisualisierung. Erfahrung in
+    technischer Führung, direkter Zusammenarbeit mit Kunden sowie eigenständiger
+    Umsetzung vollständiger Anwendungen inklusive Cloud-Deployment.
 sections:
-  - id: executive-summary
-    title:
-      en: Summary
-      de: Profil
-    type: bullets
-    short: true
-    items:
-      - short: true
-        text:
-          en: >-
-            20+ years of experience in software engineering with deep expertise in data
-            visualization, front-end development, data analytics, distributed systems,
-            and technical leadership.
-          de: >-
-            Über 20 Jahre Erfahrung in der Softwareentwicklung mit fundierter Expertise
-            in Datenvisualisierung, Frontend-Entwicklung, Datenanalyse, verteilten
-            Systemen und technischer Führung.
-      - short: true
-        text:
-          en: PhD in Computer Science with focus on data visualization and interactive systems.
-          de: Promotion in Informatik mit Schwerpunkt auf Datenvisualisierung und interaktiven
-            Systemen.
-      - short: true
-        text:
-          en: >-
-            Experience with ML systems including statistical classification, question
-            answering, natural language processing for chatbots, data processing
-            pipelines, and real-time ML model integration.
-          de: >-
-            Erfahrung mit ML-Systemen, darunter statistische Klassifikation,
-            Fragebeantwortung, Verarbeitung natürlicher Sprache für Chatbots,
-            Datenverarbeitungspipelines und Echtzeitintegration von ML-Modellen.
-      # - short: true
-      #   text:
-      #     en: Experience architecting and scaling real-time collaborative systems.
-      #     de: Erfahrung in Architektur und Skalierung kollaborativer Echtzeitsysteme.
-      # - short: false
-      #   text:
-      #     en: >-
-      #       Track record of leading technical teams and mentoring engineers while
-      #       driving technical excellence and innovation. Led development of
-      #       multiple large-scale web applications serving thousands of users.
-      #     de: >-
-      #       Erfahrung in der Führung technischer Teams und im Mentoring von Entwicklern
-      #       mit Fokus auf technische Qualität und Innovation. Leitung der Entwicklung
-      #       mehrerer grosser Webanwendungen mit Tausenden von Nutzern.
-
-  - id: education
-    title:
-      en: Education
-      de: Ausbildung
-    type: education
-    short: true
-    items:
-      - short: true
-        title:
-          en: PhD in Computer Science
-          de: Promotion in Informatik
-        institution:
-          en: University of Fribourg
-          de: Universität Freiburg
-        date: 2013
-        details:
-          - short: true
-            label:
-              en: Thesis title
-              de: Titel der Arbeit
-            text:
-              en: '[Visualization of Temporal Origin-Destination Data](/assets/thesis.pdf)'
-              de: '[Visualization of Temporal Origin-Destination Data](/assets/thesis.pdf)'
-          - short: false
-            label:
-              en: Supervised by
-              de: Betreut von
-            text:
-              en: >-
-                [Enrico Bertini](https://enrico.bertini.io/) and [Denis
-                Lalanne](https://human-ist.unifr.ch/en/institute/team/denis-lalanne.html)
-              de: >-
-                [Enrico Bertini](https://enrico.bertini.io/) und [Denis
-                Lalanne](https://human-ist.unifr.ch/en/institute/team/denis-lalanne.html)
-          - short: false
-            label:
-              en: Summary
-              de: Zusammenfassung
-            text:
-              en: >-
-                Carried out an [in-depth study](/assets/thesis.pdf) of temporal
-                origin-destination data which can represent movement of people, energy,
-                material, etc. between locations in geographic space. Developed
-                [Flowstrates](/p/flowstrates), a novel approach for visualizing and
-                exploring temporal origin-destination data. Carried out a qualitative
-                [user study](/p/flowmap-user-study) comparing animated and
-                small-multiple representations of changes in flow maps.
-              de: >-
-                Durchführung einer [eingehenden Untersuchung](/assets/thesis.pdf)
-                zeitabhängiger Quelle-Ziel-Daten, die Bewegungen von Menschen, Energie,
-                Materialien usw. zwischen geografischen Orten darstellen können.
-                Entwicklung von [Flowstrates](/p/flowstrates), einem neuartigen Ansatz
-                zur Visualisierung und Exploration zeitabhängiger Quelle-Ziel-Daten.
-                Durchführung einer qualitativen [Nutzerstudie](/p/flowmap-user-study),
-                die animierte Darstellungen und Small Multiples zur Darstellung von
-                Veränderungen in Flusskarten vergleicht.
-      - short: true
-        title:
-          en: MSc Computer Science
-          de: MSc Informatik
-        institution:
-          en: St. Petersburg State University
-          de: Staatliche Universität Sankt Petersburg
-        date: 2003
-        details:
-          - short: true
-            label:
-              en: Thesis title
-              de: Titel der Arbeit
-            text:
-              en: Statistical Query Transformations for Question Answering in the Web
-              de: Statistical Query Transformations for Question Answering in the Web
-          - short: false
-            label:
-              en: Supervised by
-              de: Betreut von
-            text:
-              en: '[Igor Nekrestyanov](https://www.linkedin.com/in/igornekrestyanov/)'
-              de: '[Igor Nekrestyanov](https://www.linkedin.com/in/igornekrestyanov/)'
-          - short: false
-            label:
-              en: Summary
-              de: Zusammenfassung
-            text:
-              en: >-
-                Developed an [improvement for a state-of-the-art machine learning
-                approach](/p/simqa) transforming natural language questions into search
-                engine queries achieving a better quality of [question
-                answering](http://en.wikipedia.org/wiki/Question_answering).
-              de: >-
-                Entwicklung einer [Verbesserung eines führenden
-                Machine-Learning-Ansatzes](/p/simqa), der natürlichsprachliche Fragen in
-                Suchmaschinenanfragen umwandelt und dadurch die Qualität der
-                [Fragebeantwortung](http://en.wikipedia.org/wiki/Question_answering)
-                erhöht.
-
   - id: experience
     title:
       en: Experience
@@ -193,21 +53,11 @@ sections:
           - short: true
             text:
               en: >-
-                Technical leadership, architecture and development of [Foursquare
-                Studio](/p/fsq-studio), a complex web-based visualization platform.
-                Mentoring a team of 10+ engineers.
-              de: >-
-                Technische Führung, Architektur und Entwicklung von [Foursquare
-                Studio](/p/fsq-studio), einer komplexen webbasierten
-                Visualisierungsplattform. Mentoring eines Teams mit über 10 Entwicklern.
-          - short: true
-            text:
-              en: >-
                 Developing an AI assistant for geospatial data analytics, including a
                 custom agent harness and evaluation suite.
               de: >-
-                Entwicklung eines KI-Assistenten für Geodatenanalyse mit einer eigenen
-                Laufzeitumgebung für Agenten und einer Evaluierungssuite.
+                Entwicklung eines KI-Assistenten für Geodatenanalyse mit einem eigenen
+                Agenten-Harness und einer Evaluierungssuite.
           - short: true
             text:
               en: >-
@@ -219,6 +69,38 @@ sections:
                 Open-Source-React-Toolkit für DuckDB-basierte Analyseanwendungen mit
                 KI-Agenten und interaktiven Visualisierungen.
           - short: true
+            text:
+              en: >-
+                Architecture and implementation of [SQL notebooks](/p/fsq-notebooks)
+                with map visualizations of query results. LLM model integration for SQL
+                generation.
+              de: >-
+                Architektur und Implementierung von [SQL-Notebooks](/p/fsq-notebooks)
+                mit Kartenvisualisierungen der Abfrageergebnisse. Integration eines
+                Sprachmodells zur SQL-Generierung.
+          - short: true
+            text:
+              en: >-
+                Technical leadership, architecture and development of [Foursquare
+                Studio](/p/fsq-studio), a complex web-based visualization platform.
+                Mentoring a team of 10+ engineers.
+              de: >-
+                Technische Führung, Architektur und Entwicklung von [Foursquare
+                Studio](/p/fsq-studio), einer komplexen webbasierten
+                Visualisierungsplattform. Mentoring eines Teams mit über 10 Entwicklern.
+          - short: true
+            text:
+              en: >-
+                Contributed to the design and development of the [Foursquare Map
+                SDK](https://docs.foursquare.com/developer/docs/studio-map-sdk-overview),
+                enabling integration of complex geospatial visualizations across web
+                apps and Jupyter notebooks.
+              de: >-
+                Mitwirkung an der Konzeption und Entwicklung des [Foursquare Map
+                SDK](https://docs.foursquare.com/developer/docs/studio-map-sdk-overview)
+                zur Integration komplexer Geodatenvisualisierungen in Webanwendungen und
+                Jupyter-Notebooks.
+          - short: false
             text:
               en: >-
                 Implementing geospatial visualization features including 3D animated
@@ -233,28 +115,6 @@ sections:
                 Animationen mehrerer Datensätze, Swipe-Modus, editierbare
                 Rich-Text-Kartenannotationen, JSON-Konfigurationseditor, verschiebbare
                 Legende und Massstabsanzeige.
-          - short: true
-            text:
-              en: >-
-                Contributed to the design and development of the [Foursquare Map
-                SDK](https://docs.foursquare.com/developer/docs/studio-map-sdk-overview),
-                enabling integration of complex geospatial visualizations across web
-                apps and Jupyter notebooks.
-              de: >-
-                Mitwirkung an der Konzeption und Entwicklung des [Foursquare Map
-                SDK](https://docs.foursquare.com/developer/docs/studio-map-sdk-overview)
-                zur Integration komplexer Geodatenvisualisierungen in Webanwendungen und
-                Jupyter-Notebooks.
-          - short: true
-            text:
-              en: >-
-                Architecture and implementation of [SQL notebooks](/p/fsq-notebooks)
-                with map visualizations of query results. LLM model integration for SQL
-                generation.
-              de: >-
-                Architektur und Implementierung von [SQL-Notebooks](/p/fsq-notebooks)
-                mit Kartenvisualisierungen der Abfrageergebnisse. Integration eines
-                Sprachmodells zur SQL-Generierung.
           - short: false
             text:
               en: >-
@@ -281,18 +141,21 @@ sections:
         bullets:
           - short: true
             text:
-              en: Interactive maps and geographic data visualization consultancy.
-              de: Beratung für interaktive Karten und geografische Datenvisualisierung.
+              en: >-
+                Independent consulting on interactive maps and geographic data
+                visualization, with extensive direct client collaboration.
+              de: >-
+                Eigenständige Beratung zu interaktiven Karten und geografischer
+                Datenvisualisierung mit umfangreicher direkter Zusammenarbeit mit
+                Kunden.
           - short: true
             text:
               en: >-
-                Architecture and development of [MapCanv](/p/mapcanv), a collaborative
-                GeoJSON editor with highly efficient real-time messaging and CRDT
-                conflict resolution.
+                Independently delivered complete applications, including cloud
+                deployments with Supabase, Cloudflare, and GCP.
               de: >-
-                Architektur und Entwicklung von [MapCanv](/p/mapcanv), einem
-                kollaborativen GeoJSON-Editor mit hocheffizienter Echtzeitkommunikation
-                und CRDT-Konfliktlösung.
+                Eigenständige Umsetzung vollständiger Anwendungen inklusive
+                Cloud-Deployments mit Supabase, Cloudflare und GCP.
           - short: true
             text:
               en: >-
@@ -303,6 +166,16 @@ sections:
                 Architektur und Entwicklung von [Flowmap City](/p/flowmap-city), einem
                 webbasierten interaktiven Analysetool, das Städte, Verkehrs- und
                 Mobilitätsanbieter zum Verständnis der Verkehrsnachfrage einsetzen.
+          - short: true
+            text:
+              en: >-
+                Architecture and development of [MapCanv](/p/mapcanv), a collaborative
+                GeoJSON editor with highly efficient real-time messaging and CRDT
+                conflict resolution.
+              de: >-
+                Architektur und Entwicklung von [MapCanv](/p/mapcanv), einem
+                kollaborativen GeoJSON-Editor mit hocheffizienter Echtzeitkommunikation
+                und CRDT-Konfliktlösung.
           - short: false
             text:
               en: >-
@@ -313,7 +186,7 @@ sections:
                 Entwicklung der Anwendungen [Cobalt Supply Chain](/p/cobalt) und [Mining
                 in Democratic Republic of the Congo](/p/makuta) für die NGO [Resource
                 Matters](https://www.resourcematters.org/).
-      - short: true
+      - short: false
         title:
           en: Founding Engineer
           de: Gründungsingenieur
@@ -421,7 +294,7 @@ sections:
                 Entwicklung einer Reihe interaktiver Karten zu den [Auswirkungen des
                 Lockdowns auf die Mobilität](/p/covid-19), veröffentlicht in La
                 Repubblica, Forbes, Daily Mail, Bild und Osnabruecker Zeitung.
-      - short: false
+      - short: true
         title:
           en: Data Visualization Engineer
           de: Ingenieur für Datenvisualisierung
@@ -772,10 +645,8 @@ sections:
           en: Architecture & Systems
           de: Architektur & Systeme
         text:
-          en: Distributed Systems, Real-time Collaboration, Performance Optimization, Scalable
-            Architectures
-          de: Verteilte Systeme, Echtzeitkollaboration, Leistungsoptimierung, skalierbare
-            Architekturen
+          en: Distributed Systems, Scalable Architectures, Real-time Collaboration, Performance Optimization
+          de: Verteilte Systeme, skalierbare Architekturen, Echtzeitkollaboration, Leistungsoptimierung
       - short: true
         label:
           en: Front-end Excellence
@@ -788,23 +659,165 @@ sections:
           en: AI & ML Experience
           de: KI- & ML-Erfahrung
         text:
-          en: LLM-assisted workflows, Question Answering Systems, Classification, Clustering
-          de: LLM-gestützte Arbeitsabläufe, Fragebeantwortungssysteme, Klassifikation, Clustering
+          en: >-
+            Vercel AI SDK, AI agents, custom agent harnesses, evaluation suites, MCP,
+            LLM-assisted SQL and data analytics, Question Answering, classification,
+            clustering
+          de: >-
+            Vercel AI SDK, KI-Agenten, eigene Agenten-Harnesses, Evaluierungssuiten, MCP,
+            LLM-gestützte SQL-Abfragen und Datenanalyse, Question Answering,
+            Klassifikation, Clustering
       - short: true
         label:
           en: Languages
           de: Programmiersprachen
         text: TypeScript/JavaScript, Java, Python, Elixir, Clojure, Scala, C
-      - short: false
+      - short: true
         label:
           en: Cloud & Infrastructure
           de: Cloud & Infrastruktur
-        text: Cloudflare, Vercel, Google Cloud, AWS, Kubernetes
-      - short: false
+        text: Supabase, Cloudflare, GCP, AWS, Vercel, Docker
+      - short: true
         label:
           en: Databases
           de: Datenbanken
         text: PostgreSQL, DuckDB, BigQuery, ClickHouse, Redis, MySQL, SQL Server
+  - id: education
+    title:
+      en: Education
+      de: Ausbildung
+    type: education
+    short: true
+    items:
+      - short: true
+        title:
+          en: PhD in Computer Science (data visualization)
+          de: Doktorat in Informatik (Datenvisualizierung)
+        institution:
+          en: University of Fribourg
+          de: Universität Freiburg
+        date: 2013
+        details:
+          - short: true
+            label:
+              en: Thesis title
+              de: Titel der Arbeit
+            text:
+              en: '[Visualization of Temporal Origin-Destination Data](/assets/thesis.pdf)'
+              de: '[Visualization of Temporal Origin-Destination Data](/assets/thesis.pdf)'
+          - short: false
+            label:
+              en: Supervised by
+              de: Betreut von
+            text:
+              en: >-
+                [Enrico Bertini](https://enrico.bertini.io/) and [Denis
+                Lalanne](https://human-ist.unifr.ch/en/institute/team/denis-lalanne.html)
+              de: >-
+                [Enrico Bertini](https://enrico.bertini.io/) und [Denis
+                Lalanne](https://human-ist.unifr.ch/en/institute/team/denis-lalanne.html)
+          - short: false
+            label:
+              en: Summary
+              de: Zusammenfassung
+            text:
+              en: >-
+                Carried out an [in-depth study](/assets/thesis.pdf) of temporal
+                origin-destination data which can represent movement of people, energy,
+                material, etc. between locations in geographic space. Developed
+                [Flowstrates](/p/flowstrates), a novel approach for visualizing and
+                exploring temporal origin-destination data. Carried out a qualitative
+                [user study](/p/flowmap-user-study) comparing animated and
+                small-multiple representations of changes in flow maps.
+              de: >-
+                Durchführung einer [eingehenden Untersuchung](/assets/thesis.pdf)
+                zeitabhängiger Quelle-Ziel-Daten, die Bewegungen von Menschen, Energie,
+                Materialien usw. zwischen geografischen Orten darstellen können.
+                Entwicklung von [Flowstrates](/p/flowstrates), einem neuartigen Ansatz
+                zur Visualisierung und Exploration zeitabhängiger Quelle-Ziel-Daten.
+                Durchführung einer qualitativen [Nutzerstudie](/p/flowmap-user-study),
+                die animierte Darstellungen und Small Multiples zur Darstellung von
+                Veränderungen in Flusskarten vergleicht.
+      - short: true
+        title:
+          en: MSc Computer Science
+          de: MSc Informatik
+        institution:
+          en: St. Petersburg State University
+          de: Staatliche Universität Sankt Petersburg
+        date: 2003
+        details:
+          - short: true
+            label:
+              en: Thesis title
+              de: Titel der Arbeit
+            text:
+              en: Statistical Query Transformations for Question Answering in the Web
+              de: Statistical Query Transformations for Question Answering in the Web
+          - short: false
+            label:
+              en: Supervised by
+              de: Betreut von
+            text:
+              en: '[Igor Nekrestyanov](https://www.linkedin.com/in/igornekrestyanov/)'
+              de: '[Igor Nekrestyanov](https://www.linkedin.com/in/igornekrestyanov/)'
+          - short: false
+            label:
+              en: Summary
+              de: Zusammenfassung
+            text:
+              en: >-
+                Developed an [improvement for a state-of-the-art machine learning
+                approach](/p/simqa) transforming natural language questions into search
+                engine queries achieving a better quality of [Question
+                Answering](http://en.wikipedia.org/wiki/Question_answering).
+              de: >-
+                Entwicklung einer [Verbesserung eines führenden
+                Machine-Learning-Ansatzes](/p/simqa), der natürlichsprachliche Fragen in
+                Suchmaschinenanfragen umwandelt und dadurch die Qualität der
+                [Question Answering](http://en.wikipedia.org/wiki/Question_answering)
+                erhöht.
+  - id: executive-summary
+    title:
+      en: Summary
+      de: Profil
+    type: bullets
+    short: false
+    items:
+      - short: true
+        text:
+          en: >-
+            20+ years of experience in software engineering with deep expertise in data
+            visualization, front-end development, data analytics, distributed systems,
+            and technical leadership.
+          de: >-
+            Über 20 Jahre Erfahrung in der Softwareentwicklung mit fundierter Expertise
+            in Datenvisualisierung, Frontend-Entwicklung, Datenanalyse, verteilten
+            Systemen und technischer Führung.
+      - short: true
+        text:
+          en: >-
+            Experience with ML systems including statistical classification, Question
+            Answering, natural language processing for chatbots, data processing
+            pipelines, and real-time ML model integration.
+          de: >-
+            Erfahrung mit ML-Systemen, darunter statistische Klassifikation,
+            Question Answering, Verarbeitung natürlicher Sprache für Chatbots,
+            Datenverarbeitungspipelines und Echtzeitintegration von ML-Modellen.
+      # - short: true
+      #   text:
+      #     en: Experience architecting and scaling real-time collaborative systems.
+      #     de: Erfahrung in Architektur und Skalierung kollaborativer Echtzeitsysteme.
+      # - short: false
+      #   text:
+      #     en: >-
+      #       Track record of leading technical teams and mentoring engineers while
+      #       driving technical excellence and innovation. Led development of
+      #       multiple large-scale web applications serving thousands of users.
+      #     de: >-
+      #       Erfahrung in der Führung technischer Teams und im Mentoring von Entwicklern
+      #       mit Fokus auf technische Qualität und Innovation. Leitung der Entwicklung
+      #       mehrerer grosser Webanwendungen mit Tausenden von Nutzern.
 
   - id: publications
     title:

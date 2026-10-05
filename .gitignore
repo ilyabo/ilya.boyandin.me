@@ -7,6 +7,9 @@ node_modules/
 out/
 public/media/
 .idea
+.venv/
+__pycache__/
+output/pdf/
 
 # Local Netlify folder
 .netlify

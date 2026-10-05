@@ -21,8 +21,8 @@ after(async () => {
 });
 
 test('localizes profile, sections, controls, and employment dates', () => {
-  assert.match(english.summaryHtml, /Experienced software engineer/);
-  assert.match(german.summaryHtml, /Erfahrener Softwareentwickler/);
+  assert.match(english.summaryHtml, /AI assistants/);
+  assert.match(german.summaryHtml, /KI-Assistenten/);
   assert.equal(english.ui.short, 'Short');
   assert.equal(german.ui.short, 'Kurzfassung');
   const enExperience = english.sections.find((section) => section.id === 'experience');
@@ -32,7 +32,7 @@ test('localizes profile, sections, controls, and employment dates', () => {
   assert.equal(enExperience.items[0].start, 'July 2021');
   assert.equal(deExperience.items[0].start, 'Juli 2021');
   assert.equal(deExperience.items[0].end, 'heute');
-  assert.match(deExperience.items[0].bullets[1].html, /KI-Assistenten/);
+  assert.ok(deExperience.items[0].bullets.some((bullet) => /KI-Assistenten/.test(bullet.html)));
 });
 
 test('preserves shared details, Markdown links, and short/full membership', () => {
