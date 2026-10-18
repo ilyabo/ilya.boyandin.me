@@ -18,9 +18,11 @@ My work connects the SQLRooms application model with Foursquare's geospatial vis
 
 ![Earthquake data visualized in Foursquare Spatial Desktop](fsq-spatial-desktop-earthquakes.webp)
 
-![San Diego wildfire risk map with AI-generated analysis and charts](san-diego-wildfire-risk.webp)
+![Wine suitability map of Italy with AI-generated regional analysis](italy-wine-suitability-with-sidebar.webp)
 
-![Wine suitability map of Italy with AI-generated regional analysis](italy-wine-suitability.webp)
+![Congo population H3](congo-population.webp)
+
+![San Diego wildfire risk map with AI-generated analysis and charts](san-diego-wildfire-risk.webp)
 
 ![Holyhead buildings colored by type alongside an AI-generated distribution chart](holyhead-buildings-by-type.webp)
 
