@@ -3,7 +3,6 @@ kind: project
 title: 'Cobalt Supply Chain'
 date: '2021-07-31'
 preview: 01-cobalt-screenshot.jpg
-orderDate: 2030-01-01
 ---
 
 <button href="https://supplychains.resourcematters.org">Try live</button>

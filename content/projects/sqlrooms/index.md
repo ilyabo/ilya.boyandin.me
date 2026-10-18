@@ -4,7 +4,7 @@ title: 'SQLRooms'
 description: 'Open-source framework for building browser-based analytics applications with DuckDB, React, visualization components, and AI-assisted workflows.'
 date: '2024-12-01'
 category: works
-preview: 'sqlrooms-ai.png'
+preview: 'sqlrooms-collage.webp'
 orderDate: 2055-01-01
 ---
 
@@ -18,6 +18,9 @@ The project grew out of work on geospatial and mobility analysis tools where use
 
 I work on the framework architecture, examples, AI-assisted SQL workflows, and reusable application patterns for dashboards, notebooks, collaborative canvases, and map-based analytics.
 
+<i>SQLRooms example apps</i>
+<embed src="sqlrooms-examples-75.mp4">
+
 <i>AI assistant and a dashboard artifact</i>
 <embed src="sqlrooms-cars-dashboard.mp4">
 
@@ -26,13 +29,3 @@ I work on the framework architecture, examples, AI-assisted SQL workflows, and r
 
 <i>HTML app artifact</i>
 <embed src="sqlrooms-cars-html-app.mp4">
-
-![](sqlrooms-ai.png)
-
-<i>[Cosmos.gl](https://sqlrooms.org/api/cosmos/) integration</i>
-![](sqlrooms-cosmos-1.png)
-![](sqlrooms-cosmos-2.png)
-
-<i>[Mosaic](https://sqlrooms.org/api/mosaic/) integration</i>
-
-![](sqlrooms-mosaic.png)
