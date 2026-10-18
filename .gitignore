@@ -17,3 +17,6 @@ output/pdf/
 # Package manager files
 pnpm-debug.log*
 .pnpm-store/
+
+output/
+tmp/
