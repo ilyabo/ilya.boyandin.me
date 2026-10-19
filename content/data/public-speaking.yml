@@ -1,10 +1,18 @@
 items:
-  - title: "DuckDB as an analytical runtime: Building local-first analytics apps with SQLRooms"
+  - title: 'SQLRooms: Beyond notebooks and dashboards: local-first, AI-assisted data applications'
+    kind: talk
+    year: 2026
+    date: 2026-09-09
+    route: /talks/2026-09-09-deck-summit
+    venue: 'Open Visualization Summit 2026'
+    venueUrl: https://deck.gl/events/zurich-summit-2026/
+    location: ETH, Zurich
+  - title: 'DuckDB as an analytical runtime: Building local-first analytics apps with SQLRooms'
     kind: talk
     year: 2026
     date: 2026-06-24
     route: /talks/2026-06-24-duckcon-sqlrooms
-    venue: "DuckCon #7"
+    venue: 'DuckCon #7'
     venueUrl: https://duckdb.org/events/2026/06/24/duckcon7/
     location: Royal Tropical Institute, Amsterdam
   - title: Democratizing Geospatial Intelligence with FSQ Spatial Agent
@@ -14,7 +22,7 @@ items:
     route: /talks/2026-04-02-geospatial-serbia-meetup
     venue: Geospatial Community of Serbia Meetup #7
     location: TomTom office, Belgrade
-  - title: "SQLRooms: Local-First Analytics with DuckDB, Collaborative Canvas, and Loro CRDT Sync"
+  - title: 'SQLRooms: Local-First Analytics with DuckDB, Collaborative Canvas, and Loro CRDT Sync'
     kind: talk
     year: 2026
     date: 2026-02-01
@@ -22,7 +30,7 @@ items:
     venue: FOSDEM
     venueUrl: https://fosdem.org/2026/
     location: Brussels
-  - title: "Scaling Mobility Flow Visualization: Origin-Destination Data with DuckDB, Flowmap.gl, and SQLRooms"
+  - title: 'Scaling Mobility Flow Visualization: Origin-Destination Data with DuckDB, Flowmap.gl, and SQLRooms'
     kind: talk
     year: 2026
     date: 2026-01-31
@@ -30,7 +38,7 @@ items:
     venue: FOSDEM
     venueUrl: https://fosdem.org/2026/
     location: Brussels
-  - title: "SQLRooms: Building browser-based AI-assisted analytics apps with DuckDB"
+  - title: 'SQLRooms: Building browser-based AI-assisted analytics apps with DuckDB'
     kind: talk
     year: 2025
     date: 2025-11-18
@@ -38,7 +46,7 @@ items:
     venue: DINAcon
     venueUrl: https://dinacon.ch/dinacon-2025/
     location: Bern
-  - title: "SQLRooms: Build powerful analytics apps with DuckDB in browser"
+  - title: 'SQLRooms: Build powerful analytics apps with DuckDB in browser'
     kind: talk
     year: 2025
     date: 2025-10-08
@@ -109,7 +117,7 @@ items:
     year: 2021
     date: 2021-05-20
     route: /talks/2021-05-20-cartohack
-    venue: "CartoHack #07"
+    venue: 'CartoHack #07'
     venueUrl: https://visualisierung.dgfk.net/de/events/cartohack/07-unfolded/
     location: German cartographic society
   - title: Tools for Geo Data Visualization from the Unfolded team
@@ -142,7 +150,7 @@ items:
     venue: Data Visualization Zurich Meetup
     venueUrl: https://www.meetup.com/datavis-zurich/events/270384574/
     location: online
-  - title: "Interactive Queries over Billions of Trips: Using ClickHouse for Mobility Data"
+  - title: 'Interactive Queries over Billions of Trips: Using ClickHouse for Mobility Data'
     kind: talk
     year: 2020
     date: 2020-01-22
@@ -174,7 +182,7 @@ items:
     venue: Urban Mobility Symposium
     venueUrl: https://www.citylab-berlin.org/events/mobilitysymposium_en/
     location: CityLAB Berlin
-  - title: "FlowmapBlue: Ein Tool zur Erstellung von Flow Maps"
+  - title: 'FlowmapBlue: Ein Tool zur Erstellung von Flow Maps'
     kind: talk
     year: 2019
     date: 2019-04-03
@@ -190,7 +198,7 @@ items:
     route: /talks/2019-03-22-ups
     venue: UPS Advanced Technology Group workshop
     location: online
-  - title: "FlowmapBlue: Geographic flows visualisation tool for the people"
+  - title: 'FlowmapBlue: Geographic flows visualisation tool for the people'
     kind: talk
     year: 2019
     date: 2019-03-03
@@ -214,13 +222,13 @@ items:
     venue: React.js Meetup
     venueUrl: https://www.meetup.com/Zurich-ReactJS-Meetup/events/251517816/
     location: Zurich
-  - title: "Robotics/Programming for kids with LEGO boost robot"
+  - title: 'Robotics/Programming for kids with LEGO boost robot'
     kind: workshop
     year: 2018
     date: 2018-03-06
     route: /talks/2018-03-06-robot-workshop
     venue: Freie Schule Bergmeilen
-  - title: "Data Visualization Engineer: ist das ein Beruf?"
+  - title: 'Data Visualization Engineer: ist das ein Beruf?'
     kind: guest lecture
     year: 2017
     href: https://docs.google.com/presentation/d/e/2PACX-1vRNRaJFAwe13zoWrr7DPnJG4ujbvIccAmrfW-WCL4CGNU_GfYmRJlzbfJ7APOPl_9va1YzS0RNTrXjN/pub?start=false&loop=false&delayms=3000
@@ -234,7 +242,7 @@ items:
     venue: React.js Meetup
     venueUrl: http://www.meetup.com/Zurich-ReactJS-Meetup/events/226391438/
     location: Zurich
-  - title: "Interactive Data Visualization with React: Taming the Complexity of the Changing State"
+  - title: 'Interactive Data Visualization with React: Taming the Complexity of the Changing State'
     kind: talk
     year: 2015
     date: 2015-04-03
@@ -247,7 +255,7 @@ items:
     year: 2014
     venue: Clojure Meetup
     location: Zurich
-  - title: "Data Visualization for Media: Processes and Tools"
+  - title: 'Data Visualization for Media: Processes and Tools'
     kind: talk
     year: 2014
     venue: EBU DevCon
@@ -259,12 +267,12 @@ items:
     date: 2014-09-16
     route: /talks/2014-09-16-sichh
     venue: SICHH Forum Data Visualization & Big Data
-  - title: "Women in science: Drawing with computer for schoolgirls"
+  - title: 'Women in science: Drawing with computer for schoolgirls'
     kind: workshop
     year: 2012
     venue: University of Fribourg
     note: also held in 2011
-  - title: "Programming and computer graphics for kids"
+  - title: 'Programming and computer graphics for kids'
     kind: workshop
     year: 2012
     venue: Kantonsschule Solothurn
