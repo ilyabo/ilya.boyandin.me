@@ -13,6 +13,8 @@ orderDate: 2050-01-01
 [Flowmap City](https://flowmap.city)
 is an analysis tool for cities, transport and mobility providers for understanding travel demand.
 
+<embed src="flowmap-city.mp4">
+
 The tool focuses on origin-destination mobility data: trips, passenger movements, commuting flows, and similar datasets where analysts need to see where movement starts, where it ends, and how demand changes across space. It combines map-based exploration with scalable flow-map rendering so dense datasets can be inspected without reducing everything to static summaries.
 
 Flowmap City is also a testbed for my work on browser-based geospatial analytics with [SQLRooms](/p/sqlrooms), [Flowmap.gl](/p/flowmap.gl), and DuckDB-powered preprocessing.

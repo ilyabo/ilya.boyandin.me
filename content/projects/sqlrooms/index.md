@@ -18,14 +18,14 @@ The project grew out of work on geospatial and mobility analysis tools where use
 
 I work on the framework architecture, examples, AI-assisted SQL workflows, and reusable application patterns for dashboards, notebooks, collaborative canvases, and map-based analytics.
 
-<i>SQLRooms example apps</i>
-<embed src="sqlrooms-examples-75.mp4">
-
-<i>AI assistant and a dashboard artifact</i>
-<embed src="sqlrooms-cars-dashboard.mp4">
-
-<i>Document artifact</i>
+<i>AI assistant and a document artifact with charts</i>
 <embed src="sqlrooms-cars-document.mp4">
+
+<i>Dashboard artifact</i>
+<embed src="sqlrooms-cars-dashboard.mp4">
 
 <i>HTML app artifact</i>
 <embed src="sqlrooms-cars-html-app.mp4">
+
+<i>SQLRooms example apps</i>
+<embed src="sqlrooms-examples-75.mp4">
