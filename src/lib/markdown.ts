@@ -36,7 +36,7 @@ function soundCloudEmbed(id: string) {
 }
 
 function attributeValue(attrs: string, name: string) {
-  const match = attrs.match(new RegExp(`${name}=(?:"([^"]+)"|'([^']+)'|([^\\s>]+))`, 'i'));
+  const match = attrs.match(new RegExp(`(?:^|\\s)${name}\\s*=\\s*(?:"([^"]*)"|'([^']*)'|([^\\s>"']+))`, 'i'));
   return match?.[1] ?? match?.[2] ?? match?.[3] ?? null;
 }
 
@@ -52,13 +52,17 @@ function preprocessMarkdown(content: string, context: MarkdownContext) {
         return `<${tag}${before}src="${resolveMediaPath(context, src)}"${after}>`;
       }
     )
-    .replace(/<embed\b([^>]*)\/?>/gi, (match: string, attrs: string) => {
+    .replace(/<embed\b((?:"[^"]*"|'[^']*'|[^"'<>])*)>/gi, (match: string, attrs: string) => {
       const kind = attributeValue(attrs, 'kind');
       const id = attributeValue(attrs, 'id');
       const src = attributeValue(attrs, 'src');
 
       if (kind === 'soundcloud' && id) return soundCloudEmbed(id);
-      if (src) return `<video controls src="${resolveMediaPath(context, src)}"></video>`;
+      if (src) {
+        const title = attributeValue(attrs, 'title');
+        const titleAttribute = title ? ` title="${title.replaceAll('"', '&quot;')}"` : '';
+        return `<video controls src="${resolveMediaPath(context, src)}"${titleAttribute}></video>`;
+      }
       return match;
     })
     .replace(
@@ -225,6 +229,13 @@ function rehypeMediaFigures() {
         if (caption && mediaChildren) {
           children.push(figureNode(mediaChildren, caption));
           index = next!.index;
+          continue;
+        }
+
+        const media = mediaOnlyChildren?.[0];
+        const title = media?.tagName === 'video' ? media.properties?.title : null;
+        if (mediaOnlyChildren && node.tagName !== 'figure' && typeof title === 'string' && title.trim()) {
+          children.push(figureNode(mediaOnlyChildren, title.trim()));
           continue;
         }
 

@@ -22,6 +22,8 @@ My work connects the SQLRooms application model with Foursquare's geospatial vis
 
 ![Congo population H3](congo-population.webp)
 
+<embed title="Dynamic tiling" src="fsq-spatial-desktop-dynamic-tiling-4-1500.mp4">
+
 ![San Diego wildfire risk map with AI-generated analysis and charts](san-diego-wildfire-risk.webp)
 
 ![Holyhead buildings colored by type alongside an AI-generated distribution chart](holyhead-buildings-by-type.webp)
