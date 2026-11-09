@@ -29,3 +29,5 @@ My work connects the SQLRooms application model with Foursquare's geospatial vis
 ![Holyhead buildings colored by type alongside an AI-generated distribution chart](holyhead-buildings-by-type.webp)
 
 ![Himalayan vulture movements mapped alongside an AI-generated cumulative distance chart](himalayan-vultures.webp)
+
+<embed src="fsq-spatial-desktop-trace3.mp4" title="FSQ Spatial AI Agent topology">
