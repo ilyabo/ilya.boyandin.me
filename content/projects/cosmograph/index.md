@@ -15,6 +15,10 @@ Cosmograph is an online SaaS application for visualizing and analyzing large net
 
 <embed src="cosmograph.mp4" title="Cosmograph app">
 
+<embed src="cosmograph-sqlrooms2-1000px.mp4" title="Cosmograph: SQLRooms source code">
+
+<embed src="cosmograph-sqlrooms9-1000.mp4" title="Cosmograph: SQLRooms source code">
+
 [![SQLRooms source code](cosmograph-sqlrooms.webp)](https://run.cosmograph.app/public/62e12466-9fbb-4411-9dbc-b11c55aa41d8)
 
 ![SQLRooms source code: filter function calls](cosmograph-sqlrooms-filter.webp)
