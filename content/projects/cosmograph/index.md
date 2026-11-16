@@ -11,13 +11,13 @@ preview: 'cosmograph.png'
 
 Cosmograph is an online SaaS application for visualizing and analyzing large network graphs and machine learning embeddings based on [SQLRooms](/p/sqlrooms). It is developed by [Nikita Rokotyan](https://rokotyan.com/) and his team. I contributed to the SQLRooms integration and the web app development.
 
-<embed src="cosmograph-2.0.mp4" title="Cosmograph 2.0">
-
-<embed src="cosmograph.mp4" title="Cosmograph app">
+<embed src="cosmograph-sqlrooms9-1024.mp4" title="Cosmograph: SQLRooms source code">
 
 <embed src="cosmograph-sqlrooms2-1000px.mp4" title="Cosmograph: SQLRooms source code">
 
-<embed src="cosmograph-sqlrooms9-1000.mp4" title="Cosmograph: SQLRooms source code">
+<embed src="cosmograph-2.0.mp4" title="Cosmograph 2.0">
+
+<embed src="cosmograph.mp4" title="Cosmograph app">
 
 [![SQLRooms source code](cosmograph-sqlrooms.webp)](https://run.cosmograph.app/public/62e12466-9fbb-4411-9dbc-b11c55aa41d8)
 
