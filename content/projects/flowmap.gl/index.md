@@ -7,7 +7,6 @@ preview: swiss-cantons-new.png
 date: 2018-07-01
 keywords:
   [
-    '3D',
     'geo',
     'transport',
     'mobility',
@@ -18,6 +17,7 @@ keywords:
     'graphs',
     'networks',
     'visualization',
+    '3D',
   ]
 ---
 

@@ -18,6 +18,8 @@ keywords:
     'visualization',
     'infovis',
     'UX',
+    '3D',
+    'DuckDB',
   ]
 ---
 
