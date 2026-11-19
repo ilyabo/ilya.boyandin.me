@@ -10,14 +10,14 @@ interface Props {
 const { entries } = Astro.props;
 ---
 
-<div class="content-grid">
+<div class="content-grid grid gap-6 sm:gap-7">
   {
     entries.map((entry) => {
       const preview = previewMediaPath(entry);
 
       return (
-        <a class="content-card" href={entry.route} data-keywords={JSON.stringify(entry.keywords)}>
-          <div class="card-heading">
+        <a class="content-card grid min-w-0 overflow-hidden rounded-xl border" href={entry.route} data-keywords={JSON.stringify(entry.keywords)}>
+          <div class="card-heading flex items-baseline justify-between gap-3">
             <h2>{entry.title}</h2>
             <span>{formatDate(entry.date)}</span>
           </div>

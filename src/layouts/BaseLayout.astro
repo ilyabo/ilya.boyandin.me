@@ -1,4 +1,6 @@
 ---
+import ContourBackground from '../components/ContourBackground.astro';
+import SocialLinks from '../components/SocialLinks.astro';
 import Footer from '../components/Footer.astro';
 import criticalCss from '../styles/critical.css?raw';
 import '../styles/global.css';
@@ -52,13 +54,24 @@ function isActive(path: string) {
     {jsonLd ? <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} /> : null}
   </head>
   <body>
+    <ContourBackground />
     <header class="site-header">
-      <nav class="site-nav">
-        <a class:list={['nav-link', { active: isActive('/') }]} href="/">Home</a>
-        <a class:list={['nav-link', { active: isActive('/projects') || isActive('/p') }]} href="/projects">Projects</a>
-        <a class:list={['nav-link', { active: isActive('/talks') }]} href="/talks">Talks</a>
-        <a class:list={['nav-link', { active: isActive('/music') }]} href="/music">Music</a>
-      </nav>
+      <div class="header-inner">
+        <nav class="site-nav" aria-label="Main navigation">
+          {[
+            { label: 'Home', href: '/' },
+            { label: 'Projects', href: '/projects' },
+            { label: 'Talks', href: '/talks' },
+            { label: 'Music', href: '/music' },
+          ].map(({ label, href }) => (
+            <a class="nav-link" href={href} aria-current={
+              activePath === href ? 'page' :
+              isActive(href) || (href === '/projects' && isActive('/p')) ? 'location' : undefined
+            }>{label}</a>
+          ))}
+        </nav>
+        <SocialLinks icons />
+      </div>
     </header>
     <main class="site-main">
       <slot />

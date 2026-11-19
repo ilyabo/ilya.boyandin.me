@@ -5,11 +5,9 @@
 
 .projects-heading {
   align-items: center;
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
   gap: 1.5rem;
-  justify-content: space-between;
-  margin-top: 1.25rem;
 }
 
 .projects-heading .page-title {
@@ -17,8 +15,21 @@
 }
 
 .project-search {
+  justify-self: end;
   position: relative;
-  width: min(100%, 24rem);
+  width: max-content;
+  min-width: min(100%, 24rem);
+  max-width: 100%;
+}
+
+@media (max-width: 42rem) {
+  .projects-heading {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .project-search {
+    width: 100%;
+  }
 }
 
 .project-search .search-icon {
@@ -50,7 +61,12 @@
   color: var(--color-site-link-hover);
 }
 
-.project-filters button:focus-visible {
+.clear-project-search:focus-visible {
+  background: var(--color-site-surface-soft);
+  color: var(--color-site-link-hover);
+}
+
+.keyword-badges button:focus-visible {
   outline: 2px solid var(--color-site-link);
   outline-offset: 2px;
 }
@@ -68,15 +84,27 @@
   color: var(--color-site-muted);
   cursor: pointer;
   font: inherit;
-  font-size: 0.85rem;
-  padding: 0.3rem 0.7rem;
+  font-size: var(--keyword-font-size);
+  padding: 0.28rem 0.67rem;
 }
 
-.keyword-badges button:hover,
 .keyword-badges button[aria-pressed="true"] {
   background: var(--color-site-surface-soft);
   border-color: var(--color-site-link);
   color: var(--color-site-link);
+}
+
+@media (hover: hover) {
+  .keyword-badges button[aria-pressed="false"]:hover {
+    background: var(--color-site-surface);
+    border-color: var(--color-site-muted);
+    color: var(--color-site-link);
+  }
+
+  .keyword-badges button[aria-pressed="true"]:hover {
+    background: color-mix(in srgb, var(--color-site-surface-soft) 70%, var(--color-site-bg));
+    color: color-mix(in srgb, var(--color-site-link) 70%, var(--color-site-bg));
+  }
 }
 
 #projects [hidden] {

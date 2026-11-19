@@ -4,12 +4,13 @@ title: About me
 category: work
 ---
 
-<img width="922" height="922" float="right" src="me-userpic.jpg" mt="0" mb="10">
+<div class="home-portrait"><img width="922" height="922" src="me-userpic.jpg" alt="Ilya Boyandin"></div>
 
 👋 Hi there,
 
-I am Ilya. I am a software engineer. I design and develop geographic data visualizations and
-geo data analytics tools.
+I am Ilya. I am a software engineer. I design and develop data visualizations and data analytics tools.
+
+<div class="home-bio">
 
 I've completed <a href="/">many projects</a> for media, private companies, NGOs, transportation authorities
 and academic institutions.
@@ -34,4 +35,4 @@ I live in Switzerland. I like being in the ⛰ nature and 🚴🏻‍♂️ cycl
 I play guitar and 🎹 and [make electronic music](/music).
 I share [much of my code online](https://github.com/ilyabo).
 
-You can contact me at [ilya@boyandin.me](mailto:ilya@boyandin.me)
+</div>

@@ -1,7 +1,7 @@
 ---
 kind: talk
-title: "DuckDB as an analytical runtime: Building local-first analytics apps with SQLRooms"
-description: "DuckCon #7 lightning talk about using DuckDB as an analytical runtime for local-first analytics apps and portable SQLRooms project files."
+title: 'DuckDB as an analytical runtime'
+description: 'DuckCon #7 lightning talk about using DuckDB as an analytical runtime for local-first analytics apps and portable SQLRooms project files.'
 date: 2026-06-24
 preview: preview.png
 category: talk

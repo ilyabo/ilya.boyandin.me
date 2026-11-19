@@ -1,11 +1,13 @@
 ---
 kind: talk
-title: 'Beyond notebooks and dashboards: local-first, AI-assisted data applications'
+title: 'Beyond notebooks and dashboards'
 description: 'Open Visualization Summit 2026 talk'
 date: 2026-09-09
 preview: preview.webp
 category: talk
 ---
+
+# Beyond notebooks and dashboards: local-first, AI-assisted data applications
 
 <button href="https://deck.gl/events/zurich-summit-2026/" variant=outline>Zurich Open Visualization Summit 2026</button>
 <button href="SQLRooms-OpenVis-summit-2026-slides.pdf" variant=outline>Slides</button>
