@@ -1,8 +1,15 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { matchesProject } from '../src/lib/project-search.ts';
+import { getKeywordIndex, matchesProject } from '../src/lib/project-search.ts';
 
 const project = { title: 'Flowmap City', keywords: ['geo', 'transport', 'analytics', 'open source'] };
+
+test('keywords rank by distinct project count, then alphabetically', () => {
+  const projects = [project, { title: 'Map', keywords: ['Geo', 'GEO', 'transport'] }];
+  const index = getKeywordIndex(projects, ['geo', 'research']);
+  assert.deepEqual(index.keywords, ['geo', 'transport', 'analytics', 'open source', 'research']);
+  assert.deepEqual(index.projectCounts, { geo: 2, transport: 2, analytics: 1, 'open source': 1, research: 0 });
+});
 
 test('selected keywords use AND and match whole tags, ignoring case', () => {
   assert.equal(matchesProject(project, ['GEO', 'transport'], ''), true);

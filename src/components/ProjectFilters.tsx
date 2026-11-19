@@ -8,10 +8,11 @@ import './project-filters.css';
 
 interface Props {
   keywords: string[];
+  projectCounts: Record<string, number>;
   pinnedKeywords: string[];
 }
 
-export default function ProjectFilters({ keywords, pinnedKeywords }: Props) {
+export default function ProjectFilters({ keywords, projectCounts, pinnedKeywords }: Props) {
   const [selectedKeywords, setSelectedKeywords] = useState<string[]>([]);
   const [query, setQuery] = useState('');
   const [ready, setReady] = useState(false);
@@ -95,7 +96,14 @@ export default function ProjectFilters({ keywords, pinnedKeywords }: Props) {
             <ComboboxContent anchor={anchor}>
               <ComboboxEmpty>No matching keywords. Your text still searches projects.</ComboboxEmpty>
               <ComboboxList>
-                {(keyword: string) => <ComboboxItem key={keyword} value={keyword}>{keyword}</ComboboxItem>}
+                {(keyword: string) => (
+                  <ComboboxItem key={keyword} value={keyword} className="project-keyword-option">
+                    <span>{keyword}</span>
+                    <span className="project-keyword-count">
+                      {projectCounts[keyword]}<span className="sr-only"> {projectCounts[keyword] === 1 ? 'project' : 'projects'}</span>
+                    </span>
+                  </ComboboxItem>
+                )}
               </ComboboxList>
             </ComboboxContent>
           </Combobox>

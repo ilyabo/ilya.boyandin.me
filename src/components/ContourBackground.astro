@@ -8,10 +8,6 @@
     width: 100%;
     height: 100%;
     pointer-events: none;
-    /* Fade through the gutters before the contours reach the text columns. */
-    --fade-end: calc(max(var(--site-gutter), (100% - 80rem) / 2 + var(--site-gutter)) + 4vw);
-    mask-image: linear-gradient(to right, black, rgb(0 0 0 / 36%) var(--fade-end),
-      rgb(0 0 0 / 36%) calc(100% - var(--fade-end)), black);
   }
 
   @media print {
@@ -105,13 +101,16 @@
       float pixelWidth = max(fwidth(level), 0.0001);
       float width = indexContour ? 1.25 : 0.95;
       float line = 1.0 - smoothstep(0.0, width, distanceToLine / pixelWidth);
-      color = vec4(0.43, 0.67, 0.70, line * (indexContour ? 0.19 : 0.13));
+      float readingFade = mix(1.0, 0.36, clamp(edgeDistance / (gutter + 0.04), 0.0, 1.0));
+      float alpha = line * (indexContour ? 0.19 : 0.13) * readingFade;
+      // Premultiply before compositing so the space between lines carries no tint.
+      color = vec4(vec3(0.43, 0.67, 0.70) * alpha, alpha);
     }
   `;
 
   function renderContours(canvas: HTMLCanvasElement) {
     const gl = canvas.getContext('webgl2', {
-      antialias: false, depth: false, stencil: false, premultipliedAlpha: false,
+      antialias: false, depth: false, stencil: false, premultipliedAlpha: true,
       powerPreference: 'low-power',
     });
     if (!gl) return;

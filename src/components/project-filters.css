@@ -41,6 +41,19 @@
   transform: translateY(-50%);
 }
 
+.project-keyword-option[data-slot="combobox-item"] {
+  gap: 0.5rem;
+  justify-content: flex-start;
+}
+
+.project-keyword-count {
+  color: var(--color-site-muted);
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+  margin-inline-start: auto;
+  order: 1;
+}
+
 .clear-project-search {
   align-items: center;
   background: transparent;
