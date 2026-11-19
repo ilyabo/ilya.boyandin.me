@@ -160,6 +160,8 @@
     let springs: ContourSprings;
     let previousPointer: PointerEvent | null = null;
     let press: PointerEvent | null = null;
+    let dragging = false;
+    const touchDragDelayMs = 250;
     let frame = 0;
     let lastDraw = 0;
     let elapsed = 0;
@@ -181,6 +183,7 @@
       if (hillPixels) {
         gl.activeTexture(gl.TEXTURE1);
         gl.texSubImage2D(gl.TEXTURE_2D, 0, 0, 0, hills.columns, hills.rows, gl.RED, gl.FLOAT, hillPixels);
+        if (press) scheduleDraw();
       }
       lastDraw = now;
       gl.uniform1i(springsActive, springs.active ? 1 : 0);
@@ -223,26 +226,63 @@
         ));
     }
 
-    function movedFromPress(event: PointerEvent, start: PointerEvent) {
-      return Math.hypot(event.clientX - start.clientX, event.clientY - start.clientY) > 10;
+    function updateDrag(event: PointerEvent) {
+      if (press?.pointerId !== event.pointerId) return;
+      const dx = event.clientX - press.clientX;
+      const dy = event.clientY - press.clientY;
+      if (!dragging && Math.hypot(dx, dy) <= 10) return;
+      if (press.pointerType === 'touch' && event.timeStamp - press.timeStamp < touchDragDelayMs) {
+        cancelPress();
+        return;
+      }
+      dragging = true;
+      hills.drag(dx, dy, event.type === 'pointerup');
+      scheduleDraw();
+    }
+
+    function handleTouchMove(event: TouchEvent) {
+      // A deliberate hold claims the following drag. An immediate swipe scrolls normally.
+      if (press && event.touches.length === 1 && event.cancelable &&
+          event.timeStamp - press.timeStamp >= touchDragDelayMs) event.preventDefault();
     }
 
     window.addEventListener('pointerdown', (event) => {
-      press = isBackgroundPress(event) ? event : null;
+      if (press) cancelPress();
+      if (!isBackgroundPress(event)) return;
+      press = event;
+      dragging = false;
+      if (event.pointerType === 'touch') {
+        window.addEventListener('touchmove', handleTouchMove, { ...options, passive: false });
+      }
+      const bounds = canvas.getBoundingClientRect();
+      hills.begin(event.clientX - bounds.left, event.clientY - bounds.top, event.timeStamp);
+      scheduleDraw();
     }, options);
 
-    window.addEventListener('pointerup', (event) => {
-      const start = press;
+    function cancelPress() {
+      if (!press) return;
       press = null;
-      if (!start || event.pointerId !== start.pointerId || !isBackgroundPress(event) || movedFromPress(event, start)) return;
-      if (event.pointerType === 'touch' && event.timeStamp - start.timeStamp > 600) return;
-      const bounds = canvas.getBoundingClientRect();
-      hills.add(event.clientX - bounds.left, event.clientY - bounds.top, performance.now());
+      window.removeEventListener('touchmove', handleTouchMove);
+      hills.cancel();
+      scheduleDraw();
+    }
+
+    window.addEventListener('pointerup', (event) => {
+      if (press?.pointerId !== event.pointerId) return;
+      updateDrag(event);
+      if (!press) return;
+      if (event.defaultPrevented || (!dragging && !isBackgroundPress(event))) return cancelPress();
+      press = null;
+      window.removeEventListener('touchmove', handleTouchMove);
+      hills.release(event.timeStamp, reducedMotion.matches);
       scheduleDraw();
     }, options);
 
     window.addEventListener('pointermove', (event) => {
-      if (press?.pointerId === event.pointerId && movedFromPress(event, press)) press = null;
+      if (press?.pointerId === event.pointerId) {
+        for (const sample of event.getCoalescedEvents?.() ?? []) updateDrag(sample);
+      }
+      updateDrag(event);
       if (reducedMotion.matches || event.pointerType === 'touch') return;
       if (previousPointer?.pointerId === event.pointerId) {
         springs.stroke(
@@ -255,13 +295,14 @@
 
     function endStroke() {
       previousPointer = null;
-      press = null;
+      cancelPress();
     }
     window.addEventListener('pointercancel', endStroke, options);
     document.documentElement.addEventListener('pointerleave', endStroke, options);
     window.addEventListener('blur', endStroke, options);
     reducedMotion.addEventListener('change', resetSprings, options);
     document.addEventListener('visibilitychange', () => {
+      if (document.hidden) cancelPress();
       cancelAnimationFrame(frame);
       frame = 0;
       lastDraw = 0;
