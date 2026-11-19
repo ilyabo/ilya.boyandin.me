@@ -1,0 +1,84 @@
+.project-filters {
+  display: grid;
+  gap: 2rem;
+}
+
+.projects-heading {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: space-between;
+  margin-top: 1.25rem;
+}
+
+.projects-heading .page-title {
+  margin: 0;
+}
+
+.project-search {
+  position: relative;
+  width: min(100%, 24rem);
+}
+
+.project-search .search-icon {
+  color: var(--color-site-muted);
+  left: 0.75rem;
+  pointer-events: none;
+  position: absolute;
+  top: 20px;
+  transform: translateY(-50%);
+}
+
+.clear-project-search {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  border-radius: 6px;
+  color: var(--color-site-muted);
+  cursor: pointer;
+  display: flex;
+  height: 40px;
+  justify-content: center;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 40px;
+}
+
+.clear-project-search:hover {
+  color: var(--color-site-link-hover);
+}
+
+.project-filters button:focus-visible {
+  outline: 2px solid var(--color-site-link);
+  outline-offset: 2px;
+}
+
+.keyword-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.keyword-badges button {
+  background: transparent;
+  border: 1px solid var(--color-site-border);
+  border-radius: 999px;
+  color: var(--color-site-muted);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.85rem;
+  padding: 0.3rem 0.7rem;
+}
+
+.keyword-badges button:hover,
+.keyword-badges button[aria-pressed="true"] {
+  background: var(--color-site-surface-soft);
+  border-color: var(--color-site-link);
+  color: var(--color-site-link);
+}
+
+#projects [hidden] {
+  display: none !important;
+}

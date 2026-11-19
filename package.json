@@ -12,6 +12,7 @@
     "audit:links": "node scripts/audit-astro-links.js",
     "audit:seo": "node scripts/audit-astro-seo.js",
     "test:resume": "node --test scripts/test-resume.mjs",
+    "test:project-search": "node --test scripts/test-project-search.mjs",
     "resume:pdf": "node scripts/generate-resume-pdf.mjs",
     "deploy:cloudflare": "pnpm run build && pnpm run audit:links && pnpm run audit:seo && pnpm exec wrangler deploy"
   },
@@ -19,9 +20,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@astrojs/react": "^5.0.7",
+    "@base-ui/react": "^1.9.0",
     "@tailwindcss/vite": "^4.3.0",
     "astro": "^6.4.4",
     "gray-matter": "^4.0.3",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
     "rehype-raw": "^6.1.1",
     "rehype-stringify": "^10.0.1",
     "remark-parse": "^11.0.0",
@@ -33,6 +38,8 @@
   },
   "devDependencies": {
     "@types/node": "^24.13.3",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
     "prettier": "^2.7.1",
     "typescript": "^5.9.3",
     "vite": "^7.3.5",

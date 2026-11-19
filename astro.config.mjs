@@ -3,6 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
+import react from '@astrojs/react';
 
 const contentMediaTypes = {
   '.avif': 'image/avif',
@@ -57,6 +58,7 @@ function contentMediaDevServer() {
 }
 
 export default defineConfig({
+  integrations: [react()],
   site: 'https://ilya.boyandin.me',
   trailingSlash: 'never',
   build: {
