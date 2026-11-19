@@ -544,7 +544,7 @@ a:hover {
   padding: 1.2rem 0;
 }
 
-.public-speaking-list li + li {
+.public-speaking-list li:not([hidden]) ~ li {
   border-top: 1px solid var(--color-site-border);
 }
 

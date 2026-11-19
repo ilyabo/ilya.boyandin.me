@@ -1,5 +1,6 @@
 items:
   - title: 'SQLRooms: Beyond notebooks and dashboards: local-first, AI-assisted data applications'
+    keywords: [AI, analytics, collaboration, databases, DuckDB, local-first, React, SQLRooms]
     kind: talk
     year: 2026
     date: 2026-09-09
@@ -8,6 +9,7 @@ items:
     venueUrl: https://deck.gl/events/zurich-summit-2026/
     location: ETH, Zurich
   - title: 'DuckDB as an analytical runtime: Building local-first analytics apps with SQLRooms'
+    keywords: [analytics, databases, DuckDB, local-first, SQLRooms]
     kind: talk
     year: 2026
     date: 2026-06-24
@@ -16,6 +18,7 @@ items:
     venueUrl: https://duckdb.org/events/2026/06/24/duckcon7/
     location: Royal Tropical Institute, Amsterdam
   - title: Democratizing Geospatial Intelligence with FSQ Spatial Agent
+    keywords: [AI, analytics, geospatial, FSQ Spatial Agent]
     kind: talk
     year: 2026
     date: 2026-04-02
@@ -23,6 +26,7 @@ items:
     venue: Geospatial Community of Serbia Meetup #7
     location: TomTom office, Belgrade
   - title: 'SQLRooms: Local-First Analytics with DuckDB, Collaborative Canvas, and Loro CRDT Sync'
+    keywords: [analytics, collaboration, databases, DuckDB, local-first, Loro, SQLRooms]
     kind: talk
     year: 2026
     date: 2026-02-01
@@ -31,6 +35,7 @@ items:
     venueUrl: https://fosdem.org/2026/
     location: Brussels
   - title: 'Scaling Mobility Flow Visualization: Origin-Destination Data with DuckDB, Flowmap.gl, and SQLRooms'
+    keywords: [analytics, data visualization, databases, DuckDB, flow maps, Flowmap.gl, geospatial, mobility, origin-destination data, SQLRooms]
     kind: talk
     year: 2026
     date: 2026-01-31
@@ -39,6 +44,7 @@ items:
     venueUrl: https://fosdem.org/2026/
     location: Brussels
   - title: 'SQLRooms: Building browser-based AI-assisted analytics apps with DuckDB'
+    keywords: [AI, analytics, databases, DuckDB, local-first, React, SQLRooms]
     kind: talk
     year: 2025
     date: 2025-11-18
@@ -47,6 +53,7 @@ items:
     venueUrl: https://dinacon.ch/dinacon-2025/
     location: Bern
   - title: 'SQLRooms: Build powerful analytics apps with DuckDB in browser'
+    keywords: [analytics, databases, DuckDB, local-first, React, SQLRooms]
     kind: talk
     year: 2025
     date: 2025-10-08
@@ -55,6 +62,7 @@ items:
     venueUrl: https://deck.gl/events/seattle-summit-2025/
     location: Seattle
   - title: Flowmap City - Visuelle Analytik von Mobilitaetsdaten
+    keywords: [analytics, data visualization, flow maps, Flowmap City, geospatial, mobility]
     kind: talk
     year: 2024
     date: 2024-11-21
@@ -63,6 +71,7 @@ items:
     venueUrl: https://dinacon.ch/rueckblick/
     location: Bern
   - title: Geographic data visualization with deck.gl
+    keywords: [data visualization, deck.gl, Foursquare Studio, geospatial, H3, kepler.gl]
     kind: guest lecture
     year: 2024
     date: 2024-11-04
@@ -70,12 +79,14 @@ items:
     venue: ETH Zurich Institute of Cartography
     venueUrl: https://ikg.ethz.ch/en/
   - title: Real-time Collaborative Map Drawing with deck.gl
+    keywords: [collaboration, deck.gl, geospatial, MapCanv]
     kind: talk
     year: 2024
     date: 2024-09-17
     route: /talks/2024-09-17-techtalks-foursquare
     venue: TechTalks@Foursquare
   - title: Real-Time Collaborative Map Drawing with deck.gl
+    keywords: [collaboration, deck.gl, geospatial, MapCanv]
     kind: talk
     year: 2024
     date: 2024-09-12
@@ -83,6 +94,7 @@ items:
     venue: OpenJS Visualization Summit
     location: London
   - title: Efficient data analytics and visualization in the browser
+    keywords: [analytics, Apache Arrow, data visualization, JavaScript, WebAssembly, WebGL]
     kind: talk
     year: 2022
     date: 2022-10-06
@@ -91,6 +103,7 @@ items:
     venueUrl: https://armada-js.com
     location: Novi Sad
   - title: Dynamically adaptive Deck.gl layer for mobility data in FlowmapBlue
+    keywords: [data visualization, deck.gl, flow maps, FlowmapBlue, geospatial, mobility, origin-destination data]
     kind: talk
     year: 2022
     date: 2022-09-22
@@ -99,6 +112,7 @@ items:
     venueUrl: https://deck.gl/events/madrid-summit-2022/
     location: Madrid
   - title: Fireside Chat with Past Information is Beautiful Award Winners
+    keywords: [data visualization, Information is Beautiful]
     kind: talk
     year: 2022
     date: 2022-09-07
@@ -106,6 +120,7 @@ items:
     venue: Data Visualization Society
     venueUrl: https://www.datavisualizationsociety.org/fireside-chats
   - title: Mobility data analysis in Unfolded
+    keywords: [analytics, geospatial, mobility, Unfolded Studio]
     kind: talk
     year: 2022
     date: 2022-08-09
@@ -113,6 +128,7 @@ items:
     venue: FSQ/Unfolded Webinar
     venueUrl: https://connect.foursquare.com/2022-08-Unfolded-Toolbox-Geospatial-Solutions.html
   - title: Introduction to Unfolded
+    keywords: [data visualization, deck.gl, FlowmapBlue, geospatial, kepler.gl, Unfolded Studio, WebGL]
     kind: talk
     year: 2021
     date: 2021-05-20
@@ -121,6 +137,7 @@ items:
     venueUrl: https://visualisierung.dgfk.net/de/events/cartohack/07-unfolded/
     location: German cartographic society
   - title: Tools for Geo Data Visualization from the Unfolded team
+    keywords: [data visualization, geospatial, Unfolded Studio]
     kind: talk
     year: 2021
     date: 2021-03-02
@@ -128,6 +145,7 @@ items:
     venue: Geo.Hackmin Week
     venueUrl: https://cividi.ch/geohackmin-en/
   - title: Presenting FlowmapBlue
+    keywords: [data visualization, flow maps, FlowmapBlue, geospatial]
     kind: talk
     year: 2020
     date: 2020-07-30
@@ -135,6 +153,7 @@ items:
     venue: Urban Computing Foundation Technical Advisory Council meeting
     venueUrl: https://uc.foundation/
   - title: FlowmapBlue
+    keywords: [data visualization, flow maps, FlowmapBlue, geospatial, mobility, open source]
     kind: talk
     year: 2020
     date: 2020-07-07
@@ -143,6 +162,7 @@ items:
     venueUrl: https://agit.at/
     note: in German
   - title: Flow Maps
+    keywords: [data visualization, flow maps, geospatial, mobility, origin-destination data]
     kind: talk
     year: 2020
     date: 2020-05-13
@@ -151,6 +171,7 @@ items:
     venueUrl: https://www.meetup.com/datavis-zurich/events/270384574/
     location: online
   - title: 'Interactive Queries over Billions of Trips: Using ClickHouse for Mobility Data'
+    keywords: [analytics, ClickHouse, databases, mobility]
     kind: talk
     year: 2020
     date: 2020-01-22
@@ -159,6 +180,7 @@ items:
     venueUrl: https://www.meetup.com/en-AU/DataCouncil-AI-Zurich-Data-Engineering-Science/events/267081855/
     location: Zurich
   - title: Visualizing Mobility
+    keywords: [data visualization, flow maps, geospatial, mobility]
     kind: talk
     year: 2019
     date: 2019-11-17
@@ -167,6 +189,7 @@ items:
     venueUrl: https://datafest.ge
     location: Tbilisi
   - title: Meet-up talk on Visualizing Mobility
+    keywords: [data visualization, flow maps, geospatial, mobility]
     kind: talk
     year: 2019
     date: 2019-11-05
@@ -175,6 +198,7 @@ items:
     venueUrl: https://www.meetup.com/de-DE/ondataanddesign-Switzerland/events/265947767/
     location: YAAY Studio, Basel
   - title: Scalability of OD-data visualizations
+    keywords: [data visualization, flow maps, geospatial, mobility, origin-destination data]
     kind: talk
     year: 2019
     date: 2019-10-11
@@ -183,6 +207,7 @@ items:
     venueUrl: https://www.citylab-berlin.org/events/mobilitysymposium_en/
     location: CityLAB Berlin
   - title: 'FlowmapBlue: Ein Tool zur Erstellung von Flow Maps'
+    keywords: [data visualization, flow maps, FlowmapBlue, geospatial]
     kind: talk
     year: 2019
     date: 2019-04-03
@@ -192,6 +217,7 @@ items:
     location: University of Bern
     note: in German
   - title: Visualization of OD data
+    keywords: [data visualization, origin-destination data]
     kind: talk
     year: 2019
     date: 2019-03-22
@@ -199,6 +225,7 @@ items:
     venue: UPS Advanced Technology Group workshop
     location: online
   - title: 'FlowmapBlue: Geographic flows visualisation tool for the people'
+    keywords: [data visualization, flow maps, FlowmapBlue, geospatial, mobility]
     kind: talk
     year: 2019
     date: 2019-03-03
@@ -207,6 +234,7 @@ items:
     venueUrl: http://www.clisel.eu/Ascona
     location: Ascona
   - title: Scalable Origin-Destination Data Visualization
+    keywords: [data visualization, flow maps, geospatial, mobility, origin-destination data]
     kind: talk
     year: 2018
     date: 2018-12-20
@@ -215,6 +243,7 @@ items:
     venueUrl: https://gflowizworkshop.sciencesconf.org
     location: Paris
   - title: Graphics with React
+    keywords: [Canvas, computer graphics, React, SVG, WebGL]
     kind: talk
     year: 2018
     date: 2018-07-11
@@ -223,18 +252,21 @@ items:
     venueUrl: https://www.meetup.com/Zurich-ReactJS-Meetup/events/251517816/
     location: Zurich
   - title: 'Robotics/Programming for kids with LEGO boost robot'
+    keywords: [programming, robotics, teaching]
     kind: workshop
     year: 2018
     date: 2018-03-06
     route: /talks/2018-03-06-robot-workshop
     venue: Freie Schule Bergmeilen
   - title: 'Data Visualization Engineer: ist das ein Beruf?'
+    keywords: [data visualization]
     kind: guest lecture
     year: 2017
     href: https://docs.google.com/presentation/d/e/2PACX-1vRNRaJFAwe13zoWrr7DPnJG4ujbvIccAmrfW-WCL4CGNU_GfYmRJlzbfJ7APOPl_9va1YzS0RNTrXjN/pub?start=false&loop=false&delayms=3000
     venue: Mannheim University of Applied Sciences
     note: in German
   - title: Visualizing People Movement with React
+    keywords: [data visualization, mobility, React]
     kind: talk
     year: 2015
     date: 2015-11-27
@@ -243,6 +275,7 @@ items:
     venueUrl: http://www.meetup.com/Zurich-ReactJS-Meetup/events/226391438/
     location: Zurich
   - title: 'Interactive Data Visualization with React: Taming the Complexity of the Changing State'
+    keywords: [data visualization, React]
     kind: talk
     year: 2015
     date: 2015-04-03
@@ -251,32 +284,38 @@ items:
     venueUrl: http://openvisconf.com/
     location: Boston
   - title: UI development with Reagent in ClojureScript
+    keywords: [ClojureScript, programming, Reagent]
     kind: workshop
     year: 2014
     venue: Clojure Meetup
     location: Zurich
   - title: 'Data Visualization for Media: Processes and Tools'
+    keywords: [data visualization, media]
     kind: talk
     year: 2014
     venue: EBU DevCon
     venueUrl: https://tech.ebu.ch/devcon14
     location: Geneva
   - title: Making Sense of Data with Visualization
+    keywords: [data visualization]
     kind: talk
     year: 2014
     date: 2014-09-16
     route: /talks/2014-09-16-sichh
     venue: SICHH Forum Data Visualization & Big Data
   - title: 'Women in science: Drawing with computer for schoolgirls'
+    keywords: [computer graphics, teaching]
     kind: workshop
     year: 2012
     venue: University of Fribourg
     note: also held in 2011
   - title: 'Programming and computer graphics for kids'
+    keywords: [computer graphics, programming, teaching]
     kind: workshop
     year: 2012
     venue: Kantonsschule Solothurn
     note: also held at Gymnasium Brig in 2011
   - title: Presented research work at EuroVis and VisWeek
+    keywords: [data visualization, research]
     kind: conference presentation
     year: 2012

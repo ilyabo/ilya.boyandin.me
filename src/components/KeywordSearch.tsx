@@ -1,41 +1,48 @@
 import { useEffect, useRef, useState } from 'react';
-import { matchesProject, type SearchableProject } from '../lib/project-search';
+import { matchesItem, type SearchableItem } from '../lib/keyword-search';
 import {
   CloseIcon, Combobox, ComboboxChip, ComboboxChips, ComboboxChipsInput,
   ComboboxContent, ComboboxEmpty, ComboboxItem, ComboboxList, ComboboxValue,
 } from './ui/combobox';
-import './project-filters.css';
+import './keyword-search.css';
 
 interface Props {
+  collection: 'project' | 'talk';
   keywords: string[];
-  projectCounts: Record<string, number>;
+  keywordCounts: Record<string, number>;
   pinnedKeywords: string[];
 }
 
-export default function ProjectFilters({ keywords, projectCounts, pinnedKeywords }: Props) {
+export default function KeywordSearch({ collection, keywords, keywordCounts, pinnedKeywords }: Props) {
+  const heading = collection === 'project' ? 'Projects' : 'Talks';
+  const plural = heading.toLowerCase();
+  const searchId = `${collection}-search`;
   const [selectedKeywords, setSelectedKeywords] = useState<string[]>([]);
   const [query, setQuery] = useState('');
   const [ready, setReady] = useState(false);
   const [matchCount, setMatchCount] = useState<number | null>(null);
   const anchor = useRef<HTMLDivElement>(null);
   const input = useRef<HTMLInputElement>(null);
-  const cards = useRef<(SearchableProject & { element: HTMLElement })[]>([]);
+  const results = useRef<(SearchableItem & { element: HTMLElement })[]>([]);
 
   useEffect(() => {
-    cards.current = Array.from(document.querySelectorAll<HTMLElement>('#projects .content-card'), (element) => ({
+    const section = document.getElementById(plural);
+    if (!section) return;
+    results.current = Array.from(section.querySelectorAll<HTMLElement>('[data-keywords]'), (element) => ({
       element,
-      title: element.querySelector('h2')!.textContent,
+      title: element.querySelector('[data-search-title]')?.textContent ?? '',
       keywords: JSON.parse(element.dataset.keywords!) as string[],
+      details: Array.from(element.querySelectorAll('[data-search-detail]'), (detail) => detail.textContent ?? ''),
     }));
     setReady(true);
-  }, []);
+  }, [plural]);
 
   useEffect(() => {
     if (!ready) return;
     let count = 0;
-    for (const card of cards.current) {
-      card.element.hidden = !matchesProject(card, selectedKeywords, query);
-      if (!card.element.hidden) count++;
+    for (const result of results.current) {
+      result.element.hidden = !matchesItem(result, selectedKeywords, query);
+      if (!result.element.hidden) count++;
     }
     setMatchCount(count);
   }, [selectedKeywords, query, ready]);
@@ -47,10 +54,10 @@ export default function ProjectFilters({ keywords, projectCounts, pinnedKeywords
   }
 
   return (
-    <div className="project-filters">
-      <div className="projects-heading">
-        <h1 className="page-title">Projects</h1>
-        <div className="project-search" role="search">
+    <div className="keyword-search">
+      <div className="keyword-search-heading">
+        <h1 className="page-title">{heading}</h1>
+        <div className="keyword-search-field" role="search">
           <Combobox
             items={keywords}
             multiple
@@ -74,17 +81,17 @@ export default function ProjectFilters({ keywords, projectCounts, pinnedKeywords
               </ComboboxValue>
               <ComboboxChipsInput
                 ref={input}
-                id="project-search"
-                aria-label="Search projects and add keyword filters"
-                aria-describedby="project-search-help"
-                placeholder={selectedKeywords.length ? 'Search…' : 'Search projects…'}
+                id={searchId}
+                aria-label={`Search ${plural} and add keyword filters`}
+                aria-describedby={`${searchId}-help`}
+                placeholder={selectedKeywords.length ? 'Search…' : `Search ${plural}…`}
               />
               {(query || selectedKeywords.length > 0) && (
                 <button
-                  id="clear-project-search"
-                  className="clear-project-search"
+                  id={`clear-${searchId}`}
+                  className="clear-keyword-search"
                   type="button"
-                  aria-label="Clear project search and filters"
+                  aria-label={`Clear ${collection} search and filters`}
                   onClick={() => {
                     setSelectedKeywords([]);
                     setQuery('');
@@ -94,13 +101,13 @@ export default function ProjectFilters({ keywords, projectCounts, pinnedKeywords
               )}
             </ComboboxChips>
             <ComboboxContent anchor={anchor}>
-              <ComboboxEmpty>No matching keywords. Your text still searches projects.</ComboboxEmpty>
+              <ComboboxEmpty>No matching keywords. Your text still searches {plural}.</ComboboxEmpty>
               <ComboboxList>
                 {(keyword: string) => (
-                  <ComboboxItem key={keyword} value={keyword} className="project-keyword-option">
+                  <ComboboxItem key={keyword} value={keyword} className="keyword-search-option">
                     <span>{keyword}</span>
-                    <span className="project-keyword-count">
-                      {projectCounts[keyword]}<span className="sr-only"> {projectCounts[keyword] === 1 ? 'project' : 'projects'}</span>
+                    <span className="keyword-search-count">
+                      {keywordCounts[keyword]}<span className="sr-only"> {keywordCounts[keyword] === 1 ? collection : plural}</span>
                     </span>
                   </ComboboxItem>
                 )}
@@ -109,7 +116,7 @@ export default function ProjectFilters({ keywords, projectCounts, pinnedKeywords
           </Combobox>
         </div>
       </div>
-      <p id="project-search-help" className="sr-only">Select keywords to match all of them. Type to search names and keywords; use quotes for phrases.</p>
+      <p id={`${searchId}-help`} className="sr-only">Select keywords to match all of them. Use quotes to search for a phrase.</p>
       <div className="keyword-badges" role="group" aria-label="Filter by keyword">
         {pinnedKeywords.map((keyword) => (
           <button
@@ -122,8 +129,8 @@ export default function ProjectFilters({ keywords, projectCounts, pinnedKeywords
           >{keyword}</button>
         ))}
       </div>
-      <p id="project-search-status" role="status" className={matchCount === 0 ? '' : 'sr-only'}>
-        {matchCount === null ? '' : matchCount === 0 ? 'No projects found.' : `${matchCount} projects found.`}
+      <p id={`${searchId}-status`} role="status" className={matchCount === 0 ? '' : 'sr-only'}>
+        {matchCount === null ? '' : matchCount === 0 ? `No ${plural} found.` : `${matchCount} ${matchCount === 1 ? collection : plural} found.`}
       </p>
     </div>
   );

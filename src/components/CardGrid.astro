@@ -18,7 +18,7 @@ const { entries } = Astro.props;
       return (
         <a class="content-card grid min-w-0 overflow-hidden rounded-xl border" href={entry.route} data-keywords={JSON.stringify(entry.keywords)}>
           <div class="card-heading flex items-baseline justify-between gap-3">
-            <h2>{entry.title}</h2>
+            <h2 data-search-title>{entry.title}</h2>
             <span>{formatDate(entry.date)}</span>
           </div>
           <div class="preview-frame">

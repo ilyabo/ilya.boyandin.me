@@ -1,21 +1,25 @@
 ---
 import CardGrid from '../components/CardGrid.astro';
-import ProjectFilters from '../components/ProjectFilters';
+import KeywordSearch from '../components/KeywordSearch';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getEntries } from '../lib/content';
-import { getKeywordIndex } from '../lib/project-search';
+import { getKeywordIndex } from '../lib/keyword-search';
 import { pageTitle } from '../lib/seo';
 
 const projects = getEntries('projects');
-const pinnedKeywords = ['3D', 'ai', 'analytics', 'geo', 'open source', 'research', 'ddj', 'flow maps', 'mobility', 'graphs', 'animation'].sort();
-const { keywords, projectCounts } = getKeywordIndex(projects, pinnedKeywords);
+const pinnedKeywords = [
+  '3D', 'AI', 'analytics', 'geo', 'open source', 'research', 'DDJ', 'flow maps', 'mobility', 'graphs', 'animation', 'visualization', 'infovis'
+].sort((a, b) =>
+  a.localeCompare(b, undefined, { sensitivity: 'base' })
+);;
+const { keywords, keywordCounts } = getKeywordIndex(projects, pinnedKeywords);
 const title = pageTitle('Projects');
 const description = 'Selected interactive maps, geospatial analytics tools, data visualization projects, and exploratory interfaces by Ilya Boyandin.';
 ---
 
 <BaseLayout title={title} description={description} canonicalPath="/projects">
   <section class="page-section" id="projects">
-    <ProjectFilters client:load keywords={keywords} projectCounts={projectCounts} pinnedKeywords={pinnedKeywords} />
+    <KeywordSearch client:load collection="project" keywords={keywords} keywordCounts={keywordCounts} pinnedKeywords={pinnedKeywords} />
     <CardGrid entries={projects} />
   </section>
 </BaseLayout>

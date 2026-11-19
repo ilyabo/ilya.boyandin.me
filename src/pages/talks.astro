@@ -1,16 +1,23 @@
 ---
+import KeywordSearch from '../components/KeywordSearch';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { getKeywordIndex } from '../lib/keyword-search';
 import { getPublicSpeakingItems } from '../lib/public-speaking';
 import { pageTitle } from '../lib/seo';
 
 const items = getPublicSpeakingItems();
+const pinnedKeywords = [
+  'AI', 'collaboration', 'data visualization', 'databases', 'deck.gl', 'DuckDB',
+  'flow maps', 'geospatial', 'local-first', 'mobility', 'React', 'SQLRooms',
+];
+const { keywords, keywordCounts } = getKeywordIndex(items, pinnedKeywords);
 const title = pageTitle('Talks');
 const description = 'Conference talks, meetups, guest lectures, workshops, and presentations by Ilya Boyandin about data visualization, geospatial analytics, and web tools.';
 ---
 
 <BaseLayout title={title} description={description} canonicalPath="/talks">
-  <section class="page-section">
-    <h1 class="page-title">Talks</h1>
+  <section class="page-section" id="talks">
+    <KeywordSearch client:load collection="talk" keywords={keywords} keywordCounts={keywordCounts} pinnedKeywords={pinnedKeywords} />
     <ol class="public-speaking-list">
       {
         items.map((item) => {
@@ -20,13 +27,13 @@ const description = 'Conference talks, meetups, guest lectures, workshops, and p
           const note = item.note ? `${item.venue || item.location ? ' ' : ''}(${item.note})` : '';
 
           return (
-            <li>
+            <li data-keywords={JSON.stringify(item.keywords)}>
               <div>
-                <span class="public-speaking-kind">{item.kind}</span>
-                {item.url ? <a href={item.url}>{item.title}</a> : <span class="public-speaking-title">{item.title}</span>}
-                {hasMeta && <p>{venue}{location}{note}</p>}
+                <span class="public-speaking-kind" data-search-detail>{item.kind}</span>
+                {item.url ? <a href={item.url} data-search-title>{item.title}</a> : <span class="public-speaking-title" data-search-title>{item.title}</span>}
+                {hasMeta && <p data-search-detail>{venue}{location}{note}</p>}
               </div>
-              <time>{item.displayDate}</time>
+              <time data-search-detail>{item.displayDate}</time>
             </li>
           );
         })

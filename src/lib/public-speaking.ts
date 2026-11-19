@@ -6,6 +6,7 @@ import { formatDate } from './format';
 
 const publicSpeakingItemSchema = z.object({
   title: z.string(),
+  keywords: z.array(z.string().trim().min(1)).default([]),
   kind: z.string().default('talk'),
   year: z.number(),
   date: z.string().optional(),

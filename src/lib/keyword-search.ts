@@ -1,14 +1,15 @@
-export interface SearchableProject {
+export interface SearchableItem {
   title: string;
   keywords: string[];
+  details?: string[];
 }
 
-export function getKeywordIndex(projects: SearchableProject[], pinnedKeywords: string[]) {
+export function getKeywordIndex(items: SearchableItem[], pinnedKeywords: string[]) {
   const labels = new Map<string, string>();
   const counts = new Map<string, number>();
-  for (const project of projects) {
+  for (const item of items) {
     const seen = new Set<string>();
-    for (const keyword of project.keywords) {
+    for (const keyword of item.keywords) {
       const key = keyword.toLowerCase();
       labels.set(key, keyword);
       seen.add(key);
@@ -17,16 +18,16 @@ export function getKeywordIndex(projects: SearchableProject[], pinnedKeywords: s
   }
   for (const keyword of pinnedKeywords) labels.set(keyword.toLowerCase(), keyword);
 
-  const projectCounts = Object.fromEntries(
+  const keywordCounts = Object.fromEntries(
     Array.from(labels, ([key, label]) => [label, counts.get(key) ?? 0] as const)
   );
-  const keywords = [...labels.values()].sort((a, b) => projectCounts[b] - projectCounts[a] || a.localeCompare(b));
-  return { keywords, projectCounts };
+  const keywords = [...labels.values()].sort((a, b) => keywordCounts[b] - keywordCounts[a] || a.localeCompare(b));
+  return { keywords, keywordCounts };
 }
 
-export function matchesProject(project: SearchableProject, selectedKeywords: string[], query: string) {
-  const keywords = project.keywords.map((keyword) => keyword.toLowerCase());
-  const fields = [project.title.toLowerCase(), ...keywords];
+export function matchesItem(item: SearchableItem, selectedKeywords: string[], query: string) {
+  const keywords = item.keywords.map((keyword) => keyword.toLowerCase());
+  const fields = [item.title.toLowerCase(), ...keywords, ...(item.details ?? []).map((detail) => detail.toLowerCase())];
   const terms = Array.from(query.toLowerCase().matchAll(/"([^"]*)"|(\S+)/g), (match) =>
     (match[1] ?? match[2]).replace(/^"|"$/g, '').trim()
   ).filter(Boolean);
