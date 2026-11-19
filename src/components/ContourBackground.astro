@@ -35,6 +35,7 @@
     uniform bool springsActive;
     uniform vec2 viewport;
     uniform float elapsed;
+    uniform float touchMotion;
     out vec4 color;
 
     float cornerHeight(vec2 cell) {
@@ -77,7 +78,7 @@
       vec2 scale = resolution / max(resolution.x, resolution.y * 0.86);
       vec2 p = uv * scale;
       float margin = smoothstep(0.30, 0.50, abs(uv.x - 0.5));
-      float motion = mix(0.35, 1.0, margin);
+      float motion = mix(0.35, 1.0, margin) + 1.2 * touchMotion;
       float edgeDistance = min(uv.x, 1.0 - uv.x);
       float outerMargin = 1.0 - smoothstep(0.0, gutter, edgeDistance);
 
@@ -96,16 +97,17 @@
                       + 0.10 * terrainNoise(terrain * 4.7 + 9.0);
       vec2 mapUV = p / scale;
       elevation += texture(hillField, vec2(mapUV.x, 1.0 - mapUV.y)).r;
-      // Modulate the relief at fixed map coordinates over a 26-second breath.
-      float breath = sin(elapsed * 0.24);
-      elevation += breath * (motion + 0.45 * outerMargin) * (0.040 * (hills - 0.5) + 0.028 * (ridges - 0.5));
+      // On touch screens, carry the breath into the reading area between the narrow gutters.
+      float breath = sin(elapsed * mix(0.24, 0.48, touchMotion));
+      float relief = 0.040 * (hills - 0.5) + 0.028 * (ridges - 0.5);
+      elevation += breath * (motion + 0.45 * outerMargin) * (relief + 0.018 * touchMotion);
       float level = elevation * 21.0;
       bool indexContour = mod(floor(level + 0.5), 5.0) == 0.0;
       float distanceToLine = abs(fract(level + 0.5) - 0.5);
       float pixelWidth = max(fwidth(level), 0.0001);
       float width = indexContour ? 1.25 : 0.95;
       float line = 1.0 - smoothstep(0.0, width, distanceToLine / pixelWidth);
-      float readingFade = mix(1.0, 0.36, clamp(edgeDistance / (gutter + 0.04), 0.0, 1.0));
+      float readingFade = mix(1.0, mix(0.36, 0.52, touchMotion), clamp(edgeDistance / (gutter + 0.04), 0.0, 1.0));
       float alpha = line * (indexContour ? 0.19 : 0.13) * readingFade;
       // Premultiply before compositing so the space between lines carries no tint.
       color = vec4(vec3(0.43, 0.67, 0.70) * alpha, alpha);
@@ -148,6 +150,8 @@
     }
     gl.pixelStorei(gl.UNPACK_ALIGNMENT, 1);
     const time = gl.getUniformLocation(program, 'elapsed');
+    const touchMotion = gl.getUniformLocation(program, 'touchMotion');
+    const coarsePointer = matchMedia('(pointer: coarse)');
     const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
     const listeners = new AbortController();
     const options = { signal: listeners.signal };
@@ -155,6 +159,7 @@
     const hills = new ContourHills();
     let springs: ContourSprings;
     let previousPointer: PointerEvent | null = null;
+    let press: PointerEvent | null = null;
     let frame = 0;
     let lastDraw = 0;
     let elapsed = 0;
@@ -180,6 +185,7 @@
       lastDraw = now;
       gl.uniform1i(springsActive, springs.active ? 1 : 0);
       gl.uniform1f(time, elapsed);
+      gl.uniform1f(touchMotion, coarsePointer.matches ? 1 : 0);
       gl.drawArrays(gl.TRIANGLES, 0, 3);
     }
 
@@ -210,17 +216,33 @@
       resetSprings();
     }
 
-    window.addEventListener('click', (event) => {
-      if (event.defaultPrevented || event.button !== 0 || event.detail === 0) return;
-      if (event.target instanceof Element && event.target.closest(
-        'a, button, input, textarea, select, label, summary, [role="button"], [role="search"], [role="listbox"], [contenteditable], audio, video',
-      )) return;
+    function isBackgroundPress(event: PointerEvent) {
+      return !event.defaultPrevented && event.isPrimary && event.button === 0 &&
+        !event.composedPath().some((el) => el instanceof Element && el.matches(
+          'a, button, input, textarea, select, label, summary, [role="button"], [role="search"], [role="listbox"], [contenteditable], audio, video',
+        ));
+    }
+
+    function movedFromPress(event: PointerEvent, start: PointerEvent) {
+      return Math.hypot(event.clientX - start.clientX, event.clientY - start.clientY) > 10;
+    }
+
+    window.addEventListener('pointerdown', (event) => {
+      press = isBackgroundPress(event) ? event : null;
+    }, options);
+
+    window.addEventListener('pointerup', (event) => {
+      const start = press;
+      press = null;
+      if (!start || event.pointerId !== start.pointerId || !isBackgroundPress(event) || movedFromPress(event, start)) return;
+      if (event.pointerType === 'touch' && event.timeStamp - start.timeStamp > 600) return;
       const bounds = canvas.getBoundingClientRect();
       hills.add(event.clientX - bounds.left, event.clientY - bounds.top, performance.now());
       scheduleDraw();
     }, options);
 
     window.addEventListener('pointermove', (event) => {
+      if (press?.pointerId === event.pointerId && movedFromPress(event, press)) press = null;
       if (reducedMotion.matches || event.pointerType === 'touch') return;
       if (previousPointer?.pointerId === event.pointerId) {
         springs.stroke(
@@ -233,7 +255,9 @@
 
     function endStroke() {
       previousPointer = null;
+      press = null;
     }
+    window.addEventListener('pointercancel', endStroke, options);
     document.documentElement.addEventListener('pointerleave', endStroke, options);
     window.addEventListener('blur', endStroke, options);
     reducedMotion.addEventListener('change', resetSprings, options);
