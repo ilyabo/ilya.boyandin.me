@@ -14,6 +14,10 @@ const description = 'Selected interactive maps, geospatial analytics tools, data
     <div class="projects-heading">
       <h1 class="page-title">Projects</h1>
       <div class="project-search" role="search" hidden>
+        <svg class="search-icon" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <circle cx="10.5" cy="10.5" r="6.5" />
+          <path d="m16 16 4.5 4.5" />
+        </svg>
         <input id="project-search" type="search" aria-label="Filter projects by name" placeholder="Search projects…" />
         <button id="clear-project-search" type="button" aria-label="Clear project search" hidden>
           <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
@@ -68,11 +72,25 @@ const description = 'Selected interactive maps, geospatial analytics tools, data
     flex-wrap: wrap;
     gap: 1.5rem;
     justify-content: space-between;
+    margin-top: 1.25rem;
+  }
+
+  .projects-heading .page-title {
+    margin: 0;
   }
 
   .project-search {
     position: relative;
-    width: min(100%, 22rem);
+    width: min(100%, 18rem);
+  }
+
+  .search-icon {
+    color: var(--color-site-muted);
+    left: 0.75rem;
+    pointer-events: none;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
   }
 
   .project-search input {
@@ -82,7 +100,9 @@ const description = 'Selected interactive maps, geospatial analytics tools, data
     border-radius: 8px;
     color: var(--color-site-text);
     font: inherit;
-    padding: 0.75rem 3rem 0.75rem 1rem;
+    font-size: 16px;
+    height: 40px;
+    padding: 0.5rem 2.5rem;
     width: 100%;
   }
 
@@ -104,11 +124,11 @@ const description = 'Selected interactive maps, geospatial analytics tools, data
     display: flex;
     justify-content: center;
     position: absolute;
-    right: 0.2rem;
+    right: 0;
     top: 50%;
     transform: translateY(-50%);
-    height: 44px;
-    width: 44px;
+    height: 40px;
+    width: 40px;
   }
 
   .project-search button:hover {
