@@ -3,7 +3,7 @@ kind: project
 title: 'Final Words'
 preview: final-words.png
 date: 2019-03-01
-keywords: ["storytelling", "text visualization", "human rights", "death penalty"]
+keywords: ["storytelling", "text visualization", "human rights", "death penalty", "visualization", "infovis"]
 ---
 
 Unfinished project representing the last statements of the death row inmates in Texas before they were executed. Design mood board was made by

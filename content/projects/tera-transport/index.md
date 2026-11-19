@@ -6,7 +6,7 @@ date: "2016-09-01"
 category: work
 tags: [ "React", "Redux", "D3", "JavaScript"]
 preview: img/transport-berlin.png
-keywords: ["geo", "analytics", "transport", "mobility", "dashboards", "origin-destination"]
+keywords: ["geo", "analytics", "transport", "mobility", "dashboards", "origin-destination", "visualization", "infovis"]
 ---
 
 Working at <a href="http://www.teralytics.net" target="_blank">Teralytics</a>

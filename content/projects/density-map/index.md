@@ -5,7 +5,7 @@ description: ""
 category: works
 preview: germany.png
 date: 2015-01-01
-keywords: ["geo", "analytics", "heatmaps", "hexagons", "spatial indexing"]
+keywords: ["geo", "analytics", "heatmaps", "hexagons", "spatial indexing", "visualization"]
 ---
 A zoom-adaptive hexagon overlay for representing density heat maps 
 with a self-developed slippy map engine. 

@@ -4,7 +4,17 @@ title: ColumnFlow
 description: 'Reusable React component for column-organized node-link graphs such as supply chains, process networks, lineage diagrams, and multipartite relationships.'
 date: 2026-05-05
 preview: column-flow.webp
-keywords: ["graphs", "networks", "supply chains", "React", "library"]
+keywords:
+  [
+    'graphs',
+    'networks',
+    'supply chains',
+    'React',
+    'library',
+    'visualization',
+    'infovis',
+    'supply chains',
+  ]
 ---
 
 <button href="https://column-flow.pages.dev">Live example</button>

@@ -5,7 +5,7 @@ description: ''
 category: works
 preview: grading.jpg
 date: 2020-06-01
-keywords: ["health", "research", "annotation", "video", "ultrasound", "COVID-19"]
+keywords: ['health', 'research', 'annotation', 'video', 'ultrasound', 'COVID-19', medical]
 ---
 
 <button href="https://github.com/ilyabo/covid19-charite-lus" variant=outline>GitHub</button>

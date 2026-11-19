@@ -4,7 +4,7 @@ title: SQL Workbooks
 description: ''
 date: '2024-05-31'
 preview: workbook.png
-keywords: ["geo", "analytics", "SQL", "notebooks", "maps"]
+keywords: ["geo", "analytics", "SQL", "notebooks", "maps", "visualization"]
 ---
 
 Prototype of interactive notebooks with SQL queries and map visualizations of the query results

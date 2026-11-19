@@ -7,7 +7,7 @@ category: work
 tags: [ "D3", "JavaScript", "Backbone" ]
 preview: "img/restaurants.png"
 
-keywords: ["geo", "ddj", "journalism", "storytelling", "maps", "Switzerland"]
+keywords: ["geo", "ddj", "journalism", "storytelling", "maps", "Switzerland", "visualization", "infovis"]
 ---
 
 As a member of the team at <a href="http://interactivethings.com">Interactive Things</a> 

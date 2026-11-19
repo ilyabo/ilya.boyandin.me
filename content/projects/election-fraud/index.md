@@ -6,7 +6,7 @@ category: works
 tags: [ "Tableau", "D3", "JavaScript" ]
 date: 2012-03-13
 preview: 2012-orangevaya-zaraza3-crop.png
-keywords: ["analytics", "elections", "politics", "ddj", "journalism", "Russia"]
+keywords: ["analytics", "elections", "politics", "ddj", "journalism", "Russia", "visualization", "infovis"]
 ---
 
 <button href="http://public.tableausoftware.com/views/russian-presidential-elections-2012-map-orange/sheet1?:embed=y">Try live</button>

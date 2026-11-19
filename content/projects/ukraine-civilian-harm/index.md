@@ -5,7 +5,7 @@ description: ""
 date: "2022-04-01"
 category: works
 preview: 0.jpg
-keywords: ["geo", "ddj", "journalism", "human rights", "OSINT", "Ukraine", "open source"]
+keywords: ["geo", "ddj", "journalism", "human rights", "OSINT", "Ukraine", "open source", "visualization"]
 ---
 
 <button href="https://ukraine-civilian-harm.vercel.app/">Try live</button>

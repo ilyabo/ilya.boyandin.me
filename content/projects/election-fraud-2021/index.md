@@ -3,7 +3,7 @@ kind: project
 title: Election fraud 2021
 preview: election-fraud-2021.jpg
 date: 2021-09-01
-keywords: ["geo", "analytics", "elections", "politics", "ddj", "journalism", "Russia"]
+keywords: ["geo", "analytics", "elections", "politics", "ddj", "journalism", "Russia", "visualization"]
 ---
 
 <button href="https://studio.unfolded.ai/public/8adc5c29-0d2b-437d-8f61-54ff4c51f6e0" >Try live</button>

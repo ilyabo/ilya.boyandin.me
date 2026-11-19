@@ -5,7 +5,7 @@ description: ''
 date: '2025-01-01'
 category: works
 preview: 'cosmograph.png'
-keywords: ["AI", "analytics", "graphs", "networks", "machine learning", "embeddings", "SQLRooms"]
+keywords: ["AI", "analytics", "graphs", "networks", "machine learning", "embeddings", "SQLRooms", "visualization", "infovis"]
 ---
 
 <button href="https://cosmograph.app/">Try live</button>

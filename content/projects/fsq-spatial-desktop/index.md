@@ -6,7 +6,7 @@ category: works
 date: 2025-09-01
 orderDate: 2055-01-01
 preview: fsq-spatial-desktop-earthquakes-sm.webp
-keywords: ["AI", "geo", "analytics", "desktop", "local-first", "DuckDB", "SQLRooms", "maps"]
+keywords: ["AI", "geo", "analytics", "desktop", "local-first", "DuckDB", "SQLRooms", "maps", "visualization", "infovis"]
 ---
 
 [Foursquare Spatial Desktop](https://foursquare.com/products/spatial-desktop) - a powerful geospatial analysis tool and modernized version of [Kepler.gl](https://kepler.gl) running natively on your desktop with an embedded [DuckDB](https://duckdb.org/) as the spatial processing engine.

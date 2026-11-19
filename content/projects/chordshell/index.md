@@ -5,7 +5,7 @@ description: 'Harmony workspace for exploring chords, scales, voicings, recordin
 category: works
 date: 2026-06-22
 preview: chordshell.webp
-keywords: ["music", "AI", "chords", "scales", "guitar", "piano", "SQLRooms"]
+keywords: ["music", "AI", "chords", "scales", "guitar", "piano", "SQLRooms", "visualization", "infovis"]
 ---
 
 <button href="https://www.chordshell.com/">Website</button>

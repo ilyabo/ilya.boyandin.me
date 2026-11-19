@@ -5,7 +5,7 @@ description: ''
 date: '2021-10-01'
 category: works
 preview: 0.jpg
-keywords: ["3D", "geo", "animation", "GPS", "paragliding", "terrain"]
+keywords: ["3D", "geo", "animation", "GPS", "paragliding", "terrain", "visualization"]
 ---
 
 <button href="https://flight-replay.netlify.app">Try live</button>

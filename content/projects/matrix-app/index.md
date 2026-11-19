@@ -5,7 +5,7 @@ description: ""
 category: works
 preview: atlanta-corridor.png
 date: 2020-04-01
-keywords: ["geo", "analytics", "transport", "mobility", "origin-destination", "big data"]
+keywords: ["geo", "analytics", "transport", "mobility", "origin-destination", "big data", "visualization", "infovis"]
 ---
 This is an interactive web application we developed at [Teralytics](http://teralytics.net)
 for representing and analyzing mobility data in cities and countries (origin-destination data). 

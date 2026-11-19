@@ -4,7 +4,7 @@ title: "d3-bipartite"
 date: "2015-07-07"
 category: works
 preview: "d3-bipartite.png"
-keywords: ["graphs", "networks", "D3", "library", "open source"]
+keywords: ["graphs", "networks", "D3", "library", "open source", "visualization", "infovis"]
 ---
 <button href="https://beta.observablehq.com/@ilyabo/weighted-bipartite-graph-colored-by-source">Try live</button>
 <button href="https://github.com/ilyabo/d3-bipartite" variant=outline>GitHub</button>
