@@ -5,6 +5,7 @@ description: ""
 category: works
 preview: arch-comps.png
 date: 2011-05-01
+keywords: ["geo", "history", "architecture", "research", "Switzerland"]
 ---
 A historical spatio-temporal visualization showing how architects from Europe participated
 in architectural competitions in Switzerland. Built for a project led by

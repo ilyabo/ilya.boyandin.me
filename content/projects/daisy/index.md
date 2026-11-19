@@ -5,6 +5,7 @@ description: ""
 category: works
 preview: daisy_home.png
 date: 2001-01-01
+keywords: ["e-commerce", "inventory", "payments", "reporting"]
 ---
 An e-commerce system with
 order tracking, credit card processing, back-office,

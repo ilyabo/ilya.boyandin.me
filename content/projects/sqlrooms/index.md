@@ -6,6 +6,7 @@ date: '2024-12-01'
 category: works
 preview: 'sqlrooms-collage.webp'
 orderDate: 2055-01-01
+keywords: ["analytics", "AI", "geo", "SQL", "DuckDB", "React", "local-first", "open source"]
 ---
 
 <button href="https://sqlrooms.org/">Website</button>

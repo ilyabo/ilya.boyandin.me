@@ -6,6 +6,7 @@ category: works
 tags: [ "Clojure" ]
 date: 2015-02-01
 preview: manymizers.png
+keywords: ["decision making", "Clojure", "open source"]
 ---
 
 <button href="https://manymizers.netlify.com/">Try live</button>

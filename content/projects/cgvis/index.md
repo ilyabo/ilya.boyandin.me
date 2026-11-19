@@ -6,6 +6,7 @@ category: works
 tags: ['Java', 'Piccolo']
 preview: cgvis_onmac7.png
 date: 2006-03-01
+keywords: ["analytics", "visualization", "zoomable interface", "open source"]
 ---
 
 <button href="https://github.com/ilyabo/cgvis" variant=outline>GitHub</button>

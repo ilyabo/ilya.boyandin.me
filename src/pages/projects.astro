@@ -5,6 +5,17 @@ import { getEntries } from '../lib/content';
 import { pageTitle } from '../lib/seo';
 
 const projects = getEntries('projects');
+const keywordCounts = new Map<string, number>();
+for (const project of projects) {
+  for (const keyword of new Set(project.keywords)) {
+    keywordCounts.set(keyword, (keywordCounts.get(keyword) ?? 0) + 1);
+  }
+}
+const keywords = [...keywordCounts.keys()].sort((a, b) =>
+  keywordCounts.get(b)! - keywordCounts.get(a)! || a.localeCompare(b)
+);
+const popularKeywords = keywords.slice(0, 12);
+const moreKeywords = keywords.slice(12).sort((a, b) => a.localeCompare(b));
 const title = pageTitle('Projects');
 const description = 'Selected interactive maps, geospatial analytics tools, data visualization projects, and exploratory interfaces by Ilya Boyandin.';
 ---
@@ -18,13 +29,30 @@ const description = 'Selected interactive maps, geospatial analytics tools, data
           <circle cx="10.5" cy="10.5" r="6.5" />
           <path d="m16 16 4.5 4.5" />
         </svg>
-        <input id="project-search" type="search" aria-label="Filter projects by name" placeholder="Search projects…" />
+        <input id="project-search" type="search" aria-label="Filter projects by name or keyword" title={'Search names and keywords. Use quotes for phrases, e.g. "open source" geo.'} placeholder="Search projects…" />
         <button id="clear-project-search" type="button" aria-label="Clear project search" hidden>
           <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
             <path d="m6 6 12 12M6 18 18 6" />
           </svg>
         </button>
       </div>
+    </div>
+    <div class="project-keywords" aria-label="Filter by keyword" hidden>
+      <div class="keyword-badges">
+        {popularKeywords.map((keyword) => (
+          <button type="button" data-keyword={keyword} aria-pressed="false">{keyword}</button>
+        ))}
+      </div>
+      {moreKeywords.length > 0 && (
+        <details>
+          <summary>More keywords</summary>
+          <div class="keyword-badges">
+            {moreKeywords.map((keyword) => (
+              <button type="button" data-keyword={keyword} aria-pressed="false">{keyword}</button>
+            ))}
+          </div>
+        </details>
+      )}
     </div>
     <p id="project-search-status" role="status" class="sr-only"></p>
     <CardGrid entries={projects} />
@@ -35,33 +63,61 @@ const description = 'Selected interactive maps, geospatial analytics tools, data
   const search = document.querySelector<HTMLInputElement>('#project-search')!;
   const clear = document.querySelector<HTMLButtonElement>('#clear-project-search')!;
   const status = document.querySelector<HTMLElement>('#project-search-status')!;
-  const cards = Array.from(document.querySelectorAll<HTMLElement>('#projects .content-card')).map((card) => ({
-    element: card,
-    name: card.querySelector('h2')!.textContent.toLowerCase(),
-  }));
+  const keywordButtons = document.querySelectorAll<HTMLButtonElement>('#projects [data-keyword]');
+  let selectedKeyword: string | null = null;
+  const cards = Array.from(document.querySelectorAll<HTMLElement>('#projects .content-card')).map((card) => {
+    const keywords = (JSON.parse(card.dataset.keywords!) as string[]).map((keyword) => keyword.toLowerCase());
+    return {
+      element: card,
+      keywords,
+      searchFields: [card.querySelector('h2')!.textContent.toLowerCase(), ...keywords],
+    };
+  });
 
   function filterProjects() {
     const query = search.value.trim().toLowerCase();
+    const terms = Array.from(query.matchAll(/"([^"]*)"|(\S+)/g), (match) =>
+      (match[1] ?? match[2]).replace(/^"|"$/g, '').trim()
+    ).filter(Boolean);
     let matches = 0;
 
     for (const card of cards) {
-      card.element.hidden = !card.name.includes(query);
+      const matchesQuery = selectedKeyword !== null
+        ? card.keywords.includes(selectedKeyword)
+        : terms.every((term) => card.searchFields.some((field) => field.includes(term)));
+      card.element.hidden = !matchesQuery;
       if (!card.element.hidden) matches++;
     }
 
     clear.hidden = search.value.length === 0;
     status.textContent = matches === 0 ? 'No projects found.' : '';
     status.classList.toggle('sr-only', matches > 0);
+    for (const button of keywordButtons) {
+      button.setAttribute('aria-pressed', String(button.dataset.keyword!.toLowerCase() === selectedKeyword));
+    }
   }
 
-  search.addEventListener('input', filterProjects);
+  search.addEventListener('input', () => {
+    selectedKeyword = null;
+    filterProjects();
+  });
   clear.addEventListener('click', () => {
+    selectedKeyword = null;
     search.value = '';
     filterProjects();
     search.focus();
   });
+  for (const button of keywordButtons) {
+    button.addEventListener('click', () => {
+      const keyword = button.dataset.keyword!;
+      selectedKeyword = keyword.toLowerCase();
+      search.value = keyword.includes(' ') ? `"${keyword}"` : keyword;
+      filterProjects();
+    });
+  }
 
   document.querySelector<HTMLElement>('.project-search')!.hidden = false;
+  document.querySelector<HTMLElement>('.project-keywords')!.hidden = false;
   filterProjects();
 </script>
 
@@ -138,6 +194,47 @@ const description = 'Selected interactive maps, geospatial analytics tools, data
   .project-search :focus-visible {
     outline: 2px solid var(--color-site-link);
     outline-offset: 2px;
+  }
+
+  .keyword-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .keyword-badges button {
+    background: transparent;
+    border: 1px solid var(--color-site-border);
+    border-radius: 999px;
+    color: var(--color-site-muted);
+    cursor: pointer;
+    font: inherit;
+    font-size: 0.85rem;
+    padding: 0.3rem 0.7rem;
+  }
+
+  .keyword-badges button:hover,
+  .keyword-badges button[aria-pressed="true"] {
+    background: var(--color-site-surface-soft);
+    border-color: var(--color-site-link);
+    color: var(--color-site-link);
+  }
+
+  .project-keywords :focus-visible {
+    outline: 2px solid var(--color-site-link);
+    outline-offset: 2px;
+  }
+
+  .project-keywords summary {
+    color: var(--color-site-muted);
+    cursor: pointer;
+    font-size: 0.85rem;
+    margin-top: 0.75rem;
+    width: fit-content;
+  }
+
+  .project-keywords details[open] summary {
+    margin-bottom: 0.75rem;
   }
 
   #projects :global([hidden]) {

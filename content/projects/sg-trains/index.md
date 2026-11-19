@@ -4,6 +4,7 @@ title: Singapore Trains
 category: works
 date: 2018-09-03
 preview: alerting-new.jpg
+keywords: ["geo", "analytics", "transport", "trains", "dashboards", "Singapore"]
 ---
 
 Interactive dashboards 

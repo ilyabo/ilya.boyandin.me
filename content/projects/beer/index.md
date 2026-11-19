@@ -5,6 +5,7 @@ description: ""
 category: works
 preview: 118763005_665288491075745_7980414208023576599_n.png
 date: 1995-09-08
+keywords: ["games", "maze", "retro"]
 ---
 
 ![](118582714_763335074426340_4709987786345445076_n.png)

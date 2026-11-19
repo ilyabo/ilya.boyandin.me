@@ -5,6 +5,7 @@ description: ""
 category: works
 preview: annemo.png
 date: 2012-06-22
+keywords: ["research", "annotation", "video", "speech", "emotions", "open source"]
 ---
 A simplistic web app for annotating emotions in human speech video recordings. 
 The tool was used for 

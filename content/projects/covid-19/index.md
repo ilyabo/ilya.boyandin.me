@@ -5,6 +5,7 @@ description: ''
 date: '2020-04-01'
 category: works
 preview: 'larepubblica.jpg'
+keywords: ["geo", "mobility", "transport", "health", "COVID-19", "ddj", "journalism"]
 ---
 
 I developed several interactive maps showing the effect the lock-down had on mobility.

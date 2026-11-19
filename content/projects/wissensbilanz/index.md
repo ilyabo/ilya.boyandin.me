@@ -5,6 +5,7 @@ description: ""
 date: "2009-01-01"
 category: works
 preview: wb-oeleiter.png
+keywords: ["analytics", "education", "research", "collaboration", "reporting"]
 ---
 
 A web application for collaborative data collection and consolidation to provide a statistical overview of study- and research-relevant indicators.

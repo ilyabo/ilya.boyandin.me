@@ -5,6 +5,7 @@ description: ''
 date: '2019-10-20'
 category: works
 preview: '0.png'
+keywords: ["geo", "transport", "mobility", "animation", "WebGL", "commuting"]
 ---
 
 <button href="https://stellar-commutes.boyandin.me/">Try live</button>

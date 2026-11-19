@@ -5,6 +5,7 @@ description: ""
 date: 2013-04-01
 category: works
 preview: intro.png
+keywords: ["geo", "flow maps", "migration", "finance", "ddj", "journalism"]
 ---
 
 <button href="https://ilyabo.github.io/remittances/?en">Try live</button>

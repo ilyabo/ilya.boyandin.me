@@ -4,6 +4,7 @@ title: Map of detainments
 category: works
 date: 2021-01-31
 preview: preview.jpg
+keywords: ["geo", "politics", "human rights", "protests", "ddj", "journalism", "Russia"]
 ---
 
 <button href="https://navalny-230121-map.netlify.app/?2021-01-23">Try live</button>

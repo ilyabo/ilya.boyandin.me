@@ -4,6 +4,7 @@ title: Berlin streets
 category: works
 preview: dot-map.png
 date: 2014-11-01
+keywords: ["geo", "analytics", "mobility", "urban", "heatmaps", "Berlin"]
 ---
 Different approaches to representing the density of people in Berlin: 
 

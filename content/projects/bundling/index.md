@@ -6,6 +6,7 @@ category: works
 tags: [ "Java", "Piccolo" ]
 preview: us-migrants-complexity-bundled.png
 date: 2010-11-01
+keywords: ["geo", "graphs", "networks", "edge bundling", "research", "open source"]
 ---
 
 Edge bundling can help making a cluttered graph visualization more readable by rerouting the edges so that they form bundles emphasizing the high-level graph structure.

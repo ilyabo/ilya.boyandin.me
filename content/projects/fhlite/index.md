@@ -6,6 +6,7 @@ category: works
 tags: [ "Java", "Eclipse RCP", "Eclipse GEF" ]
 preview: about.png
 date: 2007-03-25
+keywords: ["video", "digital signage", "layout editor", "scheduling"]
 ---
 
 Screen or presentation manager which allows to create layouts from videos, images, flash movies and other media for a screen and then to schedule them. 

@@ -3,6 +3,7 @@ kind: project
 title: Graphnavi
 date: 2022-09-05
 preview: graphnavi-preview.jpg
+keywords: ["analytics", "graphs", "networks", "SQL", "DuckDB"]
 ---
 
 <button href="https://graphnavi.vercel.app/">Try live</button>

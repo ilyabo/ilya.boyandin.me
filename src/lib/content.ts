@@ -20,6 +20,7 @@ const frontmatterSchema = z.object({
   kind: z.string().optional(),
   title: z.string(),
   description: z.string().optional().default(''),
+  keywords: z.array(z.string().trim().min(1)).default([]),
   category: z.string().optional(),
   preview: z.string().optional(),
   date: z.coerce.date(),

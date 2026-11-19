@@ -4,6 +4,7 @@ title: SimQA – Question Answering
 category: works
 date: 2003-10-03
 preview: simqa.png
+keywords: ["AI", "machine learning", "natural language", "information retrieval", "research"]
 ---
 
 <button href="simqa.pdf">Summary Slides</button>

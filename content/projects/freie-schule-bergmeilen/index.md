@@ -5,6 +5,7 @@ description: ""
 category: works
 preview: fsb1.jpg
 date: 2018-01-01
+keywords: ["education", "web design", "Switzerland"]
 ---
 I designed and developed 
 [the website](https://www.freie-schule-bergmeilen.ch/)

@@ -5,6 +5,7 @@ description: ''
 category: works
 preview: romip.jpg
 date: 2003-12-10
+keywords: ["research", "information retrieval", "web design", "static site generator", "Java"]
 ---
 
 I designed, developed and maintained the

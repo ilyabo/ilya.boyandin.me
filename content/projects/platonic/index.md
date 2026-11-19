@@ -5,6 +5,7 @@ description: ""
 category: works
 preview: platonic.jpg
 date: 1999-09-02
+keywords: ["3D", "geometry", "animation", "C++"]
 ---
 
 Just a small demo app showing platonic solids written in C++

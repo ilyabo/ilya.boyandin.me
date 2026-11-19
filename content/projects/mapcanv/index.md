@@ -5,6 +5,7 @@ description: 'Collaborative GeoJSON map editor built with deck.gl, Phoenix, Elix
 date: '2024-09-01'
 category: works
 preview: 'mapcanv.png'
+keywords: ["geo", "maps", "collaboration", "GeoJSON", "map editor", "real-time"]
 ---
 
 <button href="https://mapcanv.com">Live demo</button>

@@ -5,6 +5,7 @@ description: ""
 category: works
 preview: comp-browser-1.png
 date: 2014-01-01
+keywords: ["graphs", "networks", "research", "education", "Switzerland"]
 ---
 
 As a member of the team at <a href="http://interactivethings.com">Interactive Things</a>

@@ -5,6 +5,7 @@ description: ""
 date: "2020-03-31"
 category: works
 preview: "bild-de.png"
+keywords: ["geo", "mobility", "health", "COVID-19", "ddj", "journalism", "Germany"]
 ---
 <button href="https://deutschland-bleibt-zu-hause.teralytics.net/">Try live</button>
 

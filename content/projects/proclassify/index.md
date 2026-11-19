@@ -6,6 +6,7 @@ category: works
 tags: [ "Java", "LibSVM" ]
 date: 2007-02-26
 preview: about.png 
+keywords: ["machine learning", "classification", "bioinformatics", "health", "research", "analytics"]
 ---
 An implementation of the feature selection and classification method which was developed at the Institute for Genomics and Bioinformatics (TU Graz). The method was meant originally for cancer detection on proteomics mass-spectroscopy data, but appears to be useful for completely different datasets too. 
 

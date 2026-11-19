@@ -6,6 +6,7 @@ date: "2015-11-15"
 category: work
 tags: [ "React", "Redux", "D3", "JavaScript"]
 preview: "atms-dashboard.png"
+keywords: ["geo", "analytics", "mobility", "pedestrians", "location intelligence", "Zurich"]
 ---
 
 

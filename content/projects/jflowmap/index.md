@@ -6,6 +6,7 @@ category: works
 tags: ['Java', 'Piccolo']
 date: 2010-10-01
 preview: refugees-2008-light.png
+keywords: ["geo", "analytics", "flow maps", "migration", "transport", "research", "open source"]
 ---
 
 <button href="https://github.com/ilyabo/jflowmap/" variant=outline>GitHub</button>

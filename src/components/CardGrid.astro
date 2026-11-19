@@ -16,7 +16,7 @@ const { entries } = Astro.props;
       const preview = previewMediaPath(entry);
 
       return (
-        <a class="content-card" href={entry.route}>
+        <a class="content-card" href={entry.route} data-keywords={JSON.stringify(entry.keywords)}>
           <div class="card-heading">
             <h2>{entry.title}</h2>
             <span>{formatDate(entry.date)}</span>

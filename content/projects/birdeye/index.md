@@ -6,6 +6,7 @@ category: works
 tags: [ "ActionScript", "Adobe Flex" ]
 date: 2009-05-09
 preview: birdeye-graphs-3.png 
+keywords: ["graphs", "networks", "animation", "library", "open source"]
 ---
 
 [BirdEye](http://code.google.com/p/birdeye/) is a Flex visualization library which follows the approach to building visualizations described by Leeland Wilkinson in his book "[Grammar of Graphics](http://www.amazon.com/Grammar-Graphics-Statistics-Computing/dp/0387245448)". BirdEye can be seen as a language for creating visualization which not only provides a set of predefined visualization types, but also allows the users to create new kinds of visualizations easily.

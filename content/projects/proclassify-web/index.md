@@ -6,6 +6,7 @@ category: works
 tags: [ "Java", "LibSVM" ]
 date: 2007-03-01
 preview: crossvalidationresults.png 
+keywords: ["machine learning", "classification", "bioinformatics", "health", "research", "collaboration"]
 ---
 A Web version of [ProClassify](/p/proclassify) developed to facilitate sharing of datasets and computational capacities by the users. The features of the web version are mostly identical to the standalone version except the data visualization which is missing in the web version.
 

@@ -3,6 +3,7 @@ kind: project
 title: Makuta Ya Maendeleo
 date: 2022-09-05
 preview: makuta-production-zoomed-selected-material.jpg
+keywords: ["analytics", "mining", "tax", "transparency", "Congo"]
 ---
 
 <button href="https://www.makutayamaendeleo.org/">Try live</button>
