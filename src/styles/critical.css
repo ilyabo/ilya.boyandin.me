@@ -18,6 +18,7 @@ html {
   background: var(--color-site-bg-deep);
   color: var(--color-site-text);
   font-family: Inter, "Helvetica Neue", Arial, sans-serif;
+  scrollbar-gutter: stable;
 }
 
 body {
