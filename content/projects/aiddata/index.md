@@ -6,7 +6,7 @@ category: works
 tags: ['D3', 'node.js', 'CoffeeScript', 'Postgres']
 date: 2012-09-01
 preview: bubbles.png
-keywords: ["geo", "analytics", "flow maps", "foreign aid", "finance", "graphs", "networks", "visualization", "infovis"]
+keywords: ["geo", "analytics", "flow maps", "foreign aid", "finance", "graphs", "networks", "visualization", "infovis", "UX"]
 ---
 
 <button href="http://aiddata.boyandin.me/">Try live</button>

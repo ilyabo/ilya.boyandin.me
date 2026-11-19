@@ -6,7 +6,7 @@ category: works
 tags: [ "D3", "JavaScript", "PHP", "MySQL" ]
 date: 2011-11-30
 preview: interaction-timeline.png
-keywords: ["geo", "research", "user study", "flow maps", "animation", "time series", "graphs", "networks", "visualization", "infovis"]
+keywords: ["geo", "research", "user study", "flow maps", "animation", "time series", "graphs", "networks", "visualization", "infovis", "UX"]
 ---
 
 In this research study we analyzed ﬁndings made by the participants with ﬂow maps using animation and small-multiples as two alternative ways of representing temporal

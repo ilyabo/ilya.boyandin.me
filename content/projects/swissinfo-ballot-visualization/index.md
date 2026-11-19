@@ -5,7 +5,7 @@ description: ""
 date: "2014-01-12"
 category: works
 preview: ballot1.png
-keywords: ["geo", "elections", "referendums", "ddj", "journalism", "Switzerland", "visualization", "infovis"]
+keywords: ["geo", "elections", "referendums", "ddj", "journalism", "Switzerland", "visualization", "infovis", "UX"]
 ---
 <button href="https://www.swissinfo.ch/eng/vote-results--june-13-2021-switzerland-co2-pesticides/46631396">Try live</button>
 

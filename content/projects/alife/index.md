@@ -5,7 +5,7 @@ description: ""
 category: works
 preview: ashton_home.jpg
 date: 2001-02-01
-keywords: ["AI", "chatbots", "natural language", "customer support"]
+keywords: ["AI", "chatbots", "natural language", "customer support", "UX"]
 ---
 I participated in the development of a system of intelligent agents
 capable of chatting to visitors of a website in a natural language and

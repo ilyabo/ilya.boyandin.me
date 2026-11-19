@@ -7,7 +7,7 @@ date: "2014-06-28"
 category: work
 tags: [ "React", "D3", "JavaScript"]
 preview: "ww1.png"
-keywords: ["geo", "history", "storytelling", "ddj", "journalism", "World War I", "visualization", "infovis"]
+keywords: ["geo", "history", "storytelling", "ddj", "journalism", "World War I", "visualization", "infovis", "UX"]
 ---
 <button href="http://maps.nzzdali.ch/nzzdata/erster-weltkrieg/">Try live</button>
 

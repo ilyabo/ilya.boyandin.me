@@ -13,6 +13,7 @@ keywords:
     'visualization',
     'infovis',
     'supply chains',
+    'UX',
   ]
 ---
 

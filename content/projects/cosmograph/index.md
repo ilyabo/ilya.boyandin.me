@@ -17,6 +17,7 @@ keywords:
     'SQLRooms',
     'visualization',
     'infovis',
+    'UX',
   ]
 ---
 

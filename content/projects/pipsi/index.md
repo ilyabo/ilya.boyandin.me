@@ -7,7 +7,7 @@ tags: ['Java', 'Piccolo']
 date: 2023-06-30
 preview: pipsi.jpg
 orderDate: 2000-01-01
-keywords: ["games", "music", "path planning"]
+keywords: ["games", "music", "path planning", "UX"]
 ---
 
 <button href="https://pipsi-game.netlify.app">Try live</button>

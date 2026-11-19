@@ -4,7 +4,7 @@ title: Galaxy of covers
 category: works
 preview: galaxy1.png
 date: 2015-01-01
-keywords: ["music", "graphs", "networks", "cover songs", "visualization", "infovis"]
+keywords: ["music", "graphs", "networks", "cover songs", "visualization", "infovis", "UX"]
 ---
 <button href="https://galaxy-of-covers.interactivethings.io/">Try live</button>
 

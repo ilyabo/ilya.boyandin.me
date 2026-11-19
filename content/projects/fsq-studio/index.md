@@ -5,7 +5,7 @@ description: 'Web-based geospatial analytics and visualization platform for crea
 date: '2022-09-01'
 orderDate: 2045-01-01
 preview: flights-with-clouds-crop.jpg
-keywords: ["3D", "geo", "analytics", "maps", "animation", "location intelligence", "visualization"]
+keywords: ["3D", "geo", "analytics", "maps", "animation", "location intelligence", "visualization", "UX"]
 ---
 
 As part of the Unfolded/Foursquare team I am contributing to the development of [Foursquare Studio](https://studio.foursquare.com).

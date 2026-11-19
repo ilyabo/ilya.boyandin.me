@@ -4,7 +4,7 @@ title: Public Value Atlas
 category: works
 date: 2014-04-03
 preview: gemeinwohl-en.png
-keywords: ["analytics", "public value", "surveys", "companies", "Switzerland", "visualization", "infovis"]
+keywords: ["analytics", "public value", "surveys", "companies", "Switzerland", "visualization", "infovis", "UX"]
 ---
 
 <button href="https://www.gemeinwohl.ch/en">Try live</button>

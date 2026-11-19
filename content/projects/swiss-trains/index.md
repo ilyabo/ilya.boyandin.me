@@ -6,7 +6,7 @@ category: works
 tags: [ "D3", "jQuery", "Polymaps", "JavaScript" ]
 date: 2012-03-30
 preview: trains-stations-zoom1.png
-keywords: ["geo", "transport", "trains", "animation", "open data", "Switzerland", "visualization"]
+keywords: ["geo", "transport", "trains", "animation", "open data", "Switzerland", "visualization", "UX"]
 ---
 
 <button href="http://flows.transport.opendata.ch/">Try live</button>

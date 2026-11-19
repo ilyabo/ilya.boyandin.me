@@ -5,7 +5,7 @@ description: ""
 category: works
 preview: backup_progress.png
 date: 2009-02-01
-keywords: ["photography", "backup", "desktop", "Java", "open source"]
+keywords: ["photography", "backup", "desktop", "Java", "open source", "UX"]
 ---
 
 PicBack is an app for making backups of large collections of photos. The app was developed in Java.

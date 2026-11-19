@@ -3,7 +3,7 @@ kind: project
 title: "COVID-19: excess mortality"
 date: "2020-11-08"
 preview: covid-19-rus-bubbles.jpg
-keywords: ["geo", "health", "COVID-19", "mortality", "time series", "Russia", "visualization", "infovis"]
+keywords: ["geo", "health", "COVID-19", "mortality", "time series", "Russia", "visualization", "infovis", "UX"]
 ---
 <button href="https://covid19-russia.pages.dev/">Try live</button>
 <button href="https://github.com/ilyabo/covid19-russia" variant=outline>GitHub</button>
