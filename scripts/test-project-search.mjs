@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { getKeywordIndex, matchesItem } from '../src/lib/keyword-search.ts';
+import { getKeywordIndex, matchesItem, readSearchFilters, writeSearchFilters } from '../src/lib/keyword-search.ts';
 
 const project = { title: 'Flowmap City', keywords: ['geo', 'transport', 'analytics', 'open source'] };
 
@@ -46,4 +46,24 @@ test('cleared searches include all projects and unmatched queries return no matc
   assert.equal(matchesItem(project, [], '  '), true);
   assert.equal(matchesItem({ title: 'No tags', keywords: [] }, [], ''), true);
   assert.equal(matchesItem(project, [], 'not-a-project'), false);
+});
+
+test('shared filter URLs restore distinct known keywords and quoted search text', () => {
+  const params = new URLSearchParams('keyword=GEO&keyword=open+source&keyword=geo&keyword=obsolete&q=%22flowmap+city%22');
+  const { selectedKeywords, query } = readSearchFilters(params, project.keywords);
+
+  assert.deepEqual(selectedKeywords, ['geo', 'open source']);
+  assert.equal(query, '"flowmap city"');
+  assert.equal(matchesItem(project, selectedKeywords, query), true);
+});
+
+test('filter edits round-trip encoded values and clearing preserves other parameters', () => {
+  const params = new URLSearchParams('ref=homepage&keyword=previous&q=previous');
+  const filters = { selectedKeywords: ['C++', 'research & design'], query: '"C++" Zürich' };
+  writeSearchFilters(params, filters);
+
+  assert.deepEqual(readSearchFilters(new URLSearchParams(params.toString()), filters.selectedKeywords), filters);
+
+  writeSearchFilters(params, { selectedKeywords: [], query: '' });
+  assert.equal(params.toString(), 'ref=homepage');
 });

@@ -1,0 +1,25 @@
+---
+import { keywordParam } from '../lib/keyword-search';
+import './keyword-badges.css';
+
+interface Props {
+  keywords: string[];
+  listPath: '/projects' | '/talks';
+}
+
+const { keywords, listPath } = Astro.props;
+---
+
+{keywords.length > 0 && (
+  <nav class="keyword-badges" aria-label="Keywords">
+    {keywords.map((keyword) => (
+      <a href={`${listPath}?${new URLSearchParams({ [keywordParam]: keyword })}`}>{keyword}</a>
+    ))}
+  </nav>
+)}
+
+<style>
+  .keyword-badges {
+    flex-basis: 100%;
+  }
+</style>

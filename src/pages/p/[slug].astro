@@ -1,4 +1,5 @@
 ---
+import KeywordBadges from '../../components/KeywordBadges.astro';
 import MarkdownContent from '../../components/MarkdownContent.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getEntries, getEntrySlugs } from '../../lib/content';
@@ -36,6 +37,7 @@ const html = await renderMarkdown(entry.content, { kind: 'entry', entry });
     <header class="article-header">
       <h1>{entry.title}</h1>
       <time datetime={entry.date.toISOString()}>{formatFullDate(entry.date)}</time>
+      <KeywordBadges keywords={entry.keywords} listPath="/projects" />
     </header>
 
     <nav class="prev-next" aria-label="Project navigation">

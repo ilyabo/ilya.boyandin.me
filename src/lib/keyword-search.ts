@@ -4,6 +4,33 @@ export interface SearchableItem {
   details?: string[];
 }
 
+export interface SearchFilters {
+  selectedKeywords: string[];
+  query: string;
+}
+
+export const keywordParam = 'keyword';
+const queryParam = 'q';
+
+export function readSearchFilters(params: URLSearchParams, keywords: string[]): SearchFilters {
+  const labels = new Map(keywords.map((keyword) => [keyword.toLowerCase(), keyword]));
+  const selectedKeywords = new Set<string>();
+  for (const keyword of params.getAll(keywordParam)) {
+    const label = labels.get(keyword.toLowerCase());
+    if (label !== undefined) selectedKeywords.add(label);
+  }
+
+  return { selectedKeywords: [...selectedKeywords], query: params.get(queryParam) ?? '' };
+}
+
+export function writeSearchFilters(params: URLSearchParams, { selectedKeywords, query }: SearchFilters) {
+  params.delete(keywordParam);
+  for (const keyword of selectedKeywords) params.append(keywordParam, keyword);
+
+  if (query) params.set(queryParam, query);
+  else params.delete(queryParam);
+}
+
 export function getKeywordIndex(items: SearchableItem[], pinnedKeywords: string[]) {
   const labels = new Map<string, string>();
   const counts = new Map<string, number>();

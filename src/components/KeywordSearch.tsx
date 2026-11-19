@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
-import { matchesItem, type SearchableItem } from '../lib/keyword-search';
+import { matchesItem, readSearchFilters, writeSearchFilters, type SearchableItem, type SearchFilters } from '../lib/keyword-search';
 import {
   CloseIcon, Combobox, ComboboxChip, ComboboxChips, ComboboxChipsInput,
   ComboboxContent, ComboboxEmpty, ComboboxItem, ComboboxList, ComboboxValue,
 } from './ui/combobox';
 import './keyword-search.css';
+import './keyword-badges.css';
 
 interface Props {
   collection: 'project' | 'talk';
@@ -17,8 +18,7 @@ export default function KeywordSearch({ collection, keywords, keywordCounts, pin
   const heading = collection === 'project' ? 'Projects' : 'Talks';
   const plural = heading.toLowerCase();
   const searchId = `${collection}-search`;
-  const [selectedKeywords, setSelectedKeywords] = useState<string[]>([]);
-  const [query, setQuery] = useState('');
+  const [{ selectedKeywords, query }, setFilters] = useState<SearchFilters>({ selectedKeywords: [], query: '' });
   const [ready, setReady] = useState(false);
   const [matchCount, setMatchCount] = useState<number | null>(null);
   const anchor = useRef<HTMLDivElement>(null);
@@ -34,8 +34,16 @@ export default function KeywordSearch({ collection, keywords, keywordCounts, pin
       keywords: JSON.parse(element.dataset.keywords!) as string[],
       details: Array.from(element.querySelectorAll('[data-search-detail]'), (detail) => detail.textContent ?? ''),
     }));
+
+    function restoreFilters() {
+      setFilters(readSearchFilters(new URLSearchParams(window.location.search), keywords));
+    }
+
+    restoreFilters();
     setReady(true);
-  }, [plural]);
+    window.addEventListener('popstate', restoreFilters);
+    return () => window.removeEventListener('popstate', restoreFilters);
+  }, [keywords, plural]);
 
   useEffect(() => {
     if (!ready) return;
@@ -47,10 +55,21 @@ export default function KeywordSearch({ collection, keywords, keywordCounts, pin
     setMatchCount(count);
   }, [selectedKeywords, query, ready]);
 
+  function updateFilters(update: Partial<SearchFilters>) {
+    const url = new URL(window.location.href);
+    // A combobox selection can change both the keywords and the input in the same event.
+    const filters = { ...readSearchFilters(url.searchParams, keywords), ...update };
+    writeSearchFilters(url.searchParams, filters);
+    if (url.href !== window.location.href) window.history.replaceState(window.history.state, '', url);
+    setFilters(filters);
+  }
+
   function toggleKeyword(keyword: string) {
-    setSelectedKeywords((selected) => selected.includes(keyword)
-      ? selected.filter((item) => item !== keyword)
-      : [...selected, keyword]);
+    updateFilters({
+      selectedKeywords: selectedKeywords.includes(keyword)
+        ? selectedKeywords.filter((item) => item !== keyword)
+        : [...selectedKeywords, keyword],
+    });
   }
 
   return (
@@ -62,11 +81,11 @@ export default function KeywordSearch({ collection, keywords, keywordCounts, pin
             items={keywords}
             multiple
             value={selectedKeywords}
-            onValueChange={setSelectedKeywords}
+            onValueChange={(value) => updateFilters({ selectedKeywords: value })}
             inputValue={query}
             onInputValueChange={(value, details) => {
               // Keep free-text searches when the popup closes or focus moves away.
-              if (details.reason === 'input-change' || details.isItemPress) setQuery(value);
+              if (details.reason === 'input-change' || details.isItemPress) updateFilters({ query: value });
             }}
             disabled={!ready}
           >
@@ -93,8 +112,7 @@ export default function KeywordSearch({ collection, keywords, keywordCounts, pin
                   type="button"
                   aria-label={`Clear ${collection} search and filters`}
                   onClick={() => {
-                    setSelectedKeywords([]);
-                    setQuery('');
+                    updateFilters({ selectedKeywords: [], query: '' });
                     input.current?.focus();
                   }}
                 ><CloseIcon /></button>

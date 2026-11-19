@@ -1,9 +1,11 @@
 ---
+import KeywordBadges from '../../components/KeywordBadges.astro';
 import MarkdownContent from '../../components/MarkdownContent.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getEntries, getEntrySlugs } from '../../lib/content';
 import { formatFullDate } from '../../lib/format';
 import { renderMarkdown } from '../../lib/markdown';
+import { getPublicSpeakingItems } from '../../lib/public-speaking';
 import { creativeWorkJsonLd, entryDescription, entryImageUrl, pageTitle } from '../../lib/seo';
 
 export function getStaticPaths() {
@@ -21,6 +23,7 @@ if (!entry) {
 const index = entries.findIndex((item) => item.slug === entry.slug);
 const previous = index > 0 ? entries[index - 1] : null;
 const next = index < entries.length - 1 ? entries[index + 1] : null;
+const keywords = getPublicSpeakingItems().find((item) => item.url === entry.route)?.keywords ?? [];
 const html = await renderMarkdown(entry.content, { kind: 'entry', entry });
 ---
 
@@ -36,6 +39,7 @@ const html = await renderMarkdown(entry.content, { kind: 'entry', entry });
     <header class="article-header">
       <h1>{entry.title}</h1>
       <time datetime={entry.date.toISOString()}>{formatFullDate(entry.date)}</time>
+      <KeywordBadges keywords={keywords} listPath="/talks" />
     </header>
 
     <nav class="prev-next" aria-label="Talk navigation">
