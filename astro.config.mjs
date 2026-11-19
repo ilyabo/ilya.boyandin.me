@@ -58,7 +58,18 @@ function contentMediaDevServer() {
 }
 
 export default defineConfig({
-  integrations: [react()],
+  integrations: [
+    react(),
+    {
+      name: 'separate-vite-caches',
+      hooks: {
+        'astro:config:setup'({ command, updateConfig }) {
+          // A build also starts a Vite server during content sync.
+          updateConfig({ vite: { cacheDir: `node_modules/.vite/${command}` } });
+        },
+      },
+    },
+  ],
   site: 'https://ilya.boyandin.me',
   trailingSlash: 'never',
   build: {

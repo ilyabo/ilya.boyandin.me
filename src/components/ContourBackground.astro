@@ -16,6 +16,7 @@
 </style>
 
 <script>
+  import { ContourHills } from '../lib/contour-hills';
   import { ContourSprings } from '../lib/contour-springs';
 
   const vertexSource = `#version 300 es
@@ -30,6 +31,7 @@
     uniform vec2 resolution;
     uniform float gutter;
     uniform sampler2D springField;
+    uniform highp sampler2D hillField;
     uniform bool springsActive;
     uniform vec2 viewport;
     uniform float elapsed;
@@ -92,6 +94,8 @@
       float ridges = terrainNoise(turn * terrain * 2.1);
       float elevation = hills + 0.34 * ridges
                       + 0.10 * terrainNoise(terrain * 4.7 + 9.0);
+      vec2 mapUV = p / scale;
+      elevation += texture(hillField, vec2(mapUV.x, 1.0 - mapUV.y)).r;
       // Modulate the relief at fixed map coordinates over a 26-second breath.
       float breath = sin(elapsed * 0.24);
       elevation += breath * (motion + 0.45 * outerMargin) * (0.040 * (hills - 0.5) + 0.028 * (ridges - 0.5));
@@ -133,18 +137,22 @@
     const gutter = gl.getUniformLocation(program, 'gutter');
     const viewport = gl.getUniformLocation(program, 'viewport');
     const springsActive = gl.getUniformLocation(program, 'springsActive');
-    const texture = gl.createTexture();
-    gl.bindTexture(gl.TEXTURE_2D, texture);
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+    for (const [unit, name] of ['springField', 'hillField'].entries()) {
+      gl.activeTexture(gl.TEXTURE0 + unit);
+      gl.bindTexture(gl.TEXTURE_2D, gl.createTexture());
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+      gl.uniform1i(gl.getUniformLocation(program, name), unit);
+    }
     gl.pixelStorei(gl.UNPACK_ALIGNMENT, 1);
     const time = gl.getUniformLocation(program, 'elapsed');
     const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
     const listeners = new AbortController();
     const options = { signal: listeners.signal };
     const main = document.querySelector<HTMLElement>('.site-main');
+    const hills = new ContourHills();
     let springs: ContourSprings;
     let previousPointer: PointerEvent | null = null;
     let frame = 0;
@@ -160,8 +168,14 @@
         elapsed += dt;
         if (springs.active) {
           springs.step(dt);
+          gl.activeTexture(gl.TEXTURE0);
           gl.texSubImage2D(gl.TEXTURE_2D, 0, 0, 0, springs.columns, springs.rows, gl.RG, gl.UNSIGNED_BYTE, springs.pixels);
         }
+      }
+      const hillPixels = hills.update(now, reducedMotion.matches);
+      if (hillPixels) {
+        gl.activeTexture(gl.TEXTURE1);
+        gl.texSubImage2D(gl.TEXTURE_2D, 0, 0, 0, hills.columns, hills.rows, gl.RED, gl.FLOAT, hillPixels);
       }
       lastDraw = now;
       gl.uniform1i(springsActive, springs.active ? 1 : 0);
@@ -176,6 +190,7 @@
     function resetSprings() {
       previousPointer = null;
       springs = new ContourSprings(canvas.clientWidth, canvas.clientHeight);
+      gl.activeTexture(gl.TEXTURE0);
       gl.texImage2D(gl.TEXTURE_2D, 0, gl.RG8, springs.columns, springs.rows, 0, gl.RG, gl.UNSIGNED_BYTE, springs.pixels);
       scheduleDraw();
     }
@@ -189,8 +204,21 @@
       gl.uniform2f(viewport, canvas.clientWidth, canvas.clientHeight);
       const inset = main.getBoundingClientRect().left + parseFloat(getComputedStyle(main).paddingLeft);
       gl.uniform1f(gutter, Math.max(1, inset) / canvas.clientWidth);
+      hills.resize(canvas.clientWidth, canvas.clientHeight);
+      gl.activeTexture(gl.TEXTURE1);
+      gl.texImage2D(gl.TEXTURE_2D, 0, gl.R16F, hills.columns, hills.rows, 0, gl.RED, gl.FLOAT, null);
       resetSprings();
     }
+
+    window.addEventListener('click', (event) => {
+      if (event.defaultPrevented || event.button !== 0 || event.detail === 0) return;
+      if (event.target instanceof Element && event.target.closest(
+        'a, button, input, textarea, select, label, summary, [role="button"], [role="search"], [role="listbox"], [contenteditable], audio, video',
+      )) return;
+      const bounds = canvas.getBoundingClientRect();
+      hills.add(event.clientX - bounds.left, event.clientY - bounds.top, performance.now());
+      scheduleDraw();
+    }, options);
 
     window.addEventListener('pointermove', (event) => {
       if (reducedMotion.matches || event.pointerType === 'touch') return;
