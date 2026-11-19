@@ -4,7 +4,7 @@ title: 'jflowmap.js'
 category: works
 date: 2012-08-31
 preview: refugees-js.png
-keywords: ["geo", "flow maps", "migration", "refugees", "animation", "open source"]
+keywords: ["geo", "flow maps", "migration", "refugees", "animation", "open source", "graphs", "networks"]
 ---
 
 <button href="https://ilyabo.github.io/jflowmap.js/">Try live</button>

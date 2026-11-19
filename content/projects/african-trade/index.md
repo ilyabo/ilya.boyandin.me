@@ -5,7 +5,7 @@ description: ""
 date: "2014-10-20"
 category: works
 preview: "0.png"
-keywords: ["geo", "trade", "economics", "flow maps", "Africa"]
+keywords: ["geo", "trade", "economics", "flow maps", "Africa", "graphs", "networks"]
 ---
 
 <button href="https://lab.interactivethings.com/global-trade-africa/">Try live</button>

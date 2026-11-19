@@ -6,7 +6,7 @@ category: works
 tags: [ "Java", "Piccolo" ]
 preview: Flowstrates-2012.png
 date: 2011-10-07
-keywords: ["geo", "analytics", "flow maps", "time series", "heatmaps", "research", "open source"]
+keywords: ["geo", "analytics", "flow maps", "time series", "heatmaps", "research", "open source", "graphs", "networks"]
 ---
 
 Flowstrates extend the idea of a [flow map](http://en.wikipedia.org/wiki/Flow_map) (which are used for representing entities flowing between geographic locations) to the temporal dimension and allow to analyze the changes of the flow magnitudes over time. In Flowstrates the origins and the destinations of the flows are displayed in two separate maps, and the temporal changes of the flow magnitudes are displayed between the two maps in a heatmap in which the columns represent time periods.

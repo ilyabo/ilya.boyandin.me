@@ -5,17 +5,11 @@ import { getEntries } from '../lib/content';
 import { pageTitle } from '../lib/seo';
 
 const projects = getEntries('projects');
-const keywordCounts = new Map<string, number>();
-for (const project of projects) {
-  for (const keyword of new Set(project.keywords)) {
-    keywordCounts.set(keyword, (keywordCounts.get(keyword) ?? 0) + 1);
-  }
-}
-const keywords = [...keywordCounts.keys()].sort((a, b) =>
-  keywordCounts.get(b)! - keywordCounts.get(a)! || a.localeCompare(b)
-);
-const popularKeywords = keywords.slice(0, 12);
-const moreKeywords = keywords.slice(12).sort((a, b) => a.localeCompare(b));
+const pinnedKeywords = ['geo', 'ai', 'analytics', 'open source', 'research', 'ddj', 'flow maps', 'mobility', 'graphs', 'animation'];
+const keywords = [...new Set(projects.flatMap((project) => project.keywords))];
+const moreKeywords = keywords
+  .filter((keyword) => !pinnedKeywords.includes(keyword.toLowerCase()))
+  .sort((a, b) => a.localeCompare(b));
 const title = pageTitle('Projects');
 const description = 'Selected interactive maps, geospatial analytics tools, data visualization projects, and exploratory interfaces by Ilya Boyandin.';
 ---
@@ -39,7 +33,7 @@ const description = 'Selected interactive maps, geospatial analytics tools, data
     </div>
     <div class="project-keywords" aria-label="Filter by keyword" hidden>
       <div class="keyword-badges">
-        {popularKeywords.map((keyword) => (
+        {pinnedKeywords.map((keyword) => (
           <button type="button" data-keyword={keyword} aria-pressed="false">{keyword}</button>
         ))}
       </div>

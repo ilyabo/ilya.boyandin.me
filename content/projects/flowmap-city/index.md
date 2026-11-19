@@ -6,7 +6,7 @@ category: works
 preview: flowmap-city-npvm.jpg
 date: 2023-07-04
 orderDate: 2050-01-01
-keywords: ["geo", "analytics", "transport", "mobility", "flow maps", "DuckDB", "SQLRooms"]
+keywords: ["geo", "analytics", "transport", "mobility", "flow maps", "DuckDB", "SQLRooms", "graphs", "networks"]
 ---
 
 <button href="https://flowmap.city">Try live</button>

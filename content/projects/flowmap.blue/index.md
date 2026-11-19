@@ -6,7 +6,7 @@ category: works
 preview: ny.jpg
 orderDate: 2040-01-01
 date: 2019-02-05
-keywords: ["geo", "transport", "mobility", "flow maps", "migration", "Google Sheets", "open source"]
+keywords: ["geo", "transport", "mobility", "flow maps", "migration", "Google Sheets", "open source", "graphs", "networks"]
 ---
 
 <button href="https://flowmap.blue">Try live</button>

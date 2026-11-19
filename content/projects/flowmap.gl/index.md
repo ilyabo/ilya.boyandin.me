@@ -5,7 +5,7 @@ description: 'WebGL library for rendering large origin-destination flow maps in 
 category: works
 preview: swiss-cantons-new.png
 date: 2018-07-01
-keywords: ["3D", "geo", "transport", "mobility", "flow maps", "WebGL", "library", "open source"]
+keywords: ["3D", "geo", "transport", "mobility", "flow maps", "WebGL", "library", "open source", "graphs", "networks"]
 ---
 
 <button href="https://flowmap.gl" variant=outline>Project page</button>
