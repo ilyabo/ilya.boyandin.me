@@ -159,6 +159,7 @@ export class ContourHills {
       this.drawPath(field, hill);
       return;
     }
+    const lightScale = hill.radius / this.halfLightRadius(hill.radius);
     const left = Math.max(0, Math.floor(cx - rx));
     const top = Math.max(0, Math.floor(cy - ry));
     const right = Math.min(this.columns, Math.ceil(cx + rx));
@@ -172,17 +173,28 @@ export class ContourHills {
         const across = dy * hill.cos - dx * hill.sin;
         const v = (across - hill.bend * u * u) / (hill.width * (1 + 0.18 * u));
         const falloff = Math.max(0, 1 - u * u - v * v);
-        if (falloff > 0) this.deposit(field, row * this.columns + col, hill, falloff);
+        if (falloff > 0) {
+          this.deposit(field, row * this.columns + col, hill, falloff, (dx * dx + dy * dy) * lightScale * lightScale);
+        }
       }
     }
   }
 
-  private deposit(field: Float32Array, cell: number, hill: Hill, falloff: number, taper = 1) {
+  private halfLightRadius(extent: number) {
+    // Let the highlight grow with the stroke, up to a quarter of the shorter viewport edge.
+    return Math.max(12, Math.min(0.42 * extent, 0.25 * Math.min(this.width, this.height)));
+  }
+
+  private deposit(field: Float32Array, cell: number, hill: Hill, falloff: number, lightDistanceSquared: number, taper = 1) {
     const i = cell * this.channels;
     field[i] += hill.height * taper * falloff * falloff;
     if (!hill.color) return;
+    const light = 1 / (1 + lightDistanceSquared);
+    const weight = falloff * light;
     for (let channel = 0; channel < 3; channel++) {
-      field[i + 1 + channel] += (hill.color[channel] - field[i + 1 + channel]) * falloff;
+      const swatch = hill.color[channel];
+      const highlight = swatch + (1 - swatch) * 0.22 * light;
+      field[i + 1 + channel] += (highlight - field[i + 1 + channel]) * weight;
     }
   }
 
@@ -223,6 +235,7 @@ export class ContourHills {
     const width = hill.radius * hill.width;
     const invWidthSquared = 1 / (width * width);
     const taperLength = Math.max(hill.radius, cache.length);
+    const inverseLightRadiusSquared = 1 / this.halfLightRadius(taperLength) ** 2;
     for (let row = 0; row < this.rows; row++) {
       const dy = (row + 0.5) * cellHeight - hill.y * this.height;
       for (let col = 0; col < this.columns; col++) {
@@ -230,8 +243,9 @@ export class ContourHills {
         const falloff = 1 - cache.distances[i] * invWidthSquared;
         if (falloff <= 0) continue;
         const dx = (col + 0.5) * cellWidth - hill.x * this.width;
-        const taper = 1 - 0.25 * Math.min(1, Math.sqrt(dx * dx + dy * dy) / taperLength);
-        this.deposit(field, i, hill, falloff, taper);
+        const originDistanceSquared = dx * dx + dy * dy;
+        const taper = 1 - 0.25 * Math.min(1, Math.sqrt(originDistanceSquared) / taperLength);
+        this.deposit(field, i, hill, falloff, originDistanceSquared * inverseLightRadiusSquared, taper);
       }
     }
   }
