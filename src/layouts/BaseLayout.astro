@@ -1,4 +1,5 @@
 ---
+import { ClientRouter } from 'astro:transitions';
 import ContourBackground from '../components/ContourBackground.astro';
 import SocialLinks from '../components/SocialLinks.astro';
 import Footer from '../components/Footer.astro';
@@ -37,11 +38,12 @@ function isActive(path: string) {
 ---
 
 <!doctype html>
-<html lang="en" class:list={[{ 'paint-page': paint }]}>
+<html lang="en" transition:animate="none" class:list={[{ 'paint-page': paint }]}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <style is:inline set:html={criticalCss} />
+    <ClientRouter fallback="swap" />
     <title>{title}</title>
     <link rel="icon" href="/favicon.png" />
     <meta name="description" content={description} />
@@ -56,7 +58,7 @@ function isActive(path: string) {
     {jsonLd ? <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} /> : null}
   </head>
   <body>
-    <ContourBackground paint={paint} />
+    <ContourBackground />
     <header class="site-header">
       <div class="header-inner">
         <nav class="site-nav" aria-label="Main navigation">

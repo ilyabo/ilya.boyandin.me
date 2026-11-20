@@ -76,10 +76,6 @@ const fullscreen = `
       gl_Position = vec4(corners[gl_VertexID], 0, 1);
 `;
 
-export const flatVertexSource = `#version 300 es
-    void main() { ${fullscreen} }
-`;
-
 export const terrainVertexSource = `#version 300 es
     precision highp float;
     ${terrain}
@@ -124,11 +120,10 @@ export const terrainVertexSource = `#version 300 es
     }
 `;
 
-export function contourFragmentSource(paint: boolean) {
-  return `#version 300 es
+export const contourFragmentSource = `#version 300 es
     precision highp float;
     ${terrain}
-    ${paint ? 'in vec2 terrainUV;' : ''}
+    in vec2 terrainUV;
     uniform sampler2D springField;
     uniform bool springsActive;
     uniform bool paintMode;
@@ -156,7 +151,7 @@ export function contourFragmentSource(paint: boolean) {
 
     void main() {
       vec2 uv = gl_FragCoord.xy / resolution;
-      ${paint ? 'if (viewBlend > 0.0) uv = terrainUV;' : ''}
+      if (viewBlend > 0.0) uv = terrainUV;
       vec2 scale = mapScale();
       vec2 p = uv * scale;
       if (viewBlend < 1.0 && springsActive) {
@@ -175,13 +170,11 @@ export function contourFragmentSource(paint: boolean) {
       float readingFade = mix(1.0, mix(0.36, 0.52, touchMotion), clamp(edgeDistance / (gutter + 0.04), 0.0, 1.0));
       vec3 contourColor = vec3(0.43, 0.67, 0.70);
       float opacity = (indexContour ? 0.19 : 0.13) * readingFade;
-      vec4 contour = vec4(contourColor * opacity, opacity);
-      if (paintMode) {
-        vec3 ink = hill.gba;
-        float strength = max(ink.r, max(ink.g, ink.b));
-        float baseOpacity = (indexContour ? 0.31 : 0.19) * (1.0 - strength);
-        contour = vec4(ink + contourColor * baseOpacity, strength + baseOpacity);
-      }
+      if (paintMode) opacity = indexContour ? 0.31 : 0.19;
+      vec3 ink = hill.gba * (paintMode ? 1.0 : readingFade);
+      float strength = max(ink.r, max(ink.g, ink.b));
+      float baseOpacity = opacity * (1.0 - strength);
+      vec4 contour = vec4(ink + contourColor * baseOpacity, strength + baseOpacity);
       color = contour * line;
       if (viewBlend > 0.0 && hillShading) {
         vec3 surface = vec3(p.x, elevation * 0.18, -p.y);
@@ -192,5 +185,4 @@ export function contourFragmentSource(paint: boolean) {
         color = mix(color, vec4(ground * (1.0 - color.a) + color.rgb, 1), viewBlend);
       }
     }
-  `;
-}
+`;

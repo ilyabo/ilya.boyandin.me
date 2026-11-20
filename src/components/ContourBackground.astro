@@ -1,8 +1,4 @@
----
-interface Props { paint?: boolean }
-const { paint = false } = Astro.props;
----
-<canvas class="contour-background" data-paint={paint || undefined} aria-hidden="true"></canvas>
+<canvas class="contour-background" transition:persist="contour-background" transition:animate="none" aria-hidden="true"></canvas>
 
 <style>
   .contour-background {
@@ -23,21 +19,18 @@ const { paint = false } = Astro.props;
   import { ContourHills } from '../lib/contour-hills';
   import { ContourSprings } from '../lib/contour-springs';
 
-  import { flatVertexSource, terrainVertexSource, contourFragmentSource } from '../lib/contour-shaders';
+  import { terrainVertexSource, contourFragmentSource } from '../lib/contour-shaders';
   import { TerrainExplorer } from '../lib/terrain-explorer';
 
-  function renderContours(canvas: HTMLCanvasElement) {
-    const paint = canvas.hasAttribute('data-paint');
+  function renderContours(canvas: HTMLCanvasElement, hills: ContourHills) {
     const gl = canvas.getContext('webgl2', {
-      antialias: false, depth: paint, stencil: false, premultipliedAlpha: true,
+      antialias: false, depth: true, stencil: false, premultipliedAlpha: true,
       powerPreference: 'low-power',
     });
     if (!gl) return;
 
-    const vertexSource = paint ? terrainVertexSource : flatVertexSource;
-    const fragmentSource = contourFragmentSource(paint);
     const program = gl.createProgram();
-    for (const [type, source] of [[gl.VERTEX_SHADER, vertexSource], [gl.FRAGMENT_SHADER, fragmentSource]] as const) {
+    for (const [type, source] of [[gl.VERTEX_SHADER, terrainVertexSource], [gl.FRAGMENT_SHADER, contourFragmentSource]] as const) {
       const shader = gl.createShader(type);
       gl.shaderSource(shader, source);
       gl.compileShader(shader);
@@ -70,13 +63,13 @@ const { paint = false } = Astro.props;
     const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
     const listeners = new AbortController();
     const options = { signal: listeners.signal };
-    const main = document.querySelector<HTMLElement>('.site-main');
-    const palette = document.querySelector<HTMLFieldSetElement>('[data-paint-palette]');
-    const touchBrush = palette?.querySelector<HTMLSelectElement>('[data-touch-brush]');
-    const saveButton = palette?.querySelector<HTMLButtonElement>('[data-save-image]');
-    const hills = new ContourHills(paint ? 4 : 1);
-    const hillFormat = paint ? gl.RGBA : gl.RED;
-    gl.uniform1i(gl.getUniformLocation(program, 'paintMode'), paint ? 1 : 0);
+    const paintMode = gl.getUniformLocation(program, 'paintMode');
+    let main: HTMLElement;
+    let palette: HTMLFieldSetElement | null;
+    let touchBrush: HTMLSelectElement | null;
+    let paint = false;
+    let explorer: TerrainExplorer | undefined;
+    let pageListeners: AbortController;
     let springs: ContourSprings;
     let previousPointer: PointerEvent | null = null;
     let press: PointerEvent | null = null;
@@ -85,8 +78,26 @@ const { paint = false } = Astro.props;
     let frame = 0;
     let lastDraw = 0;
     let elapsed = 0;
-    const exploreButton = palette?.querySelector<HTMLButtonElement>('[data-explore-terrain]');
-    const explorer = exploreButton && new TerrainExplorer(gl, program, main, exploreButton, scheduleDraw, listeners.signal);
+    function bindPage() {
+      endStroke();
+      pageListeners?.abort();
+      pageListeners = new AbortController();
+      main = document.querySelector<HTMLElement>('.site-main');
+      palette = main.querySelector<HTMLFieldSetElement>('[data-paint-palette]');
+      touchBrush = palette?.querySelector<HTMLSelectElement>('[data-touch-brush]');
+      paint = !!palette;
+      gl.uniform1i(paintMode, Number(paint));
+      const exploreButton = palette?.querySelector<HTMLButtonElement>('[data-explore-terrain]');
+      explorer = exploreButton && new TerrainExplorer(gl, program, main, exploreButton, scheduleDraw, pageListeners.signal);
+      const saveButton = palette?.querySelector<HTMLButtonElement>('[data-save-image]');
+      if (saveButton) {
+        saveButton.addEventListener('click', saveImage, { signal: pageListeners.signal });
+        saveButton.disabled = false;
+        pageListeners.signal.addEventListener('abort', () => { saveButton.disabled = true; }, { once: true });
+      }
+      resize();
+      scheduleDraw();
+    }
 
     function draw(now: number) {
       frame = 0;
@@ -104,7 +115,7 @@ const { paint = false } = Astro.props;
       const hillPixels = hills.update(now, reducedMotion.matches);
       if (hillPixels) {
         gl.activeTexture(gl.TEXTURE1);
-        gl.texSubImage2D(gl.TEXTURE_2D, 0, 0, 0, hills.columns, hills.rows, hillFormat, gl.FLOAT, hillPixels);
+        gl.texSubImage2D(gl.TEXTURE_2D, 0, 0, 0, hills.columns, hills.rows, gl.RGBA, gl.FLOAT, hillPixels);
         if (hills.active) scheduleDraw();
       }
       lastDraw = now;
@@ -158,16 +169,19 @@ const { paint = false } = Astro.props;
 
     function resize() {
       const density = Math.min(devicePixelRatio, 1);
-      canvas.width = Math.round(canvas.clientWidth * density);
-      canvas.height = Math.round(canvas.clientHeight * density);
-      gl.viewport(0, 0, canvas.width, canvas.height);
-      gl.uniform2f(resolution, canvas.width, canvas.height);
-      gl.uniform2f(viewport, canvas.clientWidth, canvas.clientHeight);
+      const width = Math.round(canvas.clientWidth * density);
+      const height = Math.round(canvas.clientHeight * density);
       const inset = main.getBoundingClientRect().left + parseFloat(getComputedStyle(main).paddingLeft);
       gl.uniform1f(gutter, Math.max(1, inset) / canvas.clientWidth);
+      if (springs && canvas.width === width && canvas.height === height) return;
+      canvas.width = width;
+      canvas.height = height;
+      gl.viewport(0, 0, width, height);
+      gl.uniform2f(resolution, width, height);
+      gl.uniform2f(viewport, canvas.clientWidth, canvas.clientHeight);
       hills.resize(canvas.clientWidth, canvas.clientHeight);
       gl.activeTexture(gl.TEXTURE1);
-      gl.texImage2D(gl.TEXTURE_2D, 0, paint ? gl.RGBA16F : gl.R16F, hills.columns, hills.rows, 0, hillFormat, gl.FLOAT, null);
+      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA16F, hills.columns, hills.rows, 0, gl.RGBA, gl.FLOAT, null);
       resetSprings();
       explorer?.resize();
     }
@@ -271,22 +285,20 @@ const { paint = false } = Astro.props;
       resetSprings();
     }, options);
     window.addEventListener('resize', resize, options);
+    document.addEventListener('astro:after-swap', bindPage, options);
     canvas.addEventListener('webglcontextlost', (event) => {
       event.preventDefault();
-      if (saveButton) saveButton.disabled = true;
+      pageListeners.abort();
       listeners.abort();
       cancelAnimationFrame(frame);
     }, options);
-    resize();
-    if (saveButton) {
-      saveButton.addEventListener('click', saveImage, options);
-      saveButton.disabled = false;
-    }
+    bindPage();
   }
 
   const canvas = document.querySelector<HTMLCanvasElement>('.contour-background');
   if (canvas) {
-    canvas.addEventListener('webglcontextrestored', () => renderContours(canvas));
-    renderContours(canvas);
+    const hills = new ContourHills();
+    canvas.addEventListener('webglcontextrestored', () => renderContours(canvas, hills));
+    renderContours(canvas, hills);
   }
 </script>

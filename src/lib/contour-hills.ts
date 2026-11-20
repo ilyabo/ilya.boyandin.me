@@ -32,8 +32,6 @@ export class ContourHills {
   private height = 0;
   columns = 0;
   rows = 0;
-  // The paint page stores elevation and RGB together so color follows the exact same relief.
-  constructor(private channels: 1 | 4 = 1) {}
 
   get active() {
     return this.preview !== null || this.coasting.size > 0;
@@ -44,7 +42,7 @@ export class ContourHills {
     this.height = height;
     this.columns = Math.max(1, Math.ceil(width / 3));
     this.rows = Math.max(1, Math.ceil(height / 3));
-    this.settled = new Float32Array(this.columns * this.rows * this.channels);
+    this.settled = new Float32Array(this.columns * this.rows * 4);
     this.pixels = new Float32Array(this.settled.length);
     this.pathCache = new WeakMap();
     for (const hill of this.hills) {
@@ -185,7 +183,7 @@ export class ContourHills {
   }
 
   private deposit(field: Float32Array, cell: number, hill: Hill, falloff: number, lightDistanceSquared: number, taper = 1) {
-    const i = cell * this.channels;
+    const i = cell * 4;
     field[i] += hill.height * taper * falloff * falloff;
     if (!hill.color) return;
     const light = 1 / (1 + lightDistanceSquared);

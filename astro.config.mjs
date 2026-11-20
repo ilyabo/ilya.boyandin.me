@@ -63,9 +63,10 @@ export default defineConfig({
     {
       name: 'separate-vite-caches',
       hooks: {
-        'astro:config:setup'({ command, updateConfig }) {
-          // A build also starts a Vite server during content sync.
-          updateConfig({ vite: { cacheDir: `node_modules/.vite/${command}` } });
+        'astro:config:setup'({ command, config, updateConfig }) {
+          // Each preview address needs its own optimized modules during client-side navigation.
+          const cache = command === 'dev' ? `dev-${config.server.host || 'localhost'}-${config.server.port}` : command;
+          updateConfig({ vite: { cacheDir: `node_modules/.vite/${cache}` } });
         },
       },
     },

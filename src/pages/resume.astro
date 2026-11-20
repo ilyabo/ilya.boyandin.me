@@ -68,8 +68,9 @@ const german = resumes[1].resume;
   <script>
     import type { ResumeLanguage } from '../lib/resume';
 
-    const resume = document.querySelector<HTMLElement>('[data-resume-mode]');
-    if (resume) {
+    document.addEventListener('astro:page-load', () => {
+      const resume = document.querySelector<HTMLElement>('[data-resume-mode]');
+      if (!resume) return;
       const modeButtons = resume.querySelectorAll<HTMLButtonElement>('[data-resume-mode-button]');
       const languageButtons = resume.querySelectorAll<HTMLButtonElement>(
         '[data-resume-language-button]'
@@ -110,7 +111,9 @@ const german = resumes[1].resume;
       const languageFromUrl = (): ResumeLanguage =>
         new URLSearchParams(window.location.search).get('lang') === 'de' ? 'de' : 'en';
       setLanguage(languageFromUrl());
-      window.addEventListener('popstate', () => setLanguage(languageFromUrl()));
+      const listeners = new AbortController();
+      window.addEventListener('popstate', () => setLanguage(languageFromUrl()), { signal: listeners.signal });
+      document.addEventListener('astro:before-swap', () => listeners.abort(), { once: true });
 
       modeButtons.forEach((button) => {
         button.addEventListener('click', () => {
@@ -127,6 +130,6 @@ const german = resumes[1].resume;
           window.history.replaceState(window.history.state, '', url);
         });
       });
-    }
+    });
   </script>
 </BaseLayout>

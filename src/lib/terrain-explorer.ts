@@ -97,6 +97,9 @@ export class TerrainExplorer {
     window.addEventListener('blur', () => this.resetInput(), options);
     signal.addEventListener('abort', () => {
       this.setActive(false);
+      gl.uniform1f(this.blendUniform, 0);
+      gl.disable(gl.DEPTH_TEST);
+      gl.deleteBuffer(this.indices);
       button.disabled = true;
       if (shadingButton) shadingButton.disabled = true;
     }, { once: true });
