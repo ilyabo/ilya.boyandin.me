@@ -35,6 +35,19 @@ export class TerrainExplorer {
     this.centerUniform = gl.getUniformLocation(program, 'center');
     this.blendUniform = gl.getUniformLocation(program, 'viewBlend');
     const options = { signal };
+    const shadingButton = surface.querySelector<HTMLButtonElement>('[data-hill-shading]');
+    const shadingUniform = gl.getUniformLocation(program, 'hillShading');
+    if (shadingButton) {
+      const setShading = (enabled: boolean) => {
+        gl.uniform1i(shadingUniform, Number(enabled));
+        shadingButton.setAttribute('aria-pressed', String(enabled));
+        shadingButton.title = enabled ? 'Show contour lines only' : 'Show hill shading';
+        this.redraw();
+      };
+      setShading(shadingButton.getAttribute('aria-pressed') === 'true');
+      shadingButton.addEventListener('click', () => setShading(shadingButton.getAttribute('aria-pressed') !== 'true'), options);
+      shadingButton.disabled = false;
+    }
     button.disabled = false;
     button.addEventListener('click', () => this.setActive(!this.active), options);
     surface.addEventListener('pointerdown', event => {
@@ -85,6 +98,7 @@ export class TerrainExplorer {
     signal.addEventListener('abort', () => {
       this.setActive(false);
       button.disabled = true;
+      if (shadingButton) shadingButton.disabled = true;
     }, { once: true });
   }
 

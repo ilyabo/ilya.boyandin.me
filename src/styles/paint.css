@@ -70,15 +70,16 @@ html.paint-page {
   background: var(--color-site-surface);
   color: var(--color-site-text);
 }
-.explore-help, .touch-help, .exploring-terrain .paint-palette label {
+.explore-help, .touch-help, .paint-palette [data-hill-shading], .exploring-terrain .paint-palette label {
   display: none;
 }
+.exploring-terrain [data-hill-shading] { display: grid; }
 .paint-page .site-main.exploring-terrain { cursor: grab; }
 .paint-page .site-main.exploring-terrain:active { cursor: grabbing; }
 .exploring-terrain .explore-help {
   display: flex;
   align-items: center;
-  grid-column: span 6;
+  grid-column: span 5;
   padding-inline: 0.75rem;
   color: var(--color-site-muted);
   font-size: 0.8125rem;

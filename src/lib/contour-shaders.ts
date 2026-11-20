@@ -132,6 +132,7 @@ export function contourFragmentSource(paint: boolean) {
     uniform sampler2D springField;
     uniform bool springsActive;
     uniform bool paintMode;
+    uniform bool hillShading;
     uniform vec2 viewport;
     out vec4 color;
 
@@ -182,7 +183,7 @@ export function contourFragmentSource(paint: boolean) {
         contour = vec4(ink + contourColor * baseOpacity, strength + baseOpacity);
       }
       color = contour * line;
-      if (viewBlend > 0.0) {
+      if (viewBlend > 0.0 && hillShading) {
         vec3 surface = vec3(p.x, elevation * 0.18, -p.y);
         vec3 normal = normalize(cross(dFdx(surface), dFdy(surface)));
         float sunlight = max(0.0, dot(normal, normalize(vec3(-0.55, 0.75, -0.45))));

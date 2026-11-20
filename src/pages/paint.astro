@@ -25,6 +25,12 @@ const colors = [
       <span class="mouse-help">Drag to orbit · WASD to fly · Scroll to zoom</span>
       <span class="touch-help">Drag to orbit · Two fingers to move and zoom</span>
     </small>
+    <button type="button" data-hill-shading disabled aria-label="Hill shading" aria-pressed="false" title="Show hill shading">
+      <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.7" />
+        <path d="M12 3.5a8.5 8.5 0 0 0 0 17z" fill="currentColor" />
+      </svg>
+    </button>
     <button type="button" data-explore-terrain disabled aria-label="3D view" aria-pressed="false" title="Explore the terrain in 3D">3D</button>
     <button type="button" data-save-image disabled aria-label="Save image" title="Save image as PNG">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
