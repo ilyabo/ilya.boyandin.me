@@ -1,4 +1,8 @@
-<canvas class="contour-background" aria-hidden="true"></canvas>
+---
+interface Props { paint?: boolean }
+const { paint = false } = Astro.props;
+---
+<canvas class="contour-background" data-paint={paint || undefined} aria-hidden="true"></canvas>
 
 <style>
   .contour-background {
@@ -32,7 +36,9 @@
     uniform float gutter;
     uniform sampler2D springField;
     uniform highp sampler2D hillField;
+    uniform sampler2D fillField;
     uniform bool springsActive;
+    uniform bool paintMode;
     uniform vec2 viewport;
     uniform float elapsed;
     uniform float touchMotion;
@@ -96,7 +102,9 @@
       float elevation = hills + 0.34 * ridges
                       + 0.10 * terrainNoise(terrain * 4.7 + 9.0);
       vec2 mapUV = p / scale;
-      elevation += texture(hillField, vec2(mapUV.x, 1.0 - mapUV.y)).r;
+      vec2 fieldUV = vec2(mapUV.x, 1.0 - mapUV.y);
+      vec4 hill = texture(hillField, fieldUV);
+      elevation += hill.r;
       // On touch screens, carry the breath into the reading area between the narrow gutters.
       float breath = sin(elapsed * mix(0.24, 0.48, touchMotion));
       float relief = 0.040 * (hills - 0.5) + 0.028 * (ridges - 0.5);
@@ -109,6 +117,16 @@
       float line = 1.0 - smoothstep(0.0, width, distanceToLine / pixelWidth);
       float readingFade = mix(1.0, mix(0.36, 0.52, touchMotion), clamp(edgeDistance / (gutter + 0.04), 0.0, 1.0));
       float alpha = line * (indexContour ? 0.19 : 0.13) * readingFade;
+      if (paintMode) {
+        alpha = line * (indexContour ? 0.31 : 0.19);
+        vec3 ink = hill.gba;
+        float strength = max(ink.r, max(ink.g, ink.b));
+        float fill = texture(fillField, fieldUV).r * 0.48 * (1.0 - line);
+        vec3 swatch = ink / max(strength, 0.0001);
+        color = vec4(ink * line + swatch * fill + vec3(0.43, 0.67, 0.70) * alpha * (1.0 - strength),
+                     strength * line + fill + alpha * (1.0 - strength));
+        return;
+      }
       // Premultiply before compositing so the space between lines carries no tint.
       color = vec4(vec3(0.43, 0.67, 0.70) * alpha, alpha);
     }
@@ -139,7 +157,10 @@
     const gutter = gl.getUniformLocation(program, 'gutter');
     const viewport = gl.getUniformLocation(program, 'viewport');
     const springsActive = gl.getUniformLocation(program, 'springsActive');
-    for (const [unit, name] of ['springField', 'hillField'].entries()) {
+    const paint = canvas.hasAttribute('data-paint');
+    const fields = ['springField', 'hillField'];
+    if (paint) fields.push('fillField');
+    for (const [unit, name] of fields.entries()) {
       gl.activeTexture(gl.TEXTURE0 + unit);
       gl.bindTexture(gl.TEXTURE_2D, gl.createTexture());
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
@@ -156,7 +177,10 @@
     const listeners = new AbortController();
     const options = { signal: listeners.signal };
     const main = document.querySelector<HTMLElement>('.site-main');
-    const hills = new ContourHills();
+    const palette = document.querySelector<HTMLFieldSetElement>('[data-paint-palette]');
+    const hills = new ContourHills(paint ? 4 : 1);
+    const hillFormat = paint ? gl.RGBA : gl.RED;
+    gl.uniform1i(gl.getUniformLocation(program, 'paintMode'), paint ? 1 : 0);
     let springs: ContourSprings;
     let previousPointer: PointerEvent | null = null;
     let press: PointerEvent | null = null;
@@ -182,8 +206,12 @@
       const hillPixels = hills.update(now, reducedMotion.matches);
       if (hillPixels) {
         gl.activeTexture(gl.TEXTURE1);
-        gl.texSubImage2D(gl.TEXTURE_2D, 0, 0, 0, hills.columns, hills.rows, gl.RED, gl.FLOAT, hillPixels);
-        if (press) scheduleDraw();
+        gl.texSubImage2D(gl.TEXTURE_2D, 0, 0, 0, hills.columns, hills.rows, hillFormat, gl.FLOAT, hillPixels);
+        if (hills.fillOpacity) {
+          gl.activeTexture(gl.TEXTURE2);
+          gl.texSubImage2D(gl.TEXTURE_2D, 0, 0, 0, hills.columns, hills.rows, gl.RED, gl.UNSIGNED_BYTE, hills.fillOpacity);
+        }
+        if (hills.active) scheduleDraw();
       }
       lastDraw = now;
       gl.uniform1i(springsActive, springs.active ? 1 : 0);
@@ -215,12 +243,17 @@
       gl.uniform1f(gutter, Math.max(1, inset) / canvas.clientWidth);
       hills.resize(canvas.clientWidth, canvas.clientHeight);
       gl.activeTexture(gl.TEXTURE1);
-      gl.texImage2D(gl.TEXTURE_2D, 0, gl.R16F, hills.columns, hills.rows, 0, gl.RED, gl.FLOAT, null);
+      gl.texImage2D(gl.TEXTURE_2D, 0, paint ? gl.RGBA16F : gl.R16F, hills.columns, hills.rows, 0, hillFormat, gl.FLOAT, null);
+      if (paint) {
+        gl.activeTexture(gl.TEXTURE2);
+        gl.texImage2D(gl.TEXTURE_2D, 0, gl.R8, hills.columns, hills.rows, 0, gl.RED, gl.UNSIGNED_BYTE, null);
+      }
       resetSprings();
     }
 
     function isBackgroundPress(event: PointerEvent) {
       return !event.defaultPrevented && event.isPrimary && event.button === 0 &&
+        (!paint || event.target === main) &&
         !event.composedPath().some((el) => el instanceof Element && el.matches(
           'a, button, input, textarea, select, label, summary, [role="button"], [role="search"], [role="listbox"], [contenteditable], audio, video',
         ));
@@ -231,7 +264,7 @@
       const dx = event.clientX - press.clientX;
       const dy = event.clientY - press.clientY;
       if (!dragging && Math.hypot(dx, dy) <= 10) return;
-      if (press.pointerType === 'touch' && event.timeStamp - press.timeStamp < touchDragDelayMs) {
+      if (!paint && press.pointerType === 'touch' && event.timeStamp - press.timeStamp < touchDragDelayMs) {
         cancelPress();
         return;
       }
@@ -251,11 +284,14 @@
       if (!isBackgroundPress(event)) return;
       press = event;
       dragging = false;
-      if (event.pointerType === 'touch') {
+      if (!paint && event.pointerType === 'touch') {
         window.addEventListener('touchmove', handleTouchMove, { ...options, passive: false });
       }
       const bounds = canvas.getBoundingClientRect();
-      hills.begin(event.clientX - bounds.left, event.clientY - bounds.top, event.timeStamp);
+      const swatch = palette?.querySelector<HTMLInputElement>('input:checked');
+      const rgb = swatch ? parseInt(swatch.value.slice(1), 16) : null;
+      hills.begin(event.clientX - bounds.left, event.clientY - bounds.top, event.timeStamp,
+        rgb === null ? undefined : [(rgb >> 16) / 255, ((rgb >> 8) & 255) / 255, (rgb & 255) / 255]);
       scheduleDraw();
     }, options);
 

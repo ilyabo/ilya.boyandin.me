@@ -14,6 +14,8 @@ interface Hill {
   sin: number;
   width: number;
   bend: number;
+  color?: readonly [number, number, number];
+  pigment: number;
 }
 
 export class ContourHills {
@@ -22,7 +24,7 @@ export class ContourHills {
   private pressedAt = 0;
   private pathCache = new WeakMap<Hill, { distances: Float32Array; segments: number; length: number }>();
   private coasting = new Set<{
-    hill: Hill; started: number; duration: number; startRadius: number; drift: number; extraGrowth: number;
+    hill: Hill; started: number; duration: number; startRadius: number; startPigment: number; drift: number; extraGrowth: number;
   }>();
   private dirty = false;
   private settled = new Float32Array(0);
@@ -31,13 +33,21 @@ export class ContourHills {
   private height = 0;
   columns = 0;
   rows = 0;
+  fillOpacity?: Uint8Array<ArrayBuffer>;
+  // The paint page stores elevation and RGB together so color follows the exact same relief.
+  constructor(private channels: 1 | 4 = 1) {}
+
+  get active() {
+    return this.preview !== null || this.coasting.size > 0;
+  }
 
   resize(width: number, height: number) {
     this.width = width;
     this.height = height;
     this.columns = Math.max(1, Math.ceil(width / 3));
     this.rows = Math.max(1, Math.ceil(height / 3));
-    this.settled = new Float32Array(this.columns * this.rows);
+    if (this.channels === 4) this.fillOpacity = new Uint8Array(this.columns * this.rows);
+    this.settled = new Float32Array(this.columns * this.rows * this.channels);
     this.pixels = new Float32Array(this.settled.length);
     this.pathCache = new WeakMap();
     for (const hill of this.hills) {
@@ -47,7 +57,7 @@ export class ContourHills {
     this.dirty = true;
   }
 
-  begin(x: number, y: number, now: number) {
+  begin(x: number, y: number, now: number, color?: Hill['color']) {
     this.pressedAt = now;
     const bearing = Math.random() * 2 * Math.PI;
     const direction = Math.random() < 0.4 ? -1 : 1;
@@ -56,6 +66,7 @@ export class ContourHills {
       height: direction * (0.26 + Math.random() * 0.10),
       cos: Math.cos(bearing), sin: Math.sin(bearing),
       width: 0.58 + Math.random() * 0.16, bend: (Math.random() - 0.5) * 0.55,
+      color, pigment: 1,
     };
     this.dirty = true;
   }
@@ -90,11 +101,13 @@ export class ContourHills {
     const radius = minRadius + range * tSquared * (2 - tSquared);
     if (hill.radius !== radius) this.dirty = true;
     hill.radius = radius;
+    hill.pigment = 1 - tSquared;
     // Derivative of the hold curve, in pixels per millisecond.
     return range * 4 * t * (1 - tSquared) / maxHoldMs;
   }
 
   private settle(hill: Hill) {
+    hill.pigment = 0;
     this.hills.push(hill);
     this.drawHill(this.settled, hill);
     this.pathCache.delete(hill);
@@ -108,9 +121,9 @@ export class ContourHills {
     const minimum = Math.min(minSettledRadius, maxRadius);
     const drift = Math.min(maxRadius - hill.radius, speed * maxCoastMs / coastInitialSlope);
     const extraGrowth = Math.max(0, minimum - hill.radius - drift);
-    if (!reducedMotion && (drift > 0 || extraGrowth > 0)) {
+    if ((!reducedMotion || hill.color) && (drift > 0 || extraGrowth > 0)) {
       const duration = speed > 0 ? coastInitialSlope * drift / speed : maxCoastMs;
-      this.coasting.add({ hill, started: now, duration, startRadius: hill.radius, drift, extraGrowth });
+      this.coasting.add({ hill, started: now, duration, startRadius: hill.radius, startPigment: hill.pigment, drift, extraGrowth });
     } else {
       hill.radius = Math.max(hill.radius, minimum);
       this.settle(hill);
@@ -122,19 +135,23 @@ export class ContourHills {
   update(now: number, reducedMotion: boolean) {
     if (this.preview) this.growPreview(this.preview, now);
     for (const coast of this.coasting) {
-      const t = reducedMotion ? 1 : Math.max(0, Math.min(1, (now - coast.started) / coast.duration));
+      const t = Math.max(0, Math.min(1, (now - coast.started) / coast.duration));
+      const growth = reducedMotion ? 1 : t;
       // Keep the release velocity. For short taps, ease in the extra growth from rest.
-      const remaining = (1 - t) ** 2 / (1 + (coastInitialSlope - 2) * t);
+      const remaining = (1 - growth) ** 2 / (1 + (coastInitialSlope - 2) * growth);
       coast.hill.radius = coast.startRadius + coast.drift * (1 - remaining) +
-        coast.extraGrowth * t * t * (3 - 2 * t);
+        coast.extraGrowth * growth * growth * (3 - 2 * growth);
+      // Continue from the dilution at release and blend back into the resting terrain.
+      coast.hill.pigment = coast.startPigment * (1 - t * t * (3 - 2 * t));
       this.dirty = true;
-      if (t === 1) {
+      if (t === 1 || (reducedMotion && !coast.hill.color)) {
         this.settle(coast.hill);
         this.coasting.delete(coast);
       }
     }
     if (!this.dirty) return null;
     this.dirty = false;
+    this.fillOpacity?.fill(0);
     if (!this.preview && !this.coasting.size) return this.settled;
     this.pixels.set(this.settled);
     for (const { hill } of this.coasting) this.drawHill(this.pixels, hill);
@@ -164,8 +181,22 @@ export class ContourHills {
         const across = dy * hill.cos - dx * hill.sin;
         const v = (across - hill.bend * u * u) / (hill.width * (1 + 0.18 * u));
         const falloff = Math.max(0, 1 - u * u - v * v);
-        field[row * this.columns + col] += hill.height * falloff * falloff;
+        if (falloff > 0) this.deposit(field, row * this.columns + col, hill, falloff);
       }
+    }
+  }
+
+  private deposit(field: Float32Array, cell: number, hill: Hill, falloff: number, taper = 1) {
+    const i = cell * this.channels;
+    field[i] += hill.height * taper * falloff * falloff;
+    if (!hill.color) return;
+    // Bake the swatch into the relief. Only the wash between contours dissipates.
+    for (let channel = 0; channel < 3; channel++) {
+      field[i + 1 + channel] += (hill.color[channel] - field[i + 1 + channel]) * falloff;
+    }
+    if (hill.pigment && this.fillOpacity) {
+      const previous = this.fillOpacity[cell];
+      this.fillOpacity[cell] = Math.round(previous + (255 - previous) * falloff * hill.pigment);
     }
   }
 
@@ -174,7 +205,7 @@ export class ContourHills {
     // of radius, updating them only where a newly sampled segment is closer.
     let cache = this.pathCache.get(hill);
     if (!cache) {
-      cache = { distances: new Float32Array(field.length).fill(Infinity), segments: 0, length: 0 };
+      cache = { distances: new Float32Array(this.rows * this.columns).fill(Infinity), segments: 0, length: 0 };
       this.pathCache.set(hill, cache);
     }
     const cellWidth = this.width / this.columns;
@@ -214,7 +245,7 @@ export class ContourHills {
         if (falloff <= 0) continue;
         const dx = (col + 0.5) * cellWidth - hill.x * this.width;
         const taper = 1 - 0.25 * Math.min(1, Math.sqrt(dx * dx + dy * dy) / taperLength);
-        field[i] += hill.height * taper * falloff * falloff;
+        this.deposit(field, i, hill, falloff, taper);
       }
     }
   }

@@ -107,9 +107,9 @@ a {
   .header-social a { width: clamp(1.6rem, 7vw, 2.25rem); }
 }
 
-@media (max-width: 22rem) {
+@media (max-width: 25rem) {
   .nav-link {
-    padding-inline: 0.25rem;
+    padding-inline: 0.1875rem;
     font-size: 0.875rem;
   }
 }

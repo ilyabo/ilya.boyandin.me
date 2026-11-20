@@ -6,7 +6,7 @@ const SITE_URL = 'https://ilya.boyandin.me';
 const CONTENT_DIR = path.join(process.cwd(), 'content');
 const SITEMAP_PATH = path.join(process.cwd(), 'public', 'sitemap.xml');
 
-const staticPaths = ['/', '/projects', '/talks', '/resume', '/music'];
+const staticPaths = ['/', '/projects', '/talks', '/resume', '/music', '/paint'];
 
 function escapeXml(value) {
   return value
