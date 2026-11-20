@@ -30,6 +30,7 @@ export class ContourHills {
   private pixels = new Float32Array(0);
   private width = 0;
   private height = 0;
+  fieldSpan = 1;
   columns = 0;
   rows = 0;
 
@@ -46,11 +47,14 @@ export class ContourHills {
     this.dirty = true;
   }
 
-  resize(width: number, height: number) {
+  resize(width: number, height: number, fieldSpan: number) {
     this.width = width;
     this.height = height;
-    this.columns = Math.max(1, Math.ceil(width / 3));
-    this.rows = Math.max(1, Math.ceil(height / 3));
+    this.fieldSpan = fieldSpan;
+    // Cover the extended 3D mesh while bounding the cost of a freehand stroke.
+    const cellSize = fieldSpan === 1 ? 3 : Math.max(3, Math.max(width, height) * fieldSpan / 1024);
+    this.columns = Math.max(1, Math.ceil(width * fieldSpan / cellSize));
+    this.rows = Math.max(1, Math.ceil(height * fieldSpan / cellSize));
     this.settled = new Float32Array(this.columns * this.rows * 4);
     this.pixels = new Float32Array(this.settled.length);
     this.pathCache = new WeakMap();
@@ -160,10 +164,11 @@ export class ContourHills {
   }
 
   private drawHill(field: Float32Array, hill: Hill) {
-    const cx = hill.x * this.columns;
-    const cy = hill.y * this.rows;
-    const rx = hill.radius * this.columns / this.width;
-    const ry = hill.radius * this.rows / this.height;
+    const margin = (this.fieldSpan - 1) / 2;
+    const cx = (hill.x + margin) * this.columns / this.fieldSpan;
+    const cy = (hill.y + margin) * this.rows / this.fieldSpan;
+    const rx = hill.radius * this.columns / (this.width * this.fieldSpan);
+    const ry = hill.radius * this.rows / (this.height * this.fieldSpan);
     if (hill.path.length) {
       this.drawPath(field, hill);
       return;
@@ -215,8 +220,9 @@ export class ContourHills {
       cache = { distances: new Float32Array(this.rows * this.columns).fill(Infinity), segments: 0, length: 0 };
       this.pathCache.set(hill, cache);
     }
-    const cellWidth = this.width / this.columns;
-    const cellHeight = this.height / this.rows;
+    const margin = (this.fieldSpan - 1) / 2;
+    const cellWidth = this.width * this.fieldSpan / this.columns;
+    const cellHeight = this.height * this.fieldSpan / this.rows;
     for (; cache.segments < hill.path.length; cache.segments++) {
       const last = hill.path[cache.segments - 1];
       const next = hill.path[cache.segments];
@@ -226,8 +232,8 @@ export class ContourHills {
       const sy = (next.y - y) * this.height;
       cache.length += Math.hypot(sx, sy);
       const inverseLengthSquared = 1 / (sx * sx + sy * sy);
-      const startX = (hill.x + x) * this.width;
-      const startY = (hill.y + y) * this.height;
+      const startX = (hill.x + margin + x) * this.width;
+      const startY = (hill.y + margin + y) * this.height;
       for (let row = 0; row < this.rows; row++) {
         const py = (row + 0.5) * cellHeight - startY;
         for (let col = 0; col < this.columns; col++) {
@@ -246,12 +252,12 @@ export class ContourHills {
     const taperLength = Math.max(hill.radius, cache.length);
     const inverseLightRadiusSquared = 1 / this.halfLightRadius(taperLength) ** 2;
     for (let row = 0; row < this.rows; row++) {
-      const dy = (row + 0.5) * cellHeight - hill.y * this.height;
+      const dy = (row + 0.5) * cellHeight - (hill.y + margin) * this.height;
       for (let col = 0; col < this.columns; col++) {
         const i = row * this.columns + col;
         const falloff = 1 - cache.distances[i] * invWidthSquared;
         if (falloff <= 0) continue;
-        const dx = (col + 0.5) * cellWidth - hill.x * this.width;
+        const dx = (col + 0.5) * cellWidth - (hill.x + margin) * this.width;
         const originDistanceSquared = dx * dx + dy * dy;
         const taper = 1 - 0.25 * Math.min(1, Math.sqrt(originDistanceSquared) / taperLength);
         this.deposit(field, i, hill, falloff, originDistanceSquared * inverseLightRadiusSquared, taper);

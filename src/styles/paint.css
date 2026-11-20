@@ -38,7 +38,7 @@ html.paint-page {
   background: var(--color-site-bg-deep);
   cursor: default;
 }
-.paint-palette label, .paint-palette button {
+.paint-palette > label, .paint-palette button {
   display: grid;
   place-items: center;
   width: var(--control-width);
@@ -74,7 +74,7 @@ html.paint-page {
   background: var(--color-site-surface);
   color: var(--color-site-text);
 }
-.paint-hint {
+.paint-tools {
   position: absolute;
   bottom: calc(100% + 0.5rem);
   inset-inline: 0;
@@ -83,7 +83,62 @@ html.paint-page {
   font-size: 0.8125rem;
   pointer-events: none;
 }
-.paint-hint .touch-brush, .exploring-terrain .paint-hint { display: none; }
+.paint-tools small { font-size: inherit; }
+.terrain-mode, .paint-tools button, .explore-help, .draw-help, .paint-hint .touch-brush, .touch-help { display: none; }
+.exploring-terrain .terrain-mode {
+  display: inline-grid;
+  grid-template-columns: 1fr 1fr;
+  flex: none;
+  margin: 0;
+  padding: 2px;
+  border: 1px solid var(--color-site-border);
+  border-radius: 1rem;
+  background: var(--color-site-surface);
+}
+.terrain-mode label {
+  display: grid;
+  place-items: center;
+  min-height: 2.25rem;
+  padding-inline: 0.6rem;
+  border-radius: inherit;
+  color: var(--color-site-text);
+  font-weight: 600;
+  cursor: pointer;
+}
+.terrain-mode label:has(:checked) {
+  background: var(--color-site-link);
+  color: var(--color-site-bg);
+}
+.terrain-mode label:has(:focus-visible) {
+  outline: 2px solid currentColor;
+  outline-offset: -4px;
+}
+.exploring-terrain .paint-tools {
+  position: static;
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0 0.5rem 0.25rem;
+  border-bottom: 1px solid var(--color-site-border);
+  pointer-events: auto;
+  text-align: start;
+  line-height: 1.25;
+}
+@media (max-width: 26rem) {
+  .exploring-terrain .paint-tools { flex-wrap: wrap; justify-content: center; }
+  .exploring-terrain .paint-tools small { flex-basis: 100%; text-align: center; }
+}
+.exploring-terrain .paint-tools button {
+  display: grid;
+  flex: none;
+  border: 0;
+  border-radius: 0.75rem;
+  min-width: 2.75rem;
+}
+.exploring-terrain .explore-help { display: inline; }
+.exploring-terrain .paint-hint, .drawing-terrain .explore-help { display: none; }
+.drawing-terrain .paint-hint, .drawing-terrain .draw-help { display: inline; }
 @media (any-pointer: coarse) {
   .paint-hint .touch-brush {
     display: flex;
@@ -101,21 +156,8 @@ html.paint-page {
     appearance: auto;
   }
 }
-.explore-help, .touch-help, .paint-palette [data-hill-shading], .exploring-terrain .paint-palette label {
-  display: none;
-}
-.exploring-terrain [data-hill-shading] { display: grid; }
-.paint-page .site-main.exploring-terrain { cursor: grab; }
-.paint-page .site-main.exploring-terrain:active { cursor: grabbing; }
-.exploring-terrain .explore-help {
-  display: flex;
-  align-items: center;
-  grid-column: span 5;
-  padding-inline: 0.75rem;
-  color: var(--color-site-muted);
-  font-size: 0.8125rem;
-  line-height: 1.3;
-}
+.paint-page .exploring-terrain:not(.drawing-terrain) { cursor: grab; }
+.paint-page .exploring-terrain:not(.drawing-terrain):active { cursor: grabbing; }
 @media (pointer: coarse) {
   .mouse-help { display: none; }
   .touch-help { display: inline; }

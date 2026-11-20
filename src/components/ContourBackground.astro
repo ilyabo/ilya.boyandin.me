@@ -65,6 +65,7 @@
     const listeners = new AbortController();
     const options = { signal: listeners.signal };
     const paintMode = gl.getUniformLocation(program, 'paintMode');
+    const fieldSpan = gl.getUniformLocation(program, 'fieldSpan');
     let main: HTMLElement;
     let palette: HTMLFieldSetElement | null;
     let touchBrush: HTMLSelectElement | null;
@@ -74,6 +75,8 @@
     let springs: ContourSprings;
     let previousPointer: PointerEvent | null = null;
     let press: PointerEvent | null = null;
+    let brushMap: ReturnType<TerrainExplorer['captureBrushMap']> | null = null;
+    let strokeOrigin = { x: 0, y: 0 };
     let dragging = false;
     const touchDragDelayMs = 250;
     let frame = 0;
@@ -89,7 +92,7 @@
       paint = !!palette;
       gl.uniform1i(paintMode, Number(paint));
       const exploreButton = palette?.querySelector<HTMLButtonElement>('[data-explore-terrain]');
-      explorer = exploreButton && new TerrainExplorer(gl, program, main, exploreButton, scheduleDraw, pageListeners.signal);
+      explorer = exploreButton && new TerrainExplorer(gl, program, main, exploreButton, scheduleDraw, endStroke, pageListeners.signal);
       const resetButton = palette?.querySelector<HTMLButtonElement>('[data-reset-terrain]');
       if (resetButton) {
         resetButton.addEventListener('click', () => {
@@ -125,6 +128,9 @@
           gl.texSubImage2D(gl.TEXTURE_2D, 0, 0, 0, springs.columns, springs.rows, gl.RG, gl.UNSIGNED_BYTE, springs.pixels);
         }
       }
+      explorer?.step(now, reducedMotion.matches);
+      const span = explorer?.showingTerrain ? 2 : 1;
+      if (span !== hills.fieldSpan) resizeHillField(span);
       const hillPixels = hills.update(now, reducedMotion.matches);
       if (hillPixels) {
         gl.activeTexture(gl.TEXTURE1);
@@ -132,7 +138,6 @@
         if (hills.active) scheduleDraw();
       }
       lastDraw = now;
-      explorer?.step(now, reducedMotion.matches);
       gl.uniform1i(springsActive, springs.active ? 1 : 0);
       gl.uniform1f(time, elapsed);
       gl.uniform1f(touchMotion, coarsePointer.matches ? 1 : 0);
@@ -187,16 +192,22 @@
       const inset = main.getBoundingClientRect().left + parseFloat(getComputedStyle(main).paddingLeft);
       gl.uniform1f(gutter, Math.max(1, inset) / canvas.clientWidth);
       if (springs && canvas.width === width && canvas.height === height) return;
+      endStroke();
       canvas.width = width;
       canvas.height = height;
       gl.viewport(0, 0, width, height);
       gl.uniform2f(resolution, width, height);
       gl.uniform2f(viewport, canvas.clientWidth, canvas.clientHeight);
-      hills.resize(canvas.clientWidth, canvas.clientHeight);
-      gl.activeTexture(gl.TEXTURE1);
-      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA16F, hills.columns, hills.rows, 0, gl.RGBA, gl.FLOAT, null);
+      resizeHillField(explorer?.showingTerrain ? 2 : 1);
       resetSprings();
       explorer?.resize();
+    }
+
+    function resizeHillField(span: number) {
+      hills.resize(canvas.clientWidth, canvas.clientHeight, span);
+      gl.uniform1f(fieldSpan, span);
+      gl.activeTexture(gl.TEXTURE1);
+      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA16F, hills.columns, hills.rows, 0, gl.RGBA, gl.FLOAT, null);
     }
 
     function isBackgroundPress(event: PointerEvent) {
@@ -217,7 +228,16 @@
         return;
       }
       dragging = true;
-      hills.drag(dx, dy, event.type === 'pointerup');
+      if (brushMap) {
+        const point = brushMap(event.clientX, event.clientY);
+        if (!point) {
+          finishStroke(event.timeStamp);
+          return;
+        }
+        hills.drag(point.x - strokeOrigin.x, point.y - strokeOrigin.y, event.type === 'pointerup');
+      } else {
+        hills.drag(dx, dy, event.type === 'pointerup');
+      }
       scheduleDraw();
     }
 
@@ -229,17 +249,27 @@
 
     window.addEventListener('pointerdown', (event) => {
       if (press) cancelPress();
-      if (explorer?.active || explorer?.showingTerrain || !isBackgroundPress(event)) return;
+      if (!isBackgroundPress(event)) return;
+      const bounds = canvas.getBoundingClientRect();
+      if (explorer?.active || explorer?.showingTerrain) {
+        if (!explorer.readyToDraw) return;
+        const project = explorer.captureBrushMap(canvas);
+        const point = project(event.clientX, event.clientY);
+        if (!point) return;
+        brushMap = project;
+        strokeOrigin = point;
+      } else {
+        strokeOrigin = { x: event.clientX - bounds.left, y: event.clientY - bounds.top };
+      }
       press = event;
       dragging = false;
       if (!paint && event.pointerType === 'touch') {
         window.addEventListener('touchmove', handleTouchMove, { ...options, passive: false });
       }
-      const bounds = canvas.getBoundingClientRect();
-      const swatch = palette?.querySelector<HTMLInputElement>('input:checked');
+      const swatch = palette?.querySelector<HTMLInputElement>('input[name="brush-color"]:checked');
       const rgb = swatch ? parseInt(swatch.value.slice(1), 16) : null;
       const valley = event.shiftKey || (event.pointerType !== 'mouse' && touchBrush?.value === 'valley');
-      hills.begin(event.clientX - bounds.left, event.clientY - bounds.top, event.timeStamp,
+      hills.begin(strokeOrigin.x, strokeOrigin.y, event.timeStamp,
         rgb === null ? undefined : [(rgb >> 16) / 255, ((rgb >> 8) & 255) / 255, (rgb & 255) / 255], valley);
       scheduleDraw();
     }, options);
@@ -247,8 +277,17 @@
     function cancelPress() {
       if (!press) return;
       press = null;
+      brushMap = null;
       window.removeEventListener('touchmove', handleTouchMove);
       hills.cancel();
+      scheduleDraw();
+    }
+
+    function finishStroke(now: number) {
+      press = null;
+      brushMap = null;
+      window.removeEventListener('touchmove', handleTouchMove);
+      hills.release(now, reducedMotion.matches);
       scheduleDraw();
     }
 
@@ -257,21 +296,18 @@
       updateDrag(event);
       if (!press) return;
       if (event.defaultPrevented || (!dragging && !isBackgroundPress(event))) return cancelPress();
-      press = null;
-      window.removeEventListener('touchmove', handleTouchMove);
-      hills.release(event.timeStamp, reducedMotion.matches);
-      scheduleDraw();
+      finishStroke(event.timeStamp);
     }, options);
 
     window.addEventListener('pointermove', (event) => {
-      if (explorer?.active || explorer?.showingTerrain) {
-        previousPointer = null;
-        return;
-      }
       if (press?.pointerId === event.pointerId) {
         for (const sample of event.getCoalescedEvents?.() ?? []) updateDrag(sample);
       }
       updateDrag(event);
+      if (explorer?.active || explorer?.showingTerrain) {
+        previousPointer = null;
+        return;
+      }
       if (reducedMotion.matches || event.pointerType === 'touch') return;
       if (previousPointer?.pointerId === event.pointerId) {
         springs.stroke(

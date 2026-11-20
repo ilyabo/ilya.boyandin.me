@@ -2,9 +2,13 @@ const clamp = (value: number, min: number, max: number) => Math.min(max, Math.ma
 
 export class TerrainExplorer {
   active = false;
+  drawing = false;
   private progress = 0;
   get showingTerrain() {
     return this.progress > 0;
+  }
+  get readyToDraw() {
+    return this.active && this.drawing && this.progress === 1;
   }
   private yaw = 0.12;
   private pitch = 0.55;
@@ -24,17 +28,29 @@ export class TerrainExplorer {
   private orbitUniform: WebGLUniformLocation;
   private centerUniform: WebGLUniformLocation;
   private blendUniform: WebGLUniformLocation;
+  private pickingUniform: WebGLUniformLocation;
+  private modeInputs: NodeListOf<HTMLInputElement>;
 
   constructor(
     private gl: WebGL2RenderingContext, program: WebGLProgram,
     private surface: HTMLElement, private button: HTMLButtonElement,
-    private redraw: () => void, signal: AbortSignal,
+    private redraw: () => void, private endStroke: () => void, signal: AbortSignal,
   ) {
     this.gridUniform = gl.getUniformLocation(program, 'grid');
     this.orbitUniform = gl.getUniformLocation(program, 'orbit');
     this.centerUniform = gl.getUniformLocation(program, 'center');
     this.blendUniform = gl.getUniformLocation(program, 'viewBlend');
+    this.pickingUniform = gl.getUniformLocation(program, 'picking');
     const options = { signal };
+    this.modeInputs = surface.querySelectorAll('input[name="terrain-mode"]');
+    for (const input of this.modeInputs) {
+      input.addEventListener('change', () => this.setDrawing(input.value === 'draw'), options);
+    }
+    const selectBrush = (event: Event) => {
+      if (this.active && event.target instanceof HTMLInputElement && event.target.name === 'brush-color') this.setDrawing(true);
+    };
+    surface.addEventListener('click', selectBrush, options);
+    surface.addEventListener('change', selectBrush, options);
     const shadingButton = surface.querySelector<HTMLButtonElement>('[data-hill-shading]');
     const shadingUniform = gl.getUniformLocation(program, 'hillShading');
     if (shadingButton) {
@@ -53,6 +69,7 @@ export class TerrainExplorer {
     surface.addEventListener('pointerdown', event => {
       if (!this.active || event.target !== surface || event.button !== 0) return;
       surface.focus({ preventScroll: true });
+      if (this.drawing) this.stopFlight();
       surface.setPointerCapture(event.pointerId);
       this.touches.set(event.pointerId, event);
     }, options);
@@ -61,6 +78,7 @@ export class TerrainExplorer {
     surface.addEventListener('wheel', event => {
       if (!this.active || event.target !== surface) return;
       event.preventDefault();
+      this.endStroke();
       const unit = event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? surface.clientHeight : 1;
       this.zoom(Math.exp(clamp(event.deltaY * unit * 0.0015, -1, 1)));
     }, { signal, passive: false });
@@ -75,6 +93,7 @@ export class TerrainExplorer {
       const key = event.key.toLowerCase();
       if (!['w', 'a', 's', 'd', 'arrowup', 'arrowdown', 'arrowleft', 'arrowright', '+', '=', '-'].includes(key)) return;
       event.preventDefault();
+      this.endStroke();
       if (key === '+' || key === '=' || key === '-') this.zoom(key === '-' ? 1.12 : 1 / 1.12);
       else if (!this.keys.has(key)) {
         const now = performance.now();
@@ -108,11 +127,12 @@ export class TerrainExplorer {
   setActive(active: boolean) {
     if (this.progress === 1) this.yaw = Math.atan2(Math.sin(this.yaw), Math.cos(this.yaw));
     this.active = active;
+    this.setDrawing(false);
     this.resetInput();
     this.previousTime = performance.now();
     this.surface.classList.toggle('exploring-terrain', active);
     this.button.setAttribute('aria-pressed', String(active));
-    this.button.dataset.tooltip = active ? 'Return to painting' : 'Explore the terrain in 3D';
+    this.button.dataset.tooltip = active ? 'Return to 2D' : 'Explore the terrain in 3D';
     if (active) {
       this.surface.tabIndex = -1;
       this.surface.focus({ preventScroll: true });
@@ -121,6 +141,49 @@ export class TerrainExplorer {
       this.surface.removeAttribute('tabindex');
     }
     this.redraw();
+  }
+
+  private setDrawing(enabled: boolean) {
+    this.endStroke();
+    this.drawing = enabled;
+    this.surface.classList.toggle('drawing-terrain', enabled);
+    for (const input of this.modeInputs) {
+      input.checked = input.value === (enabled ? 'draw' : 'navigate');
+    }
+  }
+
+  // Capture the visible mesh once per stroke. Growing relief under the brush must
+  // not move its own path. The depth test selects the nearest hillside at each pixel.
+  captureBrushMap(canvas: HTMLCanvasElement) {
+    const gl = this.gl;
+    const bounds = canvas.getBoundingClientRect();
+    const scale = Math.min(1, 1024 / Math.max(canvas.width, canvas.height));
+    const width = Math.max(1, Math.round(canvas.width * scale));
+    const height = Math.max(1, Math.round(canvas.height * scale));
+    const pixels = new Uint8Array(width * height * 4);
+    gl.viewport(0, 0, width, height);
+    gl.disable(gl.DITHER);
+    gl.uniform1i(this.pickingUniform, 1);
+    this.draw();
+    gl.readPixels(0, 0, width, height, gl.RGBA, gl.UNSIGNED_BYTE, pixels);
+    gl.uniform1i(this.pickingUniform, 0);
+    gl.enable(gl.DITHER);
+    gl.viewport(0, 0, canvas.width, canvas.height);
+    this.draw();
+
+    return (clientX: number, clientY: number) => {
+      const col = Math.floor((clientX - bounds.left) * width / bounds.width);
+      const row = height - 1 - Math.floor((clientY - bounds.top) * height / bounds.height);
+      if (col < 0 || col >= width || row < 0 || row >= height) return null;
+      const i = (row * width + col) * 4;
+      const u = pixels[i] * 256 + pixels[i + 1];
+      const v = pixels[i + 2] * 256 + pixels[i + 3];
+      if (!u || !v) return null;
+      return {
+        x: ((u - 1) / 65534 * 2 - 0.5) * bounds.width,
+        y: (1.5 - (v - 1) / 65534 * 2) * bounds.height,
+      };
+    };
   }
 
   private resetInput() {
@@ -175,6 +238,7 @@ export class TerrainExplorer {
     this.touches.set(event.pointerId, event);
     let dx = event.clientX - previous.clientX;
     let dy = event.clientY - previous.clientY;
+    if (this.drawing && this.touches.size === 1) return;
     if (this.touches.size === 2 || event.shiftKey) {
       if (this.touches.size === 2) {
         const other = [...this.touches.values()].find(point => point.pointerId !== event.pointerId);

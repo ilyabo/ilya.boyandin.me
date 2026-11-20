@@ -6,6 +6,7 @@ const terrain = `
     uniform float elapsed;
     uniform float touchMotion;
     uniform float viewBlend;
+    uniform float fieldSpan;
 
     vec2 mapScale() {
       return resolution / max(resolution.x, resolution.y * 0.86);
@@ -29,7 +30,7 @@ const terrain = `
     }
 
     vec4 paintedTerrain(vec2 uv) {
-      vec2 fieldUV = vec2(uv.x, 1.0 - uv.y);
+      vec2 fieldUV = (vec2(uv.x, 1.0 - uv.y) - 0.5) / fieldSpan + 0.5;
       if (viewBlend > 0.0) {
         // Interpolate the half-float samples in high precision. Hardware filtering can round
         // neighboring screen pixels to the same height and leave steps in lighting and contours.
@@ -38,14 +39,11 @@ const terrain = `
         ivec2 lo = ivec2(floor(cell));
         ivec2 hi = min(lo + 1, size - 1);
         vec2 f = fract(cell);
-        vec4 hill = mix(
+        return mix(
           mix(texelFetch(hillField, lo, 0), texelFetch(hillField, ivec2(hi.x, lo.y), 0), f.x),
           mix(texelFetch(hillField, ivec2(lo.x, hi.y), 0), texelFetch(hillField, hi, 0), f.x),
           f.y
         );
-        // Continue the procedural landscape beyond the painted map without stretching edge strokes.
-        vec2 outside = max(-uv, uv - 1.0);
-        return hill * (1.0 - smoothstep(0.0, 0.08, max(outside.x, outside.y)));
       }
       return texture(hillField, fieldUV);
     }
@@ -122,12 +120,14 @@ export const terrainVertexSource = `#version 300 es
 
 export const contourFragmentSource = `#version 300 es
     precision highp float;
+    precision highp int;
     ${terrain}
     in vec2 terrainUV;
     uniform sampler2D springField;
     uniform bool springsActive;
     uniform bool paintMode;
     uniform bool hillShading;
+    uniform bool picking;
     uniform vec2 viewport;
     out vec4 color;
 
@@ -150,6 +150,12 @@ export const contourFragmentSource = `#version 300 es
     }
 
     void main() {
+      if (picking) {
+        // Two bytes per map coordinate. Reserve zero for pixels beyond the mesh.
+        uvec2 coord = uvec2(round(clamp((terrainUV + 0.5) * 0.5, 0.0, 1.0) * 65534.0)) + 1u;
+        color = vec4(coord.x >> 8, coord.x & 255u, coord.y >> 8, coord.y & 255u) / 255.0;
+        return;
+      }
       vec2 uv = gl_FragCoord.xy / resolution;
       if (viewBlend > 0.0) uv = terrainUV;
       vec2 scale = mapScale();
