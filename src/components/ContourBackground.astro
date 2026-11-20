@@ -36,7 +36,6 @@ const { paint = false } = Astro.props;
     uniform float gutter;
     uniform sampler2D springField;
     uniform highp sampler2D hillField;
-    uniform sampler2D fillField;
     uniform bool springsActive;
     uniform bool paintMode;
     uniform vec2 viewport;
@@ -102,8 +101,7 @@ const { paint = false } = Astro.props;
       float elevation = hills + 0.34 * ridges
                       + 0.10 * terrainNoise(terrain * 4.7 + 9.0);
       vec2 mapUV = p / scale;
-      vec2 fieldUV = vec2(mapUV.x, 1.0 - mapUV.y);
-      vec4 hill = texture(hillField, fieldUV);
+      vec4 hill = texture(hillField, vec2(mapUV.x, 1.0 - mapUV.y));
       elevation += hill.r;
       // On touch screens, carry the breath into the reading area between the narrow gutters.
       float breath = sin(elapsed * mix(0.24, 0.48, touchMotion));
@@ -116,19 +114,16 @@ const { paint = false } = Astro.props;
       float width = indexContour ? 1.25 : 0.95;
       float line = 1.0 - smoothstep(0.0, width, distanceToLine / pixelWidth);
       float readingFade = mix(1.0, mix(0.36, 0.52, touchMotion), clamp(edgeDistance / (gutter + 0.04), 0.0, 1.0));
-      float alpha = line * (indexContour ? 0.19 : 0.13) * readingFade;
+      vec3 contourColor = vec3(0.43, 0.67, 0.70);
+      float opacity = (indexContour ? 0.19 : 0.13) * readingFade;
+      vec4 contour = vec4(contourColor * opacity, opacity);
       if (paintMode) {
-        alpha = line * (indexContour ? 0.31 : 0.19);
         vec3 ink = hill.gba;
         float strength = max(ink.r, max(ink.g, ink.b));
-        float fill = texture(fillField, fieldUV).r * 0.48 * (1.0 - line);
-        vec3 swatch = ink / max(strength, 0.0001);
-        color = vec4(ink * line + swatch * fill + vec3(0.43, 0.67, 0.70) * alpha * (1.0 - strength),
-                     strength * line + fill + alpha * (1.0 - strength));
-        return;
+        float baseOpacity = (indexContour ? 0.31 : 0.19) * (1.0 - strength);
+        contour = vec4(ink + contourColor * baseOpacity, strength + baseOpacity);
       }
-      // Premultiply before compositing so the space between lines carries no tint.
-      color = vec4(vec3(0.43, 0.67, 0.70) * alpha, alpha);
+      color = contour * line;
     }
   `;
 
@@ -158,9 +153,7 @@ const { paint = false } = Astro.props;
     const viewport = gl.getUniformLocation(program, 'viewport');
     const springsActive = gl.getUniformLocation(program, 'springsActive');
     const paint = canvas.hasAttribute('data-paint');
-    const fields = ['springField', 'hillField'];
-    if (paint) fields.push('fillField');
-    for (const [unit, name] of fields.entries()) {
+    for (const [unit, name] of ['springField', 'hillField'].entries()) {
       gl.activeTexture(gl.TEXTURE0 + unit);
       gl.bindTexture(gl.TEXTURE_2D, gl.createTexture());
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
@@ -178,6 +171,7 @@ const { paint = false } = Astro.props;
     const options = { signal: listeners.signal };
     const main = document.querySelector<HTMLElement>('.site-main');
     const palette = document.querySelector<HTMLFieldSetElement>('[data-paint-palette]');
+    const saveButton = palette?.querySelector<HTMLButtonElement>('[data-save-image]');
     const hills = new ContourHills(paint ? 4 : 1);
     const hillFormat = paint ? gl.RGBA : gl.RED;
     gl.uniform1i(gl.getUniformLocation(program, 'paintMode'), paint ? 1 : 0);
@@ -207,10 +201,6 @@ const { paint = false } = Astro.props;
       if (hillPixels) {
         gl.activeTexture(gl.TEXTURE1);
         gl.texSubImage2D(gl.TEXTURE_2D, 0, 0, 0, hills.columns, hills.rows, hillFormat, gl.FLOAT, hillPixels);
-        if (hills.fillOpacity) {
-          gl.activeTexture(gl.TEXTURE2);
-          gl.texSubImage2D(gl.TEXTURE_2D, 0, 0, 0, hills.columns, hills.rows, gl.RED, gl.UNSIGNED_BYTE, hills.fillOpacity);
-        }
         if (hills.active) scheduleDraw();
       }
       lastDraw = now;
@@ -222,6 +212,30 @@ const { paint = false } = Astro.props;
 
     function scheduleDraw() {
       if (!document.hidden && !frame) frame = requestAnimationFrame(draw);
+    }
+
+    function saveImage() {
+      const snapshot = document.createElement('canvas');
+      snapshot.width = canvas.width;
+      snapshot.height = canvas.height;
+      const context = snapshot.getContext('2d', { alpha: false });
+      if (!context) return;
+      context.fillStyle = getComputedStyle(document.documentElement).backgroundColor;
+      context.fillRect(0, 0, snapshot.width, snapshot.height);
+      // WebGL can discard its drawing buffer after display. Redraw the current frame before copying.
+      gl.drawArrays(gl.TRIANGLES, 0, 3);
+      context.drawImage(canvas, 0, 0);
+      snapshot.toBlob((blob) => {
+        if (!blob) return;
+        const url = URL.createObjectURL(blob);
+        const download = document.createElement('a');
+        download.href = url;
+        download.download = 'contour-terrain.png';
+        document.body.append(download);
+        download.click();
+        download.remove();
+        window.setTimeout(() => URL.revokeObjectURL(url), 60_000);
+      }, 'image/png');
     }
 
     function resetSprings() {
@@ -244,10 +258,6 @@ const { paint = false } = Astro.props;
       hills.resize(canvas.clientWidth, canvas.clientHeight);
       gl.activeTexture(gl.TEXTURE1);
       gl.texImage2D(gl.TEXTURE_2D, 0, paint ? gl.RGBA16F : gl.R16F, hills.columns, hills.rows, 0, hillFormat, gl.FLOAT, null);
-      if (paint) {
-        gl.activeTexture(gl.TEXTURE2);
-        gl.texImage2D(gl.TEXTURE_2D, 0, gl.R8, hills.columns, hills.rows, 0, gl.RED, gl.UNSIGNED_BYTE, null);
-      }
       resetSprings();
     }
 
@@ -347,10 +357,15 @@ const { paint = false } = Astro.props;
     window.addEventListener('resize', resize, options);
     canvas.addEventListener('webglcontextlost', (event) => {
       event.preventDefault();
+      if (saveButton) saveButton.disabled = true;
       listeners.abort();
       cancelAnimationFrame(frame);
     }, options);
     resize();
+    if (saveButton) {
+      saveButton.addEventListener('click', saveImage, options);
+      saveButton.disabled = false;
+    }
   }
 
   const canvas = document.querySelector<HTMLCanvasElement>('.contour-background');
