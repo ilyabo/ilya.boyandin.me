@@ -74,38 +74,25 @@ const fullscreen = `
       gl_Position = vec4(corners[gl_VertexID], 0, 1);
 `;
 
-export const terrainVertexSource = `#version 300 es
-    precision highp float;
-    ${terrain}
-    uniform ivec2 grid;
-    // Center is in map UV coordinates. Orbit holds yaw, pitch and camera distance.
+const camera = `
     uniform vec2 center;
     uniform vec3 orbit;
-    out vec2 terrainUV;
 
     float worldHeight(vec2 uv) {
       return (terrainElevation(uv * mapScale(), uv, paintedTerrain(uv).r) - 0.68) * 0.18 * viewBlend;
     }
 
-    void main() {
-      if (viewBlend == 0.0) {
-        terrainUV = vec2(0);
-        ${fullscreen}
-        return;
-      }
-      int stride = grid.x + 1;
-      vec2 cell = vec2(gl_VertexID % stride, gl_VertexID / stride);
-      terrainUV = cell / vec2(grid) * 2.0 - 0.5;
+    vec4 projectPoint(vec2 uv, float elevation, vec2 cameraCenter, float distance) {
       vec2 scale = mapScale();
-      vec2 horizontal = (terrainUV - center) * scale;
-      vec3 world = vec3(horizontal.x, worldHeight(terrainUV), -horizontal.y);
+      vec2 horizontal = (uv - cameraCenter) * scale;
+      vec3 world = vec3(horizontal.x, elevation, -horizontal.y);
       // Follow local relief close to the surface. At wide zooms, keep the horizon steady.
-      float terrainFollow = 1.0 - smoothstep(0.15, 0.65, orbit.z);
-      vec3 target = vec3(0, worldHeight(center) * terrainFollow, 0);
+      float terrainFollow = 1.0 - smoothstep(0.15, 0.65, distance);
+      vec3 target = vec3(0, worldHeight(cameraCenter) * terrainFollow, 0);
       vec2 bearing = vec2(sin(orbit.x), cos(orbit.x));
-      vec2 offset = bearing * cos(orbit.y) * orbit.z;
-      vec3 eye = target + vec3(offset.x, sin(orbit.y) * orbit.z, offset.y);
-      vec2 eyeUV = center + vec2(offset.x, -offset.y) / scale;
+      vec2 offset = bearing * cos(orbit.y) * distance;
+      vec3 eye = target + vec3(offset.x, sin(orbit.y) * distance, offset.y);
+      vec2 eyeUV = cameraCenter + vec2(offset.x, -offset.y) / scale;
       eye.y = max(eye.y, worldHeight(eyeUV) + 0.035);
       vec3 forward = normalize(target - eye);
       vec3 right = vec3(bearing.y, 0, -bearing.x);
@@ -113,8 +100,31 @@ export const terrainVertexSource = `#version 300 es
       vec3 ray = world - eye;
       float depth = dot(ray, forward);
       // Perspective projection with a 0.01 near plane and 8.0 far plane.
-      gl_Position = vec4(dot(ray, right) * 1.8 * resolution.y / resolution.x,
-                         dot(ray, up) * 1.8, 1.002503 * depth - 0.020025, depth);
+      return vec4(dot(ray, right) * 1.8 * resolution.y / resolution.x,
+                  dot(ray, up) * 1.8, 1.002503 * depth - 0.020025, depth);
+    }
+`;
+
+export const terrainVertexSource = `#version 300 es
+    precision highp float;
+    ${terrain}
+    ${camera}
+    uniform ivec2 grid;
+    out vec2 terrainUV;
+    out float meshElevation;
+
+    void main() {
+      if (viewBlend == 0.0) {
+        terrainUV = vec2(0);
+        meshElevation = 0.0;
+        ${fullscreen}
+        return;
+      }
+      int stride = grid.x + 1;
+      vec2 cell = vec2(gl_VertexID % stride, gl_VertexID / stride);
+      terrainUV = cell / vec2(grid) * 2.0 - 0.5;
+      meshElevation = worldHeight(terrainUV);
+      gl_Position = projectPoint(terrainUV, meshElevation, center, orbit.z);
     }
 `;
 
@@ -122,7 +132,10 @@ export const contourFragmentSource = `#version 300 es
     precision highp float;
     precision highp int;
     ${terrain}
+    ${camera}
     in vec2 terrainUV;
+    in float meshElevation;
+    uniform vec3 zoomRequest; // Cursor NDC and requested orbit distance, zero when idle.
     uniform sampler2D springField;
     uniform bool springsActive;
     uniform bool paintMode;
@@ -130,6 +143,34 @@ export const contourFragmentSource = `#version 300 es
     uniform bool picking;
     uniform vec2 viewport;
     out vec4 color;
+
+    vec2 anchorScreen(vec2 anchor, vec2 cameraCenter, float elevation) {
+      vec4 clip = projectPoint(anchor, elevation, cameraCenter, zoomRequest.z);
+      return clip.xy / max(clip.w, 0.01);
+    }
+
+    // Camera height follows the ground, so a horizontal pan alone is only a first guess.
+    // Refine the center against the actual projection, once per zoom frame at the cursor pixel.
+    vec2 anchoredCenter(vec2 anchor, float elevation) {
+      vec2 candidate = clamp(mix(anchor, center, zoomRequest.z / orbit.z), 0.0, 1.0);
+      vec2 best = center;
+      float bestError = 1e20;
+      const float stepUV = 0.0002;
+      for (int i = 0; i < 5; i++) {
+        vec2 screen = anchorScreen(anchor, candidate, elevation);
+        vec2 error = zoomRequest.xy - screen;
+        float squaredError = dot(error, error);
+        if (squaredError >= bestError) break;
+        bestError = squaredError;
+        best = candidate;
+        if (squaredError < 1e-8) break;
+        mat2 jacobian = mat2(anchorScreen(anchor, candidate + vec2(stepUV, 0), elevation) - screen,
+                             anchorScreen(anchor, candidate + vec2(0, stepUV), elevation) - screen) / stepUV;
+        if (abs(determinant(jacobian)) < 1e-5) break;
+        candidate = clamp(candidate + clamp(inverse(jacobian) * error, -0.15, 0.15), 0.0, 1.0);
+      }
+      return best;
+    }
 
     vec2 samplePull(vec2 uv) {
       // Group the 4x4 cubic B-spline kernel into four hardware-filtered reads.
@@ -152,7 +193,8 @@ export const contourFragmentSource = `#version 300 es
     void main() {
       if (picking) {
         // Two bytes per map coordinate. Reserve zero for pixels beyond the mesh.
-        uvec2 coord = uvec2(round(clamp((terrainUV + 0.5) * 0.5, 0.0, 1.0) * 65534.0)) + 1u;
+        vec2 uv = zoomRequest.z > 0.0 ? anchoredCenter(terrainUV, meshElevation) : terrainUV;
+        uvec2 coord = uvec2(round(clamp((uv + 0.5) * 0.5, 0.0, 1.0) * 65534.0)) + 1u;
         color = vec4(coord.x >> 8, coord.x & 255u, coord.y >> 8, coord.y & 255u) / 255.0;
         return;
       }

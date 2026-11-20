@@ -1,5 +1,10 @@
 const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value));
 
+function unpackMapCoordinate(pixels: Uint8Array, offset: number) {
+  const encoded = pixels[offset] * 256 + pixels[offset + 1];
+  return encoded ? (encoded - 1) / 65534 * 2 - 0.5 : null;
+}
+
 export class TerrainExplorer {
   active = false;
   drawing = false;
@@ -29,6 +34,8 @@ export class TerrainExplorer {
   private centerUniform: WebGLUniformLocation;
   private blendUniform: WebGLUniformLocation;
   private pickingUniform: WebGLUniformLocation;
+  private zoomUniform: WebGLUniformLocation;
+  private wheelZoom: { distance: number; x: number; y: number } | null = null;
   private modeInputs: NodeListOf<HTMLInputElement>;
 
   constructor(
@@ -41,6 +48,7 @@ export class TerrainExplorer {
     this.centerUniform = gl.getUniformLocation(program, 'center');
     this.blendUniform = gl.getUniformLocation(program, 'viewBlend');
     this.pickingUniform = gl.getUniformLocation(program, 'picking');
+    this.zoomUniform = gl.getUniformLocation(program, 'zoomRequest');
     const options = { signal };
     this.modeInputs = surface.querySelectorAll('input[name="terrain-mode"]');
     for (const input of this.modeInputs) {
@@ -80,7 +88,10 @@ export class TerrainExplorer {
       event.preventDefault();
       this.endStroke();
       const unit = event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? surface.clientHeight : 1;
-      this.zoom(Math.exp(clamp(event.deltaY * unit * 0.0015, -1, 1)));
+      const factor = Math.exp(clamp(event.deltaY * unit * 0.0015, -1, 1));
+      const distance = clamp((this.wheelZoom?.distance ?? this.distance) * factor, 0.09, 1.8);
+      this.wheelZoom = { distance, x: event.clientX, y: event.clientY };
+      this.redraw();
     }, { signal, passive: false });
     window.addEventListener('keydown', event => {
       if (!this.active || event.metaKey || event.ctrlKey || event.altKey) return;
@@ -176,17 +187,15 @@ export class TerrainExplorer {
       const row = height - 1 - Math.floor((clientY - bounds.top) * height / bounds.height);
       if (col < 0 || col >= width || row < 0 || row >= height) return null;
       const i = (row * width + col) * 4;
-      const u = pixels[i] * 256 + pixels[i + 1];
-      const v = pixels[i + 2] * 256 + pixels[i + 3];
-      if (!u || !v) return null;
-      return {
-        x: ((u - 1) / 65534 * 2 - 0.5) * bounds.width,
-        y: (1.5 - (v - 1) / 65534 * 2) * bounds.height,
-      };
+      const u = unpackMapCoordinate(pixels, i);
+      const v = unpackMapCoordinate(pixels, i + 2);
+      if (u === null || v === null) return null;
+      return { x: u * bounds.width, y: (1 - v) * bounds.height };
     };
   }
 
   private resetInput() {
+    this.wheelZoom = null;
     this.touches.clear();
     this.stopFlight();
     this.previousTime = 0;
@@ -222,6 +231,35 @@ export class TerrainExplorer {
   private zoom(factor: number) {
     this.distance = clamp(this.distance * factor, 0.09, 1.8);
     this.redraw();
+  }
+
+  private applyWheelZoom() {
+    const { distance, x, y } = this.wheelZoom;
+    this.wheelZoom = null;
+    if (distance === this.distance) return;
+    if (this.progress === 1) {
+      const gl = this.gl;
+      const canvas = gl.canvas as HTMLCanvasElement;
+      const bounds = canvas.getBoundingClientRect();
+      const col = Math.floor((x - bounds.left) * canvas.width / bounds.width);
+      const row = canvas.height - 1 - Math.floor((y - bounds.top) * canvas.height / bounds.height);
+      const pixel = new Uint8Array(4);
+      gl.enable(gl.SCISSOR_TEST);
+      gl.scissor(col, row, 1, 1);
+      gl.disable(gl.DITHER);
+      gl.uniform1i(this.pickingUniform, 1);
+      gl.uniform3f(this.zoomUniform, (col + 0.5) * 2 / canvas.width - 1, (row + 0.5) * 2 / canvas.height - 1, distance);
+      this.draw();
+      gl.readPixels(col, row, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, pixel);
+      gl.uniform3f(this.zoomUniform, 0, 0, 0);
+      gl.uniform1i(this.pickingUniform, 0);
+      gl.enable(gl.DITHER);
+      gl.disable(gl.SCISSOR_TEST);
+      // Sky leaves the pick pixel clear, so zoom about the existing center.
+      this.centerX = unpackMapCoordinate(pixel, 0) ?? this.centerX;
+      this.centerY = unpackMapCoordinate(pixel, 2) ?? this.centerY;
+    }
+    this.distance = distance;
   }
 
   private pan(right: number, forward: number) {
@@ -285,6 +323,7 @@ export class TerrainExplorer {
   }
 
   step(now: number, reducedMotion: boolean) {
+    if (this.wheelZoom) this.applyWheelZoom();
     const deltaMs = Math.max(0, now - this.previousTime);
     const target = this.active ? 1 : 0;
     if (this.progress !== target) {
