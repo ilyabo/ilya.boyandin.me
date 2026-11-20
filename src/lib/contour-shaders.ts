@@ -29,13 +29,25 @@ const terrain = `
     }
 
     vec4 paintedTerrain(vec2 uv) {
-      vec4 hill = texture(hillField, vec2(uv.x, 1.0 - uv.y));
+      vec2 fieldUV = vec2(uv.x, 1.0 - uv.y);
       if (viewBlend > 0.0) {
+        // Interpolate the half-float samples in high precision. Hardware filtering can round
+        // neighboring screen pixels to the same height and leave steps in lighting and contours.
+        ivec2 size = textureSize(hillField, 0);
+        vec2 cell = clamp(fieldUV * vec2(size) - 0.5, vec2(0), vec2(size - 1));
+        ivec2 lo = ivec2(floor(cell));
+        ivec2 hi = min(lo + 1, size - 1);
+        vec2 f = fract(cell);
+        vec4 hill = mix(
+          mix(texelFetch(hillField, lo, 0), texelFetch(hillField, ivec2(hi.x, lo.y), 0), f.x),
+          mix(texelFetch(hillField, ivec2(lo.x, hi.y), 0), texelFetch(hillField, hi, 0), f.x),
+          f.y
+        );
         // Continue the procedural landscape beyond the painted map without stretching edge strokes.
         vec2 outside = max(-uv, uv - 1.0);
-        hill *= 1.0 - smoothstep(0.0, 0.08, max(outside.x, outside.y));
+        return hill * (1.0 - smoothstep(0.0, 0.08, max(outside.x, outside.y)));
       }
-      return hill;
+      return texture(hillField, fieldUV);
     }
 
     float terrainElevation(vec2 p, vec2 uv, float hillHeight) {
