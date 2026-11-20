@@ -83,7 +83,7 @@ html.paint-page {
   font-size: 0.8125rem;
   pointer-events: none;
 }
-.paint-tools small { font-size: inherit; }
+.paint-tools small { font-size: 0.71875rem; line-height: 1.4; }
 .terrain-mode, .paint-tools button, .explore-help, .draw-help, .paint-hint .touch-brush, .touch-help { display: none; }
 .exploring-terrain .terrain-mode {
   display: inline-grid;
@@ -99,7 +99,7 @@ html.paint-page {
   display: grid;
   place-items: center;
   min-height: 2.25rem;
-  padding-inline: 0.6rem;
+  padding-inline: 0.45rem;
   border-radius: inherit;
   color: var(--color-site-text);
   font-weight: 600;

@@ -8,6 +8,7 @@ function unpackMapCoordinate(pixels: Uint8Array, offset: number) {
 export class TerrainExplorer {
   active = false;
   drawing = false;
+  private spaceNavigating = false;
   private progress = 0;
   get showingTerrain() {
     return this.progress > 0;
@@ -41,7 +42,7 @@ export class TerrainExplorer {
   constructor(
     private gl: WebGL2RenderingContext, program: WebGLProgram,
     private surface: HTMLElement, private button: HTMLButtonElement,
-    private redraw: () => void, private endStroke: () => void, signal: AbortSignal,
+    private redraw: () => void, private endStroke: (commit?: boolean) => void, signal: AbortSignal,
   ) {
     this.gridUniform = gl.getUniformLocation(program, 'grid');
     this.orbitUniform = gl.getUniformLocation(program, 'orbit');
@@ -100,6 +101,19 @@ export class TerrainExplorer {
         button.focus();
         return;
       }
+      if (event.code === 'Space') {
+        // A checked palette radio is already selected. Other controls keep native Space activation.
+        const selectedBrushOrMode = event.target instanceof HTMLInputElement
+          && event.target.checked && ['terrain-mode', 'brush-color'].includes(event.target.name);
+        if ((event.target === surface || selectedBrushOrMode) && (this.drawing || this.spaceNavigating)) {
+          event.preventDefault();
+          if (!event.repeat && this.drawing) {
+            this.setDrawing(false, true);
+            surface.focus({ preventScroll: true });
+          }
+        }
+        return;
+      }
       if (event.target !== surface) return;
       const key = event.key.toLowerCase();
       if (!['w', 'a', 's', 'd', 'arrowup', 'arrowdown', 'arrowleft', 'arrowright', '+', '=', '-'].includes(key)) return;
@@ -115,6 +129,7 @@ export class TerrainExplorer {
       }
     }, options);
     window.addEventListener('keyup', event => {
+      if (event.code === 'Space' && this.spaceNavigating) this.setDrawing(true);
       const key = event.key.toLowerCase();
       if (!this.keys.has(key)) return;
       // Include the last partial frame, even for a tap shorter than one render interval.
@@ -154,8 +169,9 @@ export class TerrainExplorer {
     this.redraw();
   }
 
-  private setDrawing(enabled: boolean) {
-    this.endStroke();
+  private setDrawing(enabled: boolean, whileSpaceHeld = false) {
+    this.endStroke(whileSpaceHeld);
+    this.spaceNavigating = whileSpaceHeld;
     this.drawing = enabled;
     this.surface.classList.toggle('drawing-terrain', enabled);
     for (const input of this.modeInputs) {
@@ -195,6 +211,7 @@ export class TerrainExplorer {
   }
 
   private resetInput() {
+    if (this.spaceNavigating) this.setDrawing(true);
     this.wheelZoom = null;
     this.touches.clear();
     this.stopFlight();
@@ -277,7 +294,8 @@ export class TerrainExplorer {
     let dx = event.clientX - previous.clientX;
     let dy = event.clientY - previous.clientY;
     if (this.drawing && this.touches.size === 1) return;
-    if (this.touches.size === 2 || event.shiftKey) {
+    const mousePan = event.pointerType === 'mouse' && !event.shiftKey;
+    if (this.touches.size === 2 || mousePan) {
       if (this.touches.size === 2) {
         const other = [...this.touches.values()].find(point => point.pointerId !== event.pointerId);
         const before = Math.hypot(previous.clientX - other.clientX, previous.clientY - other.clientY);

@@ -92,7 +92,8 @@
       paint = !!palette;
       gl.uniform1i(paintMode, Number(paint));
       const exploreButton = palette?.querySelector<HTMLButtonElement>('[data-explore-terrain]');
-      explorer = exploreButton && new TerrainExplorer(gl, program, main, exploreButton, scheduleDraw, endStroke, pageListeners.signal);
+      explorer = exploreButton && new TerrainExplorer(gl, program, main, exploreButton, scheduleDraw,
+        commit => commit && press ? finishStroke(performance.now()) : endStroke(), pageListeners.signal);
       const resetButton = palette?.querySelector<HTMLButtonElement>('[data-reset-terrain]');
       if (resetButton) {
         resetButton.addEventListener('click', () => {
