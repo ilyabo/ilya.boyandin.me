@@ -54,13 +54,12 @@ export class ContourHills {
     this.dirty = true;
   }
 
-  begin(x: number, y: number, now: number, color?: Hill['color']) {
+  begin(x: number, y: number, now: number, color?: Hill['color'], valley = false) {
     this.pressedAt = now;
     const bearing = Math.random() * 2 * Math.PI;
-    const direction = Math.random() < 0.4 ? -1 : 1;
     this.preview = {
       x: x / this.width, y: y / this.height, path: [], radius: minRadius,
-      height: direction * (0.26 + Math.random() * 0.10),
+      height: (valley ? -1 : 1) * (0.26 + Math.random() * 0.10),
       cos: Math.cos(bearing), sin: Math.sin(bearing),
       width: 0.58 + Math.random() * 0.16, bend: (Math.random() - 0.5) * 0.55,
       color,

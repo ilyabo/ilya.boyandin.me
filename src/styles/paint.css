@@ -70,6 +70,33 @@ html.paint-page {
   background: var(--color-site-surface);
   color: var(--color-site-text);
 }
+.paint-hint {
+  position: absolute;
+  bottom: calc(100% + 0.5rem);
+  inset-inline: 0;
+  text-align: center;
+  color: var(--color-site-muted);
+  font-size: 0.8125rem;
+  pointer-events: none;
+}
+.paint-hint .touch-brush, .exploring-terrain .paint-hint { display: none; }
+@media (any-pointer: coarse) {
+  .paint-hint .touch-brush {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+  }
+  .touch-brush select {
+    pointer-events: auto;
+    padding: 0.35rem 0.5rem;
+    color: var(--color-site-text);
+    background: var(--color-site-surface);
+    border: 1px solid var(--color-site-border);
+    border-radius: 0.5rem;
+    appearance: auto;
+  }
+}
 .explore-help, .touch-help, .paint-palette [data-hill-shading], .exploring-terrain .paint-palette label {
   display: none;
 }

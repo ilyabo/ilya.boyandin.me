@@ -15,6 +15,15 @@ const colors = [
 <BaseLayout paint canonicalPath="/paint" title="Paint the terrain · Ilya Boyandin" description="Draw colorful hills and valleys on an interactive contour map.">
   <fieldset class="paint-palette" data-paint-palette>
     <legend class="sr-only">Terrain palette</legend>
+    <small class="paint-hint">
+      <span class="mouse-help">Click for a hill · Shift-click for a valley</span>
+      <span class="touch-brush">Tap to draw
+        <select data-touch-brush aria-label="Touch brush">
+          <option value="hill">Hills</option>
+          <option value="valley">Valleys</option>
+        </select>
+      </span>
+    </small>
     {colors.map(([name, hex], index) => (
       <label title={name} style={`--swatch: ${hex}`}>
         <input class="sr-only" type="radio" name="brush-color" value={hex} checked={index === 0} aria-label={name} />

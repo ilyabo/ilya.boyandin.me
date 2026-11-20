@@ -72,6 +72,7 @@ const { paint = false } = Astro.props;
     const options = { signal: listeners.signal };
     const main = document.querySelector<HTMLElement>('.site-main');
     const palette = document.querySelector<HTMLFieldSetElement>('[data-paint-palette]');
+    const touchBrush = palette?.querySelector<HTMLSelectElement>('[data-touch-brush]');
     const saveButton = palette?.querySelector<HTMLButtonElement>('[data-save-image]');
     const hills = new ContourHills(paint ? 4 : 1);
     const hillFormat = paint ? gl.RGBA : gl.RED;
@@ -210,8 +211,9 @@ const { paint = false } = Astro.props;
       const bounds = canvas.getBoundingClientRect();
       const swatch = palette?.querySelector<HTMLInputElement>('input:checked');
       const rgb = swatch ? parseInt(swatch.value.slice(1), 16) : null;
+      const valley = event.shiftKey || (event.pointerType !== 'mouse' && touchBrush?.value === 'valley');
       hills.begin(event.clientX - bounds.left, event.clientY - bounds.top, event.timeStamp,
-        rgb === null ? undefined : [(rgb >> 16) / 255, ((rgb >> 8) & 255) / 255, (rgb & 255) / 255]);
+        rgb === null ? undefined : [(rgb >> 16) / 255, ((rgb >> 8) & 255) / 255, (rgb & 255) / 255], valley);
       scheduleDraw();
     }, options);
 
