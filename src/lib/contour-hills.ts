@@ -4,7 +4,7 @@ const coastInitialSlope = 5.5;
 const minRadius = 6;
 const minSettledRadius = 60;
 
-interface Hill {
+export interface Hill {
   x: number;
   y: number;
   path: { x: number; y: number }[];
@@ -18,7 +18,7 @@ interface Hill {
 }
 
 export class ContourHills {
-  private hills: Hill[] = [];
+  constructor(private hills: Hill[], private saveHill: (hill: Hill) => void) {}
   private preview: Hill | null = null;
   private pressedAt = 0;
   private pathCache = new WeakMap<Hill, { distances: Float32Array; segments: number; length: number }>();
@@ -35,6 +35,15 @@ export class ContourHills {
 
   get active() {
     return this.preview !== null || this.coasting.size > 0;
+  }
+
+  clear() {
+    this.hills = [];
+    this.preview = null;
+    this.coasting.clear();
+    this.pathCache = new WeakMap();
+    this.settled.fill(0);
+    this.dirty = true;
   }
 
   resize(width: number, height: number) {
@@ -113,15 +122,18 @@ export class ContourHills {
     const minimum = Math.min(minSettledRadius, maxRadius);
     const drift = Math.min(maxRadius - hill.radius, speed * maxCoastMs / coastInitialSlope);
     const extraGrowth = Math.max(0, minimum - hill.radius - drift);
+    // Save the final geometry at release, even if the tab closes while the hill is growing.
+    const finalRadius = !reducedMotion || hill.color ? hill.radius + drift + extraGrowth : Math.max(hill.radius, minimum);
     if (!reducedMotion && (drift > 0 || extraGrowth > 0)) {
       const duration = speed > 0 ? coastInitialSlope * drift / speed : maxCoastMs;
       this.coasting.add({ hill, started: now, duration, startRadius: hill.radius, drift, extraGrowth });
     } else {
-      hill.radius = hill.color ? hill.radius + drift + extraGrowth : Math.max(hill.radius, minimum);
+      hill.radius = finalRadius;
       this.settle(hill);
     }
     this.preview = null;
     this.dirty = true;
+    this.saveHill({ ...hill, radius: finalRadius });
   }
 
   update(now: number, reducedMotion: boolean) {

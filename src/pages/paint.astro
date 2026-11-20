@@ -18,14 +18,19 @@ const colors = [
     <small class="paint-hint">
       <span class="mouse-help">Click for a hill · Shift-click for a valley</span>
       <span class="touch-brush">Tap to draw
-        <select data-touch-brush aria-label="Touch brush">
+        <select data-tooltip="Choose hills or valleys" data-touch-brush aria-label="Touch brush">
           <option value="hill">Hills</option>
           <option value="valley">Valleys</option>
         </select>
       </span>
     </small>
+    <button type="button" data-reset-terrain disabled aria-label="Reset terrain" data-tooltip="Clear drawing and restore dark terrain">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M3 6h18M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2M5 6l1 14a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1l1-14M10 10v7m4-7v7" />
+      </svg>
+    </button>
     {colors.map(([name, hex], index) => (
-      <label title={name} style={`--swatch: ${hex}`}>
+      <label data-tooltip={name} style={`--swatch: ${hex}`}>
         <input class="sr-only" type="radio" name="brush-color" value={hex} checked={index === 0} aria-label={name} />
         <span aria-hidden="true"></span>
       </label>
@@ -34,14 +39,14 @@ const colors = [
       <span class="mouse-help">Drag to orbit · WASD to fly · Scroll to zoom</span>
       <span class="touch-help">Drag to orbit · Two fingers to move and zoom</span>
     </small>
-    <button type="button" data-hill-shading disabled aria-label="Hill shading" aria-pressed="false" title="Show hill shading">
+    <button type="button" data-hill-shading disabled aria-label="Hill shading" aria-pressed="false" data-tooltip="Show hill shading">
       <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
         <circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.7" />
         <path d="M12 3.5a8.5 8.5 0 0 0 0 17z" fill="currentColor" />
       </svg>
     </button>
-    <button type="button" data-explore-terrain disabled aria-label="3D view" aria-pressed="false" title="Explore the terrain in 3D">3D</button>
-    <button type="button" data-save-image disabled aria-label="Save image" title="Save image as PNG">
+    <button type="button" data-explore-terrain disabled aria-label="3D view" aria-pressed="false" data-tooltip="Explore the terrain in 3D">3D</button>
+    <button type="button" data-save-image disabled aria-label="Save image" data-tooltip="Save image as PNG">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <path d="M12 3v12m-4-4 4 4 4-4M4 16v4h16v-4" />
       </svg>

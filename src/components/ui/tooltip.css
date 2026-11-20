@@ -1,0 +1,17 @@
+.tooltip-positioner {
+  z-index: 100;
+  pointer-events: none;
+}
+[data-slot="tooltip-content"] {
+  max-width: min(18rem, calc(100vw - 1rem));
+  padding: 0.35rem 0.625rem;
+  border-radius: 0.375rem;
+  background: var(--color-site-text);
+  color: var(--color-site-bg-deep);
+  font-size: 0.8125rem;
+  line-height: 1.35;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 25%);
+}
+.tooltip-arrow { color: var(--color-site-text); }
+.tooltip-arrow[data-side="top"] { bottom: -5px; }
+.tooltip-arrow[data-side="bottom"] { top: -5px; transform: rotate(180deg); }

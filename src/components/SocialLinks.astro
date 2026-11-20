@@ -17,7 +17,7 @@ const links = [
       href={href}
       target={href.startsWith('https:') ? '_blank' : undefined}
       rel={href.startsWith('https:') ? 'noopener' : undefined}
-      title={icons ? label : undefined}
+      data-tooltip={icons ? label : undefined}
     >
       <span class={icons ? 'sr-only' : undefined}>{label}</span>
       {icons && (

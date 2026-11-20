@@ -256,6 +256,21 @@ function rehypeMediaFigures() {
   };
 }
 
+// Keep frame titles for assistive technology. Render author-supplied media and link tips
+// with the same popup as the rest of the site, after figure captions have been extracted.
+function rehypeTooltips() {
+  function visit(node: any) {
+    const title = node.properties?.title;
+    if (typeof title === 'string' && node.tagName !== 'iframe') {
+      node.properties.dataTooltip = title;
+      if (node.tagName === 'video') node.properties.ariaLabel ??= title;
+      delete node.properties.title;
+    }
+    node.children?.forEach(visit);
+  }
+  return visit;
+}
+
 export async function renderMarkdown(content: string, context: MarkdownContext) {
   const processed = preprocessMarkdown(content, context);
   const file = await unified()
@@ -263,6 +278,7 @@ export async function renderMarkdown(content: string, context: MarkdownContext) 
     .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeRawPlugin)
     .use(rehypeMediaFigures)
+    .use(rehypeTooltips)
     .use(rehypeStringify)
     .process(processed);
 

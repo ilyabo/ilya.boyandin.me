@@ -28,9 +28,9 @@ html.paint-page {
   bottom: calc(1rem + env(safe-area-inset-bottom));
   left: 50%;
   transform: translateX(-50%);
-  --control-width: min(2.75rem, calc((100vw - 1rem) / 8));
+  --control-width: min(2.75rem, calc((100vw - 1rem) / 9));
   display: grid;
-  grid-template-columns: repeat(8, var(--control-width));
+  grid-template-columns: repeat(9, var(--control-width));
   padding: 0.25rem;
   margin: 0;
   border: 1px solid var(--color-site-border);
@@ -48,6 +48,10 @@ html.paint-page {
 .paint-palette button {
   border-inline-start: 1px solid var(--color-site-border);
   color: var(--color-site-link);
+}
+.paint-palette [data-reset-terrain] {
+  border-inline-start: 0;
+  border-inline-end: 1px solid var(--color-site-border);
 }
 .paint-palette button:hover, .paint-palette button:focus-visible {
   color: var(--color-site-link-hover);

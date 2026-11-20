@@ -41,7 +41,7 @@ export class TerrainExplorer {
       const setShading = (enabled: boolean) => {
         gl.uniform1i(shadingUniform, Number(enabled));
         shadingButton.setAttribute('aria-pressed', String(enabled));
-        shadingButton.title = enabled ? 'Show contour lines only' : 'Show hill shading';
+        shadingButton.dataset.tooltip = enabled ? 'Show contour lines only' : 'Show hill shading';
         this.redraw();
       };
       setShading(shadingButton.getAttribute('aria-pressed') === 'true');
@@ -105,14 +105,14 @@ export class TerrainExplorer {
     }, { once: true });
   }
 
-  private setActive(active: boolean) {
+  setActive(active: boolean) {
     if (this.progress === 1) this.yaw = Math.atan2(Math.sin(this.yaw), Math.cos(this.yaw));
     this.active = active;
     this.resetInput();
     this.previousTime = performance.now();
     this.surface.classList.toggle('exploring-terrain', active);
     this.button.setAttribute('aria-pressed', String(active));
-    this.button.title = active ? 'Return to painting' : 'Explore the terrain in 3D';
+    this.button.dataset.tooltip = active ? 'Return to painting' : 'Explore the terrain in 3D';
     if (active) {
       this.surface.tabIndex = -1;
       this.surface.focus({ preventScroll: true });
