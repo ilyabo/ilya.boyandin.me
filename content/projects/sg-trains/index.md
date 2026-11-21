@@ -4,11 +4,23 @@ title: Singapore Trains
 category: works
 date: 2018-09-03
 preview: alerting-new.jpg
-keywords: ["geo", "analytics", "transport", "trains", "dashboards", "Singapore", "visualization", "infovis", "UX"]
+keywords:
+  [
+    'geo',
+    'analytics',
+    'transport',
+    'trains',
+    'dashboards',
+    'Singapore',
+    'visualization',
+    'infovis',
+    'UX',
+    'flow maps',
+  ]
 ---
 
-Interactive dashboards 
-for monitoring, incident analysis 
+Interactive dashboards
+for monitoring, incident analysis
 and planning for the public transportation network in Singapore:
 
 ![](alerting-new.jpg)

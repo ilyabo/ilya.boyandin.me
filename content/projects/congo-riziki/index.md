@@ -16,6 +16,7 @@ keywords:
     'visualization',
     'infovis',
     'UX',
+    'flow maps',
   ]
 ---
 
