@@ -23,6 +23,10 @@ html.paint-page {
   user-select: none;
   -webkit-user-select: none;
 }
+.paint-page .site-main.drawing-terrain:focus-visible {
+  /* Shift is the valley brush modifier, so drawing can trigger keyboard-style focus. */
+  outline: none;
+}
 .paint-palette {
   position: fixed;
   bottom: calc(1rem + env(safe-area-inset-bottom));
