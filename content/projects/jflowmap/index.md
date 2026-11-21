@@ -5,8 +5,22 @@ description: ''
 category: works
 tags: ['Java', 'Piccolo']
 date: 2010-10-01
-preview: refugees-2008-light.png
-keywords: ["geo", "analytics", "flow maps", "migration", "transport", "research", "open source", "graphs", "networks", "visualization", "infovis", "UX"]
+preview: jflowmap-dark.webp
+keywords:
+  [
+    'geo',
+    'analytics',
+    'flow maps',
+    'migration',
+    'transport',
+    'research',
+    'open source',
+    'graphs',
+    'networks',
+    'visualization',
+    'infovis',
+    'UX',
+  ]
 ---
 
 <button href="https://github.com/ilyabo/jflowmap/" variant=outline>GitHub</button>
@@ -16,14 +30,6 @@ A visualization tool in which we experiment with various visualization technique
 JFlowMap can be downloaded from [here](https://code.google.com/p/jflowmap/downloads/list).
 The source code is available at [github.com/ilyabo/jflowmap](https://github.com/ilyabo/jflowmap/).
 
-![](refugees-2008-light.png)
+![](jflowmap-dark-full-bundling.webp)
 
-![](jflowmap-desktop.png)
-
-![](refugees-bundled.png)
-
-![](us-migrations-bundled.png)
-
-![](refugees.png)
-
-![](slo-commuters.png)
+![](jflowmap-dark-full.webp)
