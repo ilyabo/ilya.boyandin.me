@@ -122,7 +122,7 @@ export const terrainVertexSource = `#version 300 es
       }
       int stride = grid.x + 1;
       vec2 cell = vec2(gl_VertexID % stride, gl_VertexID / stride);
-      terrainUV = cell / vec2(grid) * 2.0 - 0.5;
+      terrainUV = 0.5 + (cell / vec2(grid) - 0.5) * fieldSpan;
       meshElevation = worldHeight(terrainUV);
       gl_Position = projectPoint(terrainUV, meshElevation, center, orbit.z);
     }
@@ -152,7 +152,8 @@ export const contourFragmentSource = `#version 300 es
     // Camera height follows the ground, so a horizontal pan alone is only a first guess.
     // Refine the center against the actual projection, once per zoom frame at the cursor pixel.
     vec2 anchoredCenter(vec2 anchor, float elevation) {
-      vec2 candidate = clamp(mix(anchor, center, zoomRequest.z / orbit.z), 0.0, 1.0);
+      float margin = (fieldSpan - 1.0) * 0.5;
+      vec2 candidate = clamp(mix(anchor, center, zoomRequest.z / orbit.z), -margin, 1.0 + margin);
       vec2 best = center;
       float bestError = 1e20;
       const float stepUV = 0.0002;
@@ -167,7 +168,7 @@ export const contourFragmentSource = `#version 300 es
         mat2 jacobian = mat2(anchorScreen(anchor, candidate + vec2(stepUV, 0), elevation) - screen,
                              anchorScreen(anchor, candidate + vec2(0, stepUV), elevation) - screen) / stepUV;
         if (abs(determinant(jacobian)) < 1e-5) break;
-        candidate = clamp(candidate + clamp(inverse(jacobian) * error, -0.15, 0.15), 0.0, 1.0);
+        candidate = clamp(candidate + clamp(inverse(jacobian) * error, -0.15, 0.15), -margin, 1.0 + margin);
       }
       return best;
     }
@@ -194,7 +195,8 @@ export const contourFragmentSource = `#version 300 es
       if (picking) {
         // Two bytes per map coordinate. Reserve zero for pixels beyond the mesh.
         vec2 uv = zoomRequest.z > 0.0 ? anchoredCenter(terrainUV, meshElevation) : terrainUV;
-        uvec2 coord = uvec2(round(clamp((uv + 0.5) * 0.5, 0.0, 1.0) * 65534.0)) + 1u;
+        vec2 normalized = 0.5 + (uv - 0.5) / fieldSpan;
+        uvec2 coord = uvec2(round(clamp(normalized, 0.0, 1.0) * 65534.0)) + 1u;
         color = vec4(coord.x >> 8, coord.x & 255u, coord.y >> 8, coord.y & 255u) / 255.0;
         return;
       }

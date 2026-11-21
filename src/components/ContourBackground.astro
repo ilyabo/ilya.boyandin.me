@@ -21,7 +21,7 @@
   import { ContourSprings } from '../lib/contour-springs';
 
   import { terrainVertexSource, contourFragmentSource } from '../lib/contour-shaders';
-  import { TerrainExplorer } from '../lib/terrain-explorer';
+  import { TerrainExplorer, terrainSpan } from '../lib/terrain-explorer';
 
   function renderContours(canvas: HTMLCanvasElement, hills: ContourHills) {
     const gl = canvas.getContext('webgl2', {
@@ -130,7 +130,7 @@
         }
       }
       explorer?.step(now, reducedMotion.matches);
-      const span = explorer?.showingTerrain ? 2 : 1;
+      const span = explorer?.showingTerrain ? terrainSpan : 1;
       if (span !== hills.fieldSpan) resizeHillField(span);
       const hillPixels = hills.update(now, reducedMotion.matches);
       if (hillPixels) {
@@ -199,7 +199,7 @@
       gl.viewport(0, 0, width, height);
       gl.uniform2f(resolution, width, height);
       gl.uniform2f(viewport, canvas.clientWidth, canvas.clientHeight);
-      resizeHillField(explorer?.showingTerrain ? 2 : 1);
+      resizeHillField(explorer?.showingTerrain ? terrainSpan : 1);
       resetSprings();
       explorer?.resize();
     }

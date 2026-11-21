@@ -14,6 +14,7 @@
     "test:resume": "node --test scripts/test-resume.mjs",
     "test:project-search": "node --test scripts/test-project-search.mjs",
     "test:project-videos": "node --test scripts/test-project-videos.mjs",
+    "test:terrain-flight": "node --test scripts/test-terrain-flight.mjs",
     "resume:pdf": "node scripts/generate-resume-pdf.mjs",
     "deploy:cloudflare": "pnpm run build && pnpm run audit:links && pnpm run audit:seo && pnpm exec wrangler deploy"
   },

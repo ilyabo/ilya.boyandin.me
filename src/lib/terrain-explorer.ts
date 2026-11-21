@@ -1,8 +1,11 @@
 const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value));
 
+export const terrainSpan = 2;
+const terrainMargin = (terrainSpan - 1) / 2;
+
 function unpackMapCoordinate(pixels: Uint8Array, offset: number) {
   const encoded = pixels[offset] * 256 + pixels[offset + 1];
-  return encoded ? ((encoded - 1) / 65534) * 2 - 0.5 : null;
+  return encoded ? 0.5 + ((encoded - 1) / 65534 - 0.5) * terrainSpan : null;
 }
 
 export class TerrainExplorer {
@@ -38,6 +41,7 @@ export class TerrainExplorer {
   private zoomUniform: WebGLUniformLocation;
   private wheelZoom: { distance: number; x: number; y: number } | null = null;
   private modeInputs: NodeListOf<HTMLInputElement>;
+  private edgeStatus: HTMLElement | null;
 
   constructor(
     private gl: WebGL2RenderingContext,
@@ -56,6 +60,7 @@ export class TerrainExplorer {
     this.zoomUniform = gl.getUniformLocation(program, 'zoomRequest');
     const options = { signal };
     this.modeInputs = surface.querySelectorAll('input[name="terrain-mode"]');
+    this.edgeStatus = surface.querySelector('[data-terrain-edge]');
     for (const input of this.modeInputs) {
       input.addEventListener('change', () => this.setDrawing(input.value === 'draw'), options);
     }
@@ -226,6 +231,7 @@ export class TerrainExplorer {
     this.active = active;
     this.setDrawing(false);
     this.resetInput();
+    this.setEdgeStatus(false);
     this.previousTime = performance.now();
     this.surface.classList.toggle('exploring-terrain', active);
     this.button.setAttribute('aria-pressed', String(active));
@@ -356,6 +362,7 @@ export class TerrainExplorer {
       // Sky leaves the pick pixel clear, so zoom about the existing center.
       this.centerX = unpackMapCoordinate(pixel, 0) ?? this.centerX;
       this.centerY = unpackMapCoordinate(pixel, 2) ?? this.centerY;
+      this.setEdgeStatus(false);
     }
     this.distance = distance;
   }
@@ -365,8 +372,16 @@ export class TerrainExplorer {
     const scale = Math.max(width, height * 0.86);
     const sin = Math.sin(this.yaw),
       cos = Math.cos(this.yaw);
-    this.centerX = clamp(this.centerX + ((right * cos - forward * sin) * scale) / width, 0, 1);
-    this.centerY = clamp(this.centerY + ((right * sin + forward * cos) * scale) / height, 0, 1);
+    const x = this.centerX + ((right * cos - forward * sin) * scale) / width;
+    const y = this.centerY + ((right * sin + forward * cos) * scale) / height;
+    this.centerX = clamp(x, -terrainMargin, 1 + terrainMargin);
+    this.centerY = clamp(y, -terrainMargin, 1 + terrainMargin);
+    this.setEdgeStatus(this.centerX !== x || this.centerY !== y);
+  }
+
+  private setEdgeStatus(reached: boolean) {
+    if (!this.edgeStatus || reached === Boolean(this.edgeStatus.textContent)) return;
+    this.edgeStatus.textContent = reached ? 'Edge of terrain' : '';
   }
 
   private drag(event: PointerEvent) {
