@@ -31,19 +31,21 @@ const colors = [
           <path d="M2 19 13 4l9 15Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" />
         </svg>
       </button>
-      <small class="paint-hint">
-        <span class="mouse-help">Click for hills · Shift for valleys<span class="draw-help"><br />Ctrl-drag to rotate · Hold Space to navigate</span></span>
-        <span class="touch-brush">Tap or drag for
-          <select data-tooltip="Choose hills or valleys" data-touch-brush aria-label="Touch brush">
-            <option value="hill">Hills</option>
-            <option value="valley">Valleys</option>
-          </select>
-        </span>
-      </small>
-      <small class="explore-help">
-        <span class="mouse-help">Drag to pan · Ctrl-drag to rotate<br />WASD to fly · Scroll to zoom</span>
-        <span class="touch-help">Drag to orbit · Two fingers to move and zoom</span>
-      </small>
+      <div class="paint-help">
+        <small class="paint-hint">
+          <span class="mouse-help">Click for hills · Shift for valleys<span class="draw-help"><br />Ctrl-drag orbits · Hold Space to pan</span></span>
+          <span class="touch-brush">Tap or drag for
+            <select data-tooltip="Choose hills or valleys" data-touch-brush aria-label="Touch brush">
+              <option value="hill">Hills</option>
+              <option value="valley">Valleys</option>
+            </select>
+          </span>
+        </small>
+        <small class="explore-help">
+          <span class="mouse-help">Drag to pan · Ctrl-drag to rotate<br />WASD to fly · Scroll to zoom</span>
+          <span class="touch-help">Drag to orbit<br />Two fingers to move and zoom</span>
+        </small>
+      </div>
     </div>
     <button type="button" data-reset-terrain disabled aria-label="Reset terrain" data-tooltip="Clear drawing and restore dark terrain">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">

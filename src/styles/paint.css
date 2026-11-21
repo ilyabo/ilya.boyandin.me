@@ -23,8 +23,7 @@ html.paint-page {
   user-select: none;
   -webkit-user-select: none;
 }
-.paint-page .site-main.drawing-terrain:focus-visible {
-  /* Shift is the valley brush modifier, so drawing can trigger keyboard-style focus. */
+.paint-page .site-main:focus {
   outline: none;
 }
 .paint-palette {
@@ -88,6 +87,8 @@ html.paint-page {
   pointer-events: none;
 }
 .paint-tools small { font-size: 0.71875rem; line-height: 1.4; }
+.paint-help { display: grid; }
+.paint-help small { grid-area: 1 / 1; }
 .terrain-mode, .paint-tools button, .explore-help, .draw-help, .paint-hint .touch-brush, .touch-help { display: none; }
 .exploring-terrain .terrain-mode {
   display: inline-grid;
@@ -129,9 +130,17 @@ html.paint-page {
   text-align: start;
   line-height: 1.25;
 }
+.exploring-terrain .paint-help {
+  flex: 1;
+  min-inline-size: 0;
+}
+.exploring-terrain .paint-help small {
+  font-size: 0.65625rem;
+  align-content: center;
+}
 @media (max-width: 26rem) {
   .exploring-terrain .paint-tools { flex-wrap: wrap; justify-content: center; }
-  .exploring-terrain .paint-tools small { flex-basis: 100%; text-align: center; }
+  .exploring-terrain .paint-help { flex-basis: 100%; text-align: center; }
 }
 .exploring-terrain .paint-tools button {
   display: grid;
@@ -140,9 +149,11 @@ html.paint-page {
   border-radius: 0.75rem;
   min-width: 2.75rem;
 }
-.exploring-terrain .explore-help { display: inline; }
-.exploring-terrain .paint-hint, .drawing-terrain .explore-help { display: none; }
-.drawing-terrain .paint-hint, .drawing-terrain .draw-help { display: inline; }
+.exploring-terrain .explore-help { display: block; }
+/* Both hints contribute to the same grid row so switching modes keeps its height. */
+.exploring-terrain .paint-hint, .drawing-terrain .explore-help { visibility: hidden; }
+.drawing-terrain .paint-hint { visibility: visible; }
+.exploring-terrain .draw-help { display: inline; }
 @media (any-pointer: coarse) {
   .paint-hint .touch-brush {
     display: flex;
