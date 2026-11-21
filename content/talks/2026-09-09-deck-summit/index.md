@@ -18,4 +18,6 @@ Talk description:
 
 Slides:
 
-<iframe src="SQLRooms-OpenVis-summit-2026-slides.pdf" width="100%" height="720" style="border: 0;"></iframe>
+<div class="pdf-slide-deck">
+  <iframe title="Beyond notebooks and dashboards — presentation slides" src="SQLRooms-OpenVis-summit-2026-slides.pdf#navpanes=0&amp;view=Fit"></iframe>
+</div>

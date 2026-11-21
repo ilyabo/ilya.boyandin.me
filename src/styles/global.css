@@ -248,6 +248,17 @@ a:hover {
   width: min(100%, 700px);
 }
 
+.pdf-slide-deck {
+  container-type: inline-size;
+}
+
+.markdown-content .pdf-slide-deck iframe {
+  /* Reserve room for the PDF toolbar above a widescreen slide. */
+  height: calc(56.25cqw + 56px);
+  max-width: 100%;
+  width: 100%;
+}
+
 .soundcloud-embed {
   margin-bottom: 1.25rem;
   max-height: 165px;
