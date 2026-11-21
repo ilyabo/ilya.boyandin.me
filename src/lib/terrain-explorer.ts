@@ -21,7 +21,7 @@ export class TerrainExplorer {
   private distance = 0.65;
   private centerX = 0.5;
   private centerY = 0.5;
-  private touches = new Map<number, PointerEvent>();
+  private touches = new Map<number, { event: PointerEvent; orbit: boolean }>();
   private keys = new Set<string>();
   private flightTime = 0;
   private rightVelocity = 0;
@@ -92,7 +92,7 @@ export class TerrainExplorer {
       'contextmenu',
       (event) => {
         // On macOS, the Ctrl-click that starts an orbit also opens the context menu.
-        if (this.active && !this.drawing && event.target === surface && event.ctrlKey) {
+        if (this.active && event.target === surface && event.ctrlKey) {
           event.preventDefault();
         }
       },
@@ -102,19 +102,23 @@ export class TerrainExplorer {
       'pointerdown',
       (event) => {
         if (!this.active || event.target !== surface || event.button !== 0) return;
+        const orbit = event.pointerType === 'mouse' && event.ctrlKey;
         surface.focus({ preventScroll: true });
-        if (this.drawing) this.stopFlight();
+        if (this.drawing) {
+          this.stopFlight();
+          // Claim Ctrl-drag before the background handler can start a brush stroke.
+          if (orbit) event.preventDefault();
+        }
         surface.setPointerCapture(event.pointerId);
-        this.touches.set(event.pointerId, event);
+        this.touches.set(event.pointerId, { event, orbit });
       },
       options
     );
     surface.addEventListener('pointermove', (event) => this.drag(event), options);
-    surface.addEventListener(
-      'lostpointercapture',
-      (event) => this.touches.delete(event.pointerId),
-      options
-    );
+    const forgetPointer = (event: PointerEvent) => this.touches.delete(event.pointerId);
+    surface.addEventListener('pointerup', forgetPointer, options);
+    surface.addEventListener('pointercancel', forgetPointer, options);
+    surface.addEventListener('lostpointercapture', forgetPointer, options);
     surface.addEventListener(
       'wheel',
       (event) => {
@@ -366,18 +370,20 @@ export class TerrainExplorer {
   }
 
   private drag(event: PointerEvent) {
-    const previous = this.touches.get(event.pointerId);
-    if (!previous) return;
-    this.touches.set(event.pointerId, event);
+    const pointer = this.touches.get(event.pointerId);
+    if (!pointer) return;
+    const previous = pointer.event;
+    pointer.event = event;
     let dx = event.clientX - previous.clientX;
     let dy = event.clientY - previous.clientY;
-    if (this.drawing && this.touches.size === 1) return;
-    const mousePan = event.pointerType === 'mouse' && !event.ctrlKey;
+    const mouseOrbit = event.pointerType === 'mouse' && (this.drawing ? pointer.orbit : event.ctrlKey);
+    if (this.drawing && this.touches.size === 1 && !mouseOrbit) return;
+    const mousePan = event.pointerType === 'mouse' && !mouseOrbit;
     if (this.touches.size === 2 || mousePan) {
       if (this.touches.size === 2) {
         const other = [...this.touches.values()].find(
-          (point) => point.pointerId !== event.pointerId
-        );
+          (point) => point.event.pointerId !== event.pointerId
+        ).event;
         const before = Math.hypot(
           previous.clientX - other.clientX,
           previous.clientY - other.clientY
