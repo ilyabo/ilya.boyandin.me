@@ -2,7 +2,7 @@ const clamp = (value: number, min: number, max: number) => Math.min(max, Math.ma
 
 function unpackMapCoordinate(pixels: Uint8Array, offset: number) {
   const encoded = pixels[offset] * 256 + pixels[offset + 1];
-  return encoded ? (encoded - 1) / 65534 * 2 - 0.5 : null;
+  return encoded ? ((encoded - 1) / 65534) * 2 - 0.5 : null;
 }
 
 export class TerrainExplorer {
@@ -40,9 +40,13 @@ export class TerrainExplorer {
   private modeInputs: NodeListOf<HTMLInputElement>;
 
   constructor(
-    private gl: WebGL2RenderingContext, program: WebGLProgram,
-    private surface: HTMLElement, private button: HTMLButtonElement,
-    private redraw: () => void, private endStroke: (commit?: boolean) => void, signal: AbortSignal,
+    private gl: WebGL2RenderingContext,
+    program: WebGLProgram,
+    private surface: HTMLElement,
+    private button: HTMLButtonElement,
+    private redraw: () => void,
+    private endStroke: (commit?: boolean) => void,
+    signal: AbortSignal
   ) {
     this.gridUniform = gl.getUniformLocation(program, 'grid');
     this.orbitUniform = gl.getUniformLocation(program, 'orbit');
@@ -56,7 +60,12 @@ export class TerrainExplorer {
       input.addEventListener('change', () => this.setDrawing(input.value === 'draw'), options);
     }
     const selectBrush = (event: Event) => {
-      if (this.active && event.target instanceof HTMLInputElement && event.target.name === 'brush-color') this.setDrawing(true);
+      if (
+        this.active &&
+        event.target instanceof HTMLInputElement &&
+        event.target.name === 'brush-color'
+      )
+        this.setDrawing(true);
     };
     surface.addEventListener('click', selectBrush, options);
     surface.addEventListener('change', selectBrush, options);
@@ -70,84 +79,142 @@ export class TerrainExplorer {
         this.redraw();
       };
       setShading(shadingButton.getAttribute('aria-pressed') === 'true');
-      shadingButton.addEventListener('click', () => setShading(shadingButton.getAttribute('aria-pressed') !== 'true'), options);
+      shadingButton.addEventListener(
+        'click',
+        () => setShading(shadingButton.getAttribute('aria-pressed') !== 'true'),
+        options
+      );
       shadingButton.disabled = false;
     }
     button.disabled = false;
     button.addEventListener('click', () => this.setActive(!this.active), options);
-    surface.addEventListener('pointerdown', event => {
-      if (!this.active || event.target !== surface || event.button !== 0) return;
-      surface.focus({ preventScroll: true });
-      if (this.drawing) this.stopFlight();
-      surface.setPointerCapture(event.pointerId);
-      this.touches.set(event.pointerId, event);
-    }, options);
-    surface.addEventListener('pointermove', event => this.drag(event), options);
-    surface.addEventListener('lostpointercapture', event => this.touches.delete(event.pointerId), options);
-    surface.addEventListener('wheel', event => {
-      if (!this.active || event.target !== surface) return;
-      event.preventDefault();
-      this.endStroke();
-      const unit = event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? surface.clientHeight : 1;
-      const factor = Math.exp(clamp(event.deltaY * unit * 0.0015, -1, 1));
-      const distance = clamp((this.wheelZoom?.distance ?? this.distance) * factor, 0.09, 1.8);
-      this.wheelZoom = { distance, x: event.clientX, y: event.clientY };
-      this.redraw();
-    }, { signal, passive: false });
-    window.addEventListener('keydown', event => {
-      if (!this.active || event.metaKey || event.ctrlKey || event.altKey) return;
-      if (event.key === 'Escape') {
-        this.setActive(false);
-        button.focus();
-        return;
-      }
-      if (event.code === 'Space') {
-        // A checked palette radio is already selected. Other controls keep native Space activation.
-        const selectedBrushOrMode = event.target instanceof HTMLInputElement
-          && event.target.checked && ['terrain-mode', 'brush-color'].includes(event.target.name);
-        if ((event.target === surface || selectedBrushOrMode) && (this.drawing || this.spaceNavigating)) {
+    surface.addEventListener(
+      'contextmenu',
+      (event) => {
+        // On macOS, the Ctrl-click that starts an orbit also opens the context menu.
+        if (this.active && !this.drawing && event.target === surface && event.ctrlKey) {
           event.preventDefault();
-          if (!event.repeat && this.drawing) {
-            this.setDrawing(false, true);
-            surface.focus({ preventScroll: true });
-          }
         }
-        return;
-      }
-      if (event.target !== surface) return;
-      const key = event.key.toLowerCase();
-      if (!['w', 'a', 's', 'd', 'arrowup', 'arrowdown', 'arrowleft', 'arrowright', '+', '=', '-'].includes(key)) return;
-      event.preventDefault();
-      this.endStroke();
-      if (key === '+' || key === '=' || key === '-') this.zoom(key === '-' ? 1.12 : 1 / 1.12);
-      else if (!this.keys.has(key)) {
-        const now = performance.now();
-        if (this.keys.size) this.advanceFlight(now);
-        else this.flightTime = now;
-        this.keys.add(key);
+      },
+      options
+    );
+    surface.addEventListener(
+      'pointerdown',
+      (event) => {
+        if (!this.active || event.target !== surface || event.button !== 0) return;
+        surface.focus({ preventScroll: true });
+        if (this.drawing) this.stopFlight();
+        surface.setPointerCapture(event.pointerId);
+        this.touches.set(event.pointerId, event);
+      },
+      options
+    );
+    surface.addEventListener('pointermove', (event) => this.drag(event), options);
+    surface.addEventListener(
+      'lostpointercapture',
+      (event) => this.touches.delete(event.pointerId),
+      options
+    );
+    surface.addEventListener(
+      'wheel',
+      (event) => {
+        if (!this.active || event.target !== surface) return;
+        event.preventDefault();
+        this.endStroke();
+        const unit = event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? surface.clientHeight : 1;
+        const factor = Math.exp(clamp(event.deltaY * unit * 0.0015, -1, 1));
+        const distance = clamp((this.wheelZoom?.distance ?? this.distance) * factor, 0.09, 1.8);
+        this.wheelZoom = { distance, x: event.clientX, y: event.clientY };
         this.redraw();
-      }
-    }, options);
-    window.addEventListener('keyup', event => {
-      if (event.code === 'Space' && this.spaceNavigating) this.setDrawing(true);
-      const key = event.key.toLowerCase();
-      if (!this.keys.has(key)) return;
-      // Include the last partial frame, even for a tap shorter than one render interval.
-      this.advanceFlight(performance.now());
-      this.keys.delete(key);
-      if (!this.keys.size) this.stopFlight();
-      this.redraw();
-    }, options);
+      },
+      { signal, passive: false }
+    );
+    window.addEventListener(
+      'keydown',
+      (event) => {
+        if (!this.active || event.metaKey || event.ctrlKey || event.altKey) return;
+        if (event.key === 'Escape') {
+          this.setActive(false);
+          button.focus();
+          return;
+        }
+        if (event.code === 'Space') {
+          // A checked palette radio is already selected. Other controls keep native Space activation.
+          const selectedBrushOrMode =
+            event.target instanceof HTMLInputElement &&
+            event.target.checked &&
+            ['terrain-mode', 'brush-color'].includes(event.target.name);
+          if (
+            (event.target === surface || selectedBrushOrMode) &&
+            (this.drawing || this.spaceNavigating)
+          ) {
+            event.preventDefault();
+            if (!event.repeat && this.drawing) {
+              this.setDrawing(false, true);
+              surface.focus({ preventScroll: true });
+            }
+          }
+          return;
+        }
+        if (event.target !== surface) return;
+        const key = event.key.toLowerCase();
+        if (
+          ![
+            'w',
+            'a',
+            's',
+            'd',
+            'arrowup',
+            'arrowdown',
+            'arrowleft',
+            'arrowright',
+            '+',
+            '=',
+            '-',
+          ].includes(key)
+        )
+          return;
+        event.preventDefault();
+        this.endStroke();
+        if (key === '+' || key === '=' || key === '-') this.zoom(key === '-' ? 1.12 : 1 / 1.12);
+        else if (!this.keys.has(key)) {
+          const now = performance.now();
+          if (this.keys.size) this.advanceFlight(now);
+          else this.flightTime = now;
+          this.keys.add(key);
+          this.redraw();
+        }
+      },
+      options
+    );
+    window.addEventListener(
+      'keyup',
+      (event) => {
+        if (event.code === 'Space' && this.spaceNavigating) this.setDrawing(true);
+        const key = event.key.toLowerCase();
+        if (!this.keys.has(key)) return;
+        // Include the last partial frame, even for a tap shorter than one render interval.
+        this.advanceFlight(performance.now());
+        this.keys.delete(key);
+        if (!this.keys.size) this.stopFlight();
+        this.redraw();
+      },
+      options
+    );
     surface.addEventListener('blur', () => this.stopFlight(), options);
     window.addEventListener('blur', () => this.resetInput(), options);
-    signal.addEventListener('abort', () => {
-      this.setActive(false);
-      gl.uniform1f(this.blendUniform, 0);
-      gl.disable(gl.DEPTH_TEST);
-      gl.deleteBuffer(this.indices);
-      button.disabled = true;
-      if (shadingButton) shadingButton.disabled = true;
-    }, { once: true });
+    signal.addEventListener(
+      'abort',
+      () => {
+        this.setActive(false);
+        gl.uniform1f(this.blendUniform, 0);
+        gl.disable(gl.DEPTH_TEST);
+        gl.deleteBuffer(this.indices);
+        button.disabled = true;
+        if (shadingButton) shadingButton.disabled = true;
+      },
+      { once: true }
+    );
   }
 
   setActive(active: boolean) {
@@ -199,8 +266,8 @@ export class TerrainExplorer {
     this.draw();
 
     return (clientX: number, clientY: number) => {
-      const col = Math.floor((clientX - bounds.left) * width / bounds.width);
-      const row = height - 1 - Math.floor((clientY - bounds.top) * height / bounds.height);
+      const col = Math.floor(((clientX - bounds.left) * width) / bounds.width);
+      const row = height - 1 - Math.floor(((clientY - bounds.top) * height) / bounds.height);
       if (col < 0 || col >= width || row < 0 || row >= height) return null;
       const i = (row * width + col) * 4;
       const u = unpackMapCoordinate(pixels, i);
@@ -228,9 +295,13 @@ export class TerrainExplorer {
     if (now <= this.flightTime) return;
     const dt = Math.min((now - this.flightTime) / 1000, 0.04);
     this.flightTime = now;
-    const right = Number(this.keys.has('d') || this.keys.has('arrowright')) - Number(this.keys.has('a') || this.keys.has('arrowleft'));
-    const forward = Number(this.keys.has('w') || this.keys.has('arrowup')) - Number(this.keys.has('s') || this.keys.has('arrowdown'));
-    const cruiseSpeed = 0.28 * this.distance / (1 + this.distance);
+    const right =
+      Number(this.keys.has('d') || this.keys.has('arrowright')) -
+      Number(this.keys.has('a') || this.keys.has('arrowleft'));
+    const forward =
+      Number(this.keys.has('w') || this.keys.has('arrowup')) -
+      Number(this.keys.has('s') || this.keys.has('arrowdown'));
+    const cruiseSpeed = (0.28 * this.distance) / (1 + this.distance);
     const speed = cruiseSpeed / Math.max(1, Math.hypot(right, forward));
     const targetRight = right * speed;
     const targetForward = forward * speed;
@@ -239,7 +310,7 @@ export class TerrainExplorer {
     const response = -Math.expm1(-dt / responseSeconds);
     this.pan(
       targetRight * dt + (this.rightVelocity - targetRight) * responseSeconds * response,
-      targetForward * dt + (this.forwardVelocity - targetForward) * responseSeconds * response,
+      targetForward * dt + (this.forwardVelocity - targetForward) * responseSeconds * response
     );
     this.rightVelocity += (targetRight - this.rightVelocity) * response;
     this.forwardVelocity += (targetForward - this.forwardVelocity) * response;
@@ -258,14 +329,20 @@ export class TerrainExplorer {
       const gl = this.gl;
       const canvas = gl.canvas as HTMLCanvasElement;
       const bounds = canvas.getBoundingClientRect();
-      const col = Math.floor((x - bounds.left) * canvas.width / bounds.width);
-      const row = canvas.height - 1 - Math.floor((y - bounds.top) * canvas.height / bounds.height);
+      const col = Math.floor(((x - bounds.left) * canvas.width) / bounds.width);
+      const row =
+        canvas.height - 1 - Math.floor(((y - bounds.top) * canvas.height) / bounds.height);
       const pixel = new Uint8Array(4);
       gl.enable(gl.SCISSOR_TEST);
       gl.scissor(col, row, 1, 1);
       gl.disable(gl.DITHER);
       gl.uniform1i(this.pickingUniform, 1);
-      gl.uniform3f(this.zoomUniform, (col + 0.5) * 2 / canvas.width - 1, (row + 0.5) * 2 / canvas.height - 1, distance);
+      gl.uniform3f(
+        this.zoomUniform,
+        ((col + 0.5) * 2) / canvas.width - 1,
+        ((row + 0.5) * 2) / canvas.height - 1,
+        distance
+      );
       this.draw();
       gl.readPixels(col, row, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, pixel);
       gl.uniform3f(this.zoomUniform, 0, 0, 0);
@@ -282,9 +359,10 @@ export class TerrainExplorer {
   private pan(right: number, forward: number) {
     const { width, height } = this.gl.canvas;
     const scale = Math.max(width, height * 0.86);
-    const sin = Math.sin(this.yaw), cos = Math.cos(this.yaw);
-    this.centerX = clamp(this.centerX + (right * cos - forward * sin) * scale / width, 0, 1);
-    this.centerY = clamp(this.centerY + (right * sin + forward * cos) * scale / height, 0, 1);
+    const sin = Math.sin(this.yaw),
+      cos = Math.cos(this.yaw);
+    this.centerX = clamp(this.centerX + ((right * cos - forward * sin) * scale) / width, 0, 1);
+    this.centerY = clamp(this.centerY + ((right * sin + forward * cos) * scale) / height, 0, 1);
   }
 
   private drag(event: PointerEvent) {
@@ -294,11 +372,16 @@ export class TerrainExplorer {
     let dx = event.clientX - previous.clientX;
     let dy = event.clientY - previous.clientY;
     if (this.drawing && this.touches.size === 1) return;
-    const mousePan = event.pointerType === 'mouse' && !event.shiftKey;
+    const mousePan = event.pointerType === 'mouse' && !event.ctrlKey;
     if (this.touches.size === 2 || mousePan) {
       if (this.touches.size === 2) {
-        const other = [...this.touches.values()].find(point => point.pointerId !== event.pointerId);
-        const before = Math.hypot(previous.clientX - other.clientX, previous.clientY - other.clientY);
+        const other = [...this.touches.values()].find(
+          (point) => point.pointerId !== event.pointerId
+        );
+        const before = Math.hypot(
+          previous.clientX - other.clientX,
+          previous.clientY - other.clientY
+        );
         const after = Math.hypot(event.clientX - other.clientX, event.clientY - other.clientY);
         if (before > 2 && after > 2) this.zoom(before / after);
         dx *= 0.5;
@@ -325,7 +408,8 @@ export class TerrainExplorer {
     let index = 0;
     for (let y = 0; y < rows; y++) {
       for (let x = 0; x < columns; x++) {
-        const a = y * (columns + 1) + x, b = a + columns + 1;
+        const a = y * (columns + 1) + x,
+          b = a + columns + 1;
         indices[index++] = a;
         indices[index++] = a + 1;
         indices[index++] = b;
@@ -346,7 +430,9 @@ export class TerrainExplorer {
     const target = this.active ? 1 : 0;
     if (this.progress !== target) {
       // Reverse from the last rendered frame when the toggle changes mid-flight.
-      this.progress = reducedMotion ? target : clamp(this.progress + (this.active ? 1 : -1) * deltaMs / 850, 0, 1);
+      this.progress = reducedMotion
+        ? target
+        : clamp(this.progress + ((this.active ? 1 : -1) * deltaMs) / 850, 0, 1);
       if (!this.showingTerrain) {
         this.gl.uniform1f(this.blendUniform, 0);
         this.gl.disable(this.gl.DEPTH_TEST);
@@ -365,13 +451,21 @@ export class TerrainExplorer {
     const t = this.progress * this.progress * (3 - 2 * this.progress);
     const { width, height } = gl.canvas;
     // At this distance the top-down camera's plane fills exactly the flat map viewport.
-    const flatDistance = 0.9 * height / Math.max(width, height * 0.86);
+    const flatDistance = (0.9 * height) / Math.max(width, height * 0.86);
     gl.enable(gl.DEPTH_TEST);
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
     gl.uniform1f(this.blendUniform, t);
-    gl.uniform2f(this.centerUniform, 0.5 + (this.centerX - 0.5) * t, 0.5 + (this.centerY - 0.5) * t);
-    gl.uniform3f(this.orbitUniform, this.yaw * t, Math.PI / 2 + (this.pitch - Math.PI / 2) * t,
-      flatDistance + (this.distance - flatDistance) * t);
+    gl.uniform2f(
+      this.centerUniform,
+      0.5 + (this.centerX - 0.5) * t,
+      0.5 + (this.centerY - 0.5) * t
+    );
+    gl.uniform3f(
+      this.orbitUniform,
+      this.yaw * t,
+      Math.PI / 2 + (this.pitch - Math.PI / 2) * t,
+      flatDistance + (this.distance - flatDistance) * t
+    );
     gl.drawElements(gl.TRIANGLES, this.columns * this.rows * 6, gl.UNSIGNED_SHORT, 0);
   }
 }
