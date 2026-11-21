@@ -1,5 +1,6 @@
 const fs = require('node:fs');
 const path = require('node:path');
+const { isMediaFile } = require('./content-media');
 
 const contentRoot = path.join(process.cwd(), 'content');
 const targetName = process.argv[2] ?? 'dist';
@@ -10,27 +11,6 @@ const mediaRoot =
 
 const contentSections = ['projects', 'talks'];
 const reservedContentDirs = new Set([...contentSections, 'data']);
-const mediaExtensions = new Set([
-  '.avif',
-  '.gif',
-  '.jpeg',
-  '.jpg',
-  '.m4a',
-  '.mov',
-  '.mp3',
-  '.mp4',
-  '.ogg',
-  '.pdf',
-  '.png',
-  '.svg',
-  '.wav',
-  '.webm',
-  '.webp',
-]);
-
-function isMediaFile(filePath) {
-  return mediaExtensions.has(path.extname(filePath).toLowerCase());
-}
 
 function copyFile(sourcePath, targetPath) {
   fs.mkdirSync(path.dirname(targetPath), { recursive: true });

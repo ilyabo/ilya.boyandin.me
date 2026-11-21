@@ -45,6 +45,14 @@ function isActive(path: string) {
     <meta name="viewport" content="width=device-width" />
     <style is:inline set:html={criticalCss} />
     <ClientRouter fallback="swap" />
+    <script>
+      document.addEventListener('astro:after-swap', () => {
+        // Chrome can reject video sources while Astro parses the incoming document offscreen.
+        for (const video of document.querySelectorAll('video')) {
+          if (!video.currentSrc) video.load();
+        }
+      });
+    </script>
     <title>{title}</title>
     <link rel="icon" href="/favicon.png" />
     <meta name="description" content={description} />
