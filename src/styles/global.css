@@ -185,6 +185,7 @@ a:hover {
 .markdown-content h2,
 .markdown-content h3 {
   color: var(--color-site-text);
+  font-weight: 700;
   line-height: 1.15;
   margin: 2em 0 0.75em;
 }
