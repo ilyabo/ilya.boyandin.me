@@ -62,7 +62,7 @@ It's free, it requires no installation and allows anyone to create a flow map in
 
 ![Cyclable trips in Waterloo Region](waterloo2.jpg)
 
-![BIXI bike sharing rides Montreal](bixi.jpg)
+![BIXI bike sharing rides Montreal with filtering by time](bixi.jpg)
 
 ## Case study: Alta Flow for transportation planning
 
