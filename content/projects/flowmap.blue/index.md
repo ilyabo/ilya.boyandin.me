@@ -23,6 +23,7 @@ keywords:
 ---
 
 <button href="https://flowmap.blue">Try live</button>
+<button href="https://player.vimeo.com/video/378757494">Demo video</button>
 <button href="https://github.com/FlowmapBlue/FlowmapBlue" variant=outline>GitHub</button>
 
 [FlowmapBlue](https://flowmap.blue)
@@ -38,7 +39,29 @@ The project [won bronze](https://twitter.com/kachkaev/status/1197262339935997952
 at the [Information is Beautiful Awards](https://www.informationisbeautifulawards.com/showcase/3815-flowmap-blue)
 in 2019.
 
+![New York Citi Bike trips 2018](ny.jpg)
+
+![BIXI rides Montreal](bixi.jpg)
+
 ![Tweets about FlowmapBlue](flowmap-blue-tweets.png)
+
+Until recently making flow maps has involved manual drawing, knowledge of programming or
+specialised software.
+I had learned from my experience developing
+[flow](https://github.com/ilyabo/jflowmap)
+[mapping](https://github.com/ilyabo/jflowmap.js)
+[libraries](https://github.com/teralytics/flowmap.gl)
+that there was a need for an _easy-to-use_ tool with which people without special
+knowledge could make flow maps.
+This is why I decided to develop flowmap.blue.
+The tool makes it possible to publish interactive flow maps from data uploaded to Google Sheets.
+It's free, it requires no installation and allows anyone to create a flow map in no time.
+
+<embed src="flowmapblue-brisbane-zoom-anim-4mapbox.mp4">
+
+<embed src="flowmapblue-palermo-anim-4mapbox.mp4">
+
+![Cyclable trips in Waterloo Region](waterloo2.jpg)
 
 ## Case study: Alta Flow for transportation planning
 
@@ -86,27 +109,3 @@ patterns, comparing usage before and during the pandemic:
 The discussion also explores annual versus casual riders. These examples show how
 interactive flow maps support both analysis and conversations about what the data
 means. Watch the [full interview](https://youtu.be/pBn7SyhK-h0), published May 20, 2022.
-
-![New York Citi Bike trips 2018](ny.jpg)
-
-![BIXI rides Montreal](bixi.jpg)
-
-Until recently making flow maps has involved manual drawing, knowledge of programming or
-specialised software.
-I had learned from my experience developing
-[flow](https://github.com/ilyabo/jflowmap)
-[mapping](https://github.com/ilyabo/jflowmap.js)
-[libraries](https://github.com/teralytics/flowmap.gl)
-that there was a need for an _easy-to-use_ tool with which people without special
-knowledge could make flow maps.
-This is why I decided to develop flowmap.blue.
-The tool makes it possible to publish interactive flow maps from data uploaded to Google Sheets.
-It's free, it requires no installation and allows anyone to create a flow map in no time.
-
-<embed src="flowmapblue-brisbane-zoom-anim-4mapbox.mp4">
-
-<embed src="flowmapblue-palermo-anim-4mapbox.mp4">
-
-![Cyclable trips in Waterloo Region](waterloo2.jpg)
-
-<iframe src="https://player.vimeo.com/video/378757494" width="640" height="360" frameborder="0" allow="autoplay; fullscreen" allowfullscreen style="width:100%"></iframe>
