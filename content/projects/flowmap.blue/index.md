@@ -24,6 +24,7 @@ keywords:
 
 <button href="https://flowmap.blue">Try live</button>
 <button href="https://player.vimeo.com/video/378757494">Demo video</button>
+<button href="https://flowmapblue.github.io/flowmapblue.R/">R widget</button>
 <button href="https://github.com/FlowmapBlue/FlowmapBlue" variant=outline>GitHub</button>
 
 [FlowmapBlue](https://flowmap.blue)
@@ -81,31 +82,35 @@ they use the tool, in conversation with host John Simmerman.
 For South Orange County, Alta mapped short trips to identify connections with
 potential for walking and cycling. Line widths made the strength of connections
 visible, helping planners explain investment priorities to decision makers and
-residents. As Zneimer puts it, the visualization:
+residents. As Zneimer puts it at [08:47](https://youtu.be/pBn7SyhK-h0?t=527), the visualization:
 
 > “really helps us communicate that to the public”
->
-> — Samuel Zneimer, [08:47](https://youtu.be/pBn7SyhK-h0?t=527)
+
+### Opening up the analysis to clients and communities
+
+The interactive map also gave clients and residents a way to explore the data
+behind the recommendations. Zneimer describes this at
+[11:10–11:25](https://youtu.be/pBn7SyhK-h0?t=670):
+
+> “This visualization tool is live, it's active, you can click on things. And so
+> it doesn't feel like we're holding all the things in a black box anymore.
+> It's really democratizing data out there, and it really allows our clients
+> and the communities to see what we're seeing to help them make their own decisions.”
 
 ### Exploring different travel patterns
 
 Users could select Bay Area counties and switch between modeled walking, cycling,
-and short car trips. Unlike a fixed map, the interactive view let them explore
-questions by changing the selection:
-
-> “you can show different modes”
->
-> — David Wasserman, [12:28](https://youtu.be/pBn7SyhK-h0?t=748)
+and short car trips. Wasserman explains how changing these selections helps
+explore potential demand for walking and cycling at
+[06:35–07:46](https://youtu.be/pBn7SyhK-h0?t=395), and contrasts this interaction
+with static maps at [12:14–12:33](https://youtu.be/pBn7SyhK-h0?t=734).
 
 ### Understanding changes in bike-share use
 
 For a Toronto bike-share expansion plan, Alta explored trip distances and geographic
-patterns, comparing usage before and during the pandemic:
+patterns, comparing 2019 and 2021 data to investigate changes in use during the
+pandemic ([12:37–13:26](https://youtu.be/pBn7SyhK-h0?t=757)). The discussion also
+explores annual versus casual riders at
+[14:13–14:36](https://youtu.be/pBn7SyhK-h0?t=853).
 
-> “we can also look at 2021 versus 2019 data”
->
-> — David Wasserman, [13:12](https://youtu.be/pBn7SyhK-h0?t=792)
-
-The discussion also explores annual versus casual riders. These examples show how
-interactive flow maps support both analysis and conversations about what the data
-means. Watch the [full interview](https://youtu.be/pBn7SyhK-h0), published May 20, 2022.
+Watch the [full interview](https://youtu.be/pBn7SyhK-h0), published May 20, 2022.
