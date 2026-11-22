@@ -38,6 +38,8 @@ The project [won bronze](https://twitter.com/kachkaev/status/1197262339935997952
 at the [Information is Beautiful Awards](https://www.informationisbeautifulawards.com/showcase/3815-flowmap-blue)
 in 2019.
 
+![Tweets about FlowmapBlue](flowmap-blue-tweets.png)
+
 ## Case study: Alta Flow for transportation planning
 
 [Alta Planning + Design](https://altago.com/) built **Alta Flow** on top of
