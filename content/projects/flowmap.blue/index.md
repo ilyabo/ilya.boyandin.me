@@ -38,6 +38,53 @@ The project [won bronze](https://twitter.com/kachkaev/status/1197262339935997952
 at the [Information is Beautiful Awards](https://www.informationisbeautifulawards.com/showcase/3815-flowmap-blue)
 in 2019.
 
+## Case study: Alta Flow for transportation planning
+
+[Alta Planning + Design](https://altago.com/) built **Alta Flow** on top of
+FlowmapBlue, extending it to show multiple transport modes together and communicate
+trip distances. Their team used it to explore travel demand, inform infrastructure
+priorities, and prepare maps for grant applications. Alta describes the work and
+credits FlowmapBlue in [Tools for Understanding Active Transportation Potential](https://blog.altaplanning.com/tools-for-understanding-active-transportation-potential-9284419c7ad5).
+
+In this episode of **Active Towns**, David Wasserman and Samuel Zneimer explain how
+they use the tool, in conversation with host John Simmerman.
+
+<iframe src="https://www.youtube.com/embed/pBn7SyhK-h0?start=395" title="Active Towns: Alta Planning + Design on using Alta Flow" width="640" height="360" loading="lazy" frameborder="0" allow="encrypted-media; picture-in-picture" allowfullscreen></iframe>
+
+### Finding opportunities for walking and cycling
+
+For South Orange County, Alta mapped short trips to identify connections with
+potential for walking and cycling. Line widths made the strength of connections
+visible, helping planners explain investment priorities to decision makers and
+residents. As Zneimer puts it, the visualization:
+
+> “really helps us communicate that to the public”
+>
+> — Samuel Zneimer, [08:47](https://youtu.be/pBn7SyhK-h0?t=527)
+
+### Exploring different travel patterns
+
+Users could select Bay Area counties and switch between modeled walking, cycling,
+and short car trips. Unlike a fixed map, the interactive view let them explore
+questions by changing the selection:
+
+> “you can show different modes”
+>
+> — David Wasserman, [12:28](https://youtu.be/pBn7SyhK-h0?t=748)
+
+### Understanding changes in bike-share use
+
+For a Toronto bike-share expansion plan, Alta explored trip distances and geographic
+patterns, comparing usage before and during the pandemic:
+
+> “we can also look at 2021 versus 2019 data”
+>
+> — David Wasserman, [13:12](https://youtu.be/pBn7SyhK-h0?t=792)
+
+The discussion also explores annual versus casual riders. These examples show how
+interactive flow maps support both analysis and conversations about what the data
+means. Watch the [full interview](https://youtu.be/pBn7SyhK-h0), published May 20, 2022.
+
 ![New York Citi Bike trips 2018](ny.jpg)
 
 ![BIXI rides Montreal](bixi.jpg)
