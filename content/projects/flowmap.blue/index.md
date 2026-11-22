@@ -42,8 +42,6 @@ in 2019.
 
 ![New York Citi Bike trips 2018](ny.jpg)
 
-![BIXI rides Montreal](bixi.jpg)
-
 ![Tweets about FlowmapBlue](flowmap-blue-tweets.png)
 
 Until recently making flow maps has involved manual drawing, knowledge of programming or
@@ -58,11 +56,13 @@ This is why I decided to develop flowmap.blue.
 The tool makes it possible to publish interactive flow maps from data uploaded to Google Sheets.
 It's free, it requires no installation and allows anyone to create a flow map in no time.
 
-<embed src="flowmapblue-brisbane-zoom-anim-4mapbox.mp4">
+<embed src="flowmapblue-brisbane-zoom-anim-4mapbox.mp4" title="Brisbane public transport">
 
-<embed src="flowmapblue-palermo-anim-4mapbox.mp4">
+<embed src="flowmapblue-palermo-anim-4mapbox.mp4" title="Palermo commuters">
 
 ![Cyclable trips in Waterloo Region](waterloo2.jpg)
+
+![BIXI bike sharing rides Montreal](bixi.jpg)
 
 ## Case study: Alta Flow for transportation planning
 
