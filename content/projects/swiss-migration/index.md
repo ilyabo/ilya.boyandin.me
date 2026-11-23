@@ -12,6 +12,8 @@ I created this flow map at Interactive Things for Neue Zürcher Zeitung’s [201
 
 Wider arrows represent more moves, and circle sizes show each canton’s population. The bar chart compares total moves into and out of each canton.
 
+<button href="https://web.archive.org/web/20170810171644/https://storytelling.nzz.ch/2013/sommerserie/#migration" align=center>Explore the archived interactive map</button>
+
 ![Directional arrows between Swiss cantons, with a bar chart of arrivals and departures by canton](/media/projects/swiss-maps/img/migration.png)
 
-<button href="https://www.nzz.ch/inland-sommerserie-schweizer-karten-interaktiv/binnenwanderung-in-der-schweiz-ld.706789" align=center>Read the NZZ article</button>
+[Read the NZZ article](https://www.nzz.ch/inland-sommerserie-schweizer-karten-interaktiv/binnenwanderung-in-der-schweiz-ld.706789).
