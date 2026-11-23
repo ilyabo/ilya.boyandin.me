@@ -68,7 +68,7 @@
     const fieldSpan = gl.getUniformLocation(program, 'fieldSpan');
     let main: HTMLElement;
     let palette: HTMLFieldSetElement | null;
-    let touchBrush: HTMLSelectElement | null;
+    let valleyBrush: HTMLInputElement | null;
     let paint = false;
     let explorer: TerrainExplorer | undefined;
     let pageListeners: AbortController;
@@ -88,7 +88,7 @@
       pageListeners = new AbortController();
       main = document.querySelector<HTMLElement>('.site-main');
       palette = main.querySelector<HTMLFieldSetElement>('[data-paint-palette]');
-      touchBrush = palette?.querySelector<HTMLSelectElement>('[data-touch-brush]');
+      valleyBrush = palette?.querySelector<HTMLInputElement>('input[name="touch-brush"][value="valley"]');
       paint = !!palette;
       gl.uniform1i(paintMode, Number(paint));
       const exploreButton = main.querySelector<HTMLButtonElement>('[data-explore-terrain]');
@@ -269,7 +269,7 @@
       }
       const swatch = palette?.querySelector<HTMLInputElement>('input[name="brush-color"]:checked');
       const rgb = swatch ? parseInt(swatch.value.slice(1), 16) : null;
-      const valley = event.shiftKey || (event.pointerType !== 'mouse' && touchBrush?.value === 'valley');
+      const valley = event.shiftKey || (event.pointerType !== 'mouse' && valleyBrush?.checked === true);
       hills.begin(strokeOrigin.x, strokeOrigin.y, event.timeStamp,
         rgb === null ? undefined : [(rgb >> 16) / 255, ((rgb >> 8) & 255) / 255, (rgb & 255) / 255], valley);
       scheduleDraw();

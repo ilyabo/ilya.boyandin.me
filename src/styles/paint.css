@@ -120,11 +120,9 @@ html.paint-page {
   font-size: 0.8125rem;
   pointer-events: none;
 }
-.paint-tools small { font-size: 0.71875rem; line-height: 1.4; }
 .paint-help { display: grid; }
-.paint-help small { grid-area: 1 / 1; }
-.terrain-mode, .explore-help, .draw-help, .paint-hint .touch-brush, .touch-help { display: none; }
-.exploring-terrain .terrain-mode {
+.paint-help > * { grid-area: 1 / 1; font-size: 0.71875rem; line-height: 1.4; }
+.paint-segmented-control {
   display: inline-grid;
   grid-template-columns: 1fr 1fr;
   flex: none;
@@ -134,7 +132,7 @@ html.paint-page {
   border-radius: 1rem;
   background: var(--color-site-surface);
 }
-.terrain-mode label {
+.paint-segmented-control label {
   display: grid;
   place-items: center;
   min-height: 2.25rem;
@@ -144,14 +142,16 @@ html.paint-page {
   font-weight: 600;
   cursor: pointer;
 }
-.terrain-mode label:has(:checked) {
+.paint-segmented-control label:has(:checked) {
   background: var(--color-site-link);
   color: var(--color-site-bg);
 }
-.terrain-mode label:has(:focus-visible) {
+.paint-segmented-control label:has(:focus-visible) {
   outline: 2px solid currentColor;
   outline-offset: -4px;
 }
+.terrain-mode, .explore-help, .draw-help, .touch-brush, .touch-help { display: none; }
+.exploring-terrain .terrain-mode { display: inline-grid; }
 .exploring-terrain .paint-tools {
   position: static;
   grid-column: 1 / -1;
@@ -168,7 +168,7 @@ html.paint-page {
   flex: 1;
   min-inline-size: 0;
 }
-.exploring-terrain .paint-help small {
+.exploring-terrain .paint-help > * {
   font-size: 0.65625rem;
   align-content: center;
 }
@@ -182,21 +182,17 @@ html.paint-page {
 .drawing-terrain .paint-hint { visibility: visible; }
 .exploring-terrain .draw-help { display: inline; }
 @media (any-pointer: coarse) {
-  .paint-hint .touch-brush {
+  .touch-brush {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 0.4rem;
   }
-  .touch-brush select {
+  .touch-brush .paint-segmented-control {
+    font-size: 0.75rem;
     pointer-events: auto;
-    padding: 0.35rem 0.5rem;
-    color: var(--color-site-text);
-    background: var(--color-site-surface);
-    border: 1px solid var(--color-site-border);
-    border-radius: 0.5rem;
-    appearance: auto;
   }
+  .touch-brush label { min-height: 1.75rem; }
 }
 .paint-page .exploring-terrain:not(.drawing-terrain) { cursor: grab; }
 .paint-page .exploring-terrain:not(.drawing-terrain):active { cursor: grabbing; }

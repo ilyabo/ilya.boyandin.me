@@ -26,7 +26,7 @@ const colors = [
     <legend class="sr-only">Terrain palette</legend>
     <div class="terrain-edge" data-terrain-edge role="status"></div>
     <div class="paint-tools">
-      <fieldset class="terrain-mode">
+      <fieldset class="paint-segmented-control terrain-mode">
         <legend class="sr-only">3D interaction mode</legend>
         <label data-tooltip="Draw on the terrain">
           <input class="sr-only" type="radio" name="terrain-mode" value="draw" />Draw
@@ -36,15 +36,17 @@ const colors = [
         </label>
       </fieldset>
       <div class="paint-help">
-        <small class="paint-hint">
+        <div class="paint-hint">
           <span class="mouse-help">Click for hills · Shift for valleys<span class="draw-help"><br />Ctrl-drag orbits · Hold Space to pan</span></span>
-          <span class="touch-brush">Tap or drag for
-            <select data-tooltip="Choose hills or valleys" data-touch-brush aria-label="Touch brush">
-              <option value="hill">Hills</option>
-              <option value="valley">Valleys</option>
-            </select>
-          </span>
-        </small>
+          <div class="touch-brush">
+            <span>Tap or drag for</span>
+            <fieldset class="paint-segmented-control">
+              <legend class="sr-only">Touch brush</legend>
+              <label><input class="sr-only" type="radio" name="touch-brush" value="hill" checked />Hills</label>
+              <label><input class="sr-only" type="radio" name="touch-brush" value="valley" />Valleys</label>
+            </fieldset>
+          </div>
+        </div>
         <small class="explore-help">
           <span class="mouse-help">Drag to pan · Ctrl-drag to rotate<br />WASD to fly · Scroll to zoom</span>
           <span class="touch-help">Drag to orbit<br />Two fingers to move and zoom</span>
