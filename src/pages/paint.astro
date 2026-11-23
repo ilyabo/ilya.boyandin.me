@@ -13,6 +13,15 @@ const colors = [
 ---
 
 <BaseLayout paint canonicalPath="/paint" title="Paint the terrain · Ilya Boyandin" description="Draw colorful hills and valleys on an interactive contour map.">
+  <div class="paint-view-controls">
+    <button type="button" data-explore-terrain disabled aria-label="Switch to 3D view" data-tooltip="Explore the terrain in 3D">3D</button>
+    <button type="button" data-hill-shading disabled aria-label="Hill shading" aria-pressed="false" data-tooltip="Show hill shading">
+      <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="m13 4 9 15H12l2-6-3-3z" fill="currentColor" />
+        <path d="M2 19 13 4l9 15Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" />
+      </svg>
+    </button>
+  </div>
   <fieldset class="paint-palette" data-paint-palette>
     <legend class="sr-only">Terrain palette</legend>
     <div class="terrain-edge" data-terrain-edge role="status"></div>
@@ -26,12 +35,6 @@ const colors = [
           <input class="sr-only" type="radio" name="terrain-mode" value="navigate" checked />Navigate
         </label>
       </fieldset>
-      <button type="button" data-hill-shading disabled aria-label="Hill shading" aria-pressed="false" data-tooltip="Show hill shading">
-        <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
-          <path d="m13 4 9 15H12l2-6-3-3z" fill="currentColor" />
-          <path d="M2 19 13 4l9 15Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" />
-        </svg>
-      </button>
       <div class="paint-help">
         <small class="paint-hint">
           <span class="mouse-help">Click for hills · Shift for valleys<span class="draw-help"><br />Ctrl-drag orbits · Hold Space to pan</span></span>
@@ -59,7 +62,6 @@ const colors = [
         <span aria-hidden="true"></span>
       </label>
     ))}
-    <button type="button" data-explore-terrain disabled aria-label="3D view" aria-pressed="false" data-tooltip="Explore the terrain in 3D">3D</button>
     <button type="button" data-save-image disabled aria-label="Save image" data-tooltip="Save image as PNG">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <path d="M12 3v12m-4-4 4 4 4-4M4 16v4h16v-4" />

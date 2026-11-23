@@ -14,6 +14,7 @@ html.paint-page {
   display: none;
 }
 .paint-page .site-main {
+  position: relative;
   width: 100%;
   max-width: none;
   padding: 0;
@@ -26,14 +27,47 @@ html.paint-page {
 .paint-page .site-main:focus {
   outline: none;
 }
+.paint-view-controls {
+  position: absolute;
+  top: 1rem;
+  left: calc(1rem + env(safe-area-inset-left));
+  display: grid;
+  gap: 0.5rem;
+}
+.paint-view-controls button {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 1px solid var(--color-site-border);
+  border-radius: 0.75rem;
+  background: var(--color-site-bg-deep);
+  color: var(--color-site-link);
+  font-size: 0.875rem;
+  font-weight: 650;
+  cursor: pointer;
+}
+.exploring-terrain [data-explore-terrain], .paint-view-controls [aria-pressed="true"] {
+  background: var(--color-site-surface);
+  color: var(--color-site-text);
+}
+.paint-view-controls button:hover, .paint-view-controls button:focus-visible,
+.paint-palette button:hover, .paint-palette button:focus-visible {
+  color: var(--color-site-link-hover);
+}
+.paint-view-controls button:disabled, .paint-palette button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+.site-main:not(.exploring-terrain) [data-hill-shading] { display: none; }
 .paint-palette {
   position: fixed;
   bottom: calc(1rem + env(safe-area-inset-bottom));
   left: 50%;
   transform: translateX(-50%);
-  --control-width: min(2.75rem, calc((100vw - 1rem) / 9));
+  --control-width: min(2.75rem, calc((100vw - 1rem) / 8));
   display: grid;
-  grid-template-columns: repeat(9, var(--control-width));
+  grid-template-columns: repeat(8, var(--control-width));
   padding: 0.25rem;
   margin: 0;
   border: 1px solid var(--color-site-border);
@@ -56,26 +90,11 @@ html.paint-page {
   border-inline-start: 0;
   border-inline-end: 1px solid var(--color-site-border);
 }
-.paint-palette button:hover, .paint-palette button:focus-visible {
-  color: var(--color-site-link-hover);
-}
-.paint-palette button:disabled {
-  opacity: 0.4;
-  cursor: default;
-}
 .paint-palette label span {
   width: 1.375rem;
   height: 1.375rem;
   border-radius: 50%;
   background: var(--swatch);
-}
-.paint-palette [data-explore-terrain] {
-  font-weight: 650;
-  font-size: 0.875rem;
-}
-.paint-palette [aria-pressed="true"] {
-  background: var(--color-site-surface);
-  color: var(--color-site-text);
 }
 .terrain-edge {
   position: absolute;
@@ -104,7 +123,7 @@ html.paint-page {
 .paint-tools small { font-size: 0.71875rem; line-height: 1.4; }
 .paint-help { display: grid; }
 .paint-help small { grid-area: 1 / 1; }
-.terrain-mode, .paint-tools button, .explore-help, .draw-help, .paint-hint .touch-brush, .touch-help { display: none; }
+.terrain-mode, .explore-help, .draw-help, .paint-hint .touch-brush, .touch-help { display: none; }
 .exploring-terrain .terrain-mode {
   display: inline-grid;
   grid-template-columns: 1fr 1fr;
@@ -156,13 +175,6 @@ html.paint-page {
 @media (max-width: 26rem) {
   .exploring-terrain .paint-tools { flex-wrap: wrap; justify-content: center; }
   .exploring-terrain .paint-help { flex-basis: 100%; text-align: center; }
-}
-.exploring-terrain .paint-tools button {
-  display: grid;
-  flex: none;
-  border: 0;
-  border-radius: 0.75rem;
-  min-width: 2.75rem;
 }
 .exploring-terrain .explore-help { display: block; }
 /* Both hints contribute to the same grid row so switching modes keeps its height. */

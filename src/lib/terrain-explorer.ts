@@ -234,7 +234,9 @@ export class TerrainExplorer {
     this.setEdgeStatus(false);
     this.previousTime = performance.now();
     this.surface.classList.toggle('exploring-terrain', active);
-    this.button.setAttribute('aria-pressed', String(active));
+    const nextView = active ? '2D' : '3D';
+    this.button.textContent = nextView;
+    this.button.setAttribute('aria-label', `Switch to ${nextView} view`);
     this.button.dataset.tooltip = active ? 'Return to 2D' : 'Explore the terrain in 3D';
     if (active) {
       this.surface.tabIndex = -1;
