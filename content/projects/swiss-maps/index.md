@@ -17,8 +17,9 @@ The series won the first prize in the category of interactive graphics in the Ge
 ![](img/restaurants.png)
 <button href="https://storytelling.nzz.ch/2013/sommerserie/#restaurants" align=center variant=outline>Try live</button>
 
-![](img/migration.png)
-<button href="https://storytelling.nzz.ch/2013/sommerserie/#migration" align=center variant=outline>Try live</button>
+![Flow map of moves between Swiss cantons](img/migration.png)
+
+[View the migration flow map project](/p/swiss-migration)
 
 ![](img/strompreise.png)
 <button href="https://storytelling.nzz.ch/2013/sommerserie/#strompreise" align=center variant=outline>Try live</button>
