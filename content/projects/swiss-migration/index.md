@@ -1,6 +1,6 @@
 ---
 kind: project
-title: "Migration Flows in Switzerland"
+title: "NZZ Migration in Switzerland"
 description: "A flow map of moves between Swiss cantons in 2011, created for Neue Zürcher Zeitung’s summer series."
 date: "2013-08-07"
 category: work
