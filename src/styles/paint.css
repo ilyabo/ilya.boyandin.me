@@ -172,7 +172,7 @@ html.paint-page {
   font-size: 0.65625rem;
   align-content: center;
 }
-@media (max-width: 26rem) {
+@media (max-width: 26rem) and (pointer: fine) {
   .exploring-terrain .paint-tools { flex-wrap: wrap; justify-content: center; }
   .exploring-terrain .paint-help { flex-basis: 100%; text-align: center; }
 }
@@ -197,6 +197,10 @@ html.paint-page {
 .paint-page .exploring-terrain:not(.drawing-terrain) { cursor: grab; }
 .paint-page .exploring-terrain:not(.drawing-terrain):active { cursor: grabbing; }
 @media (pointer: coarse) {
+  .terrain-mode, .touch-brush .paint-segmented-control { grid-template-columns: auto auto; }
+  .paint-segmented-control label { padding-inline: 0.35rem; }
+  .terrain-mode { font-size: 0.75rem; }
+  .terrain-mode label { min-height: 2rem; }
   .mouse-help { display: none; }
   .touch-help { display: inline; }
 }
