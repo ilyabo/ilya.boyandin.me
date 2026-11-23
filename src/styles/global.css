@@ -552,8 +552,13 @@ a:hover {
   align-items: baseline;
   display: grid;
   gap: 1rem;
-  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-columns: 7rem minmax(0, 1fr) auto;
   padding: 1.2rem 0;
+}
+
+.public-speaking-list .preview-frame {
+  align-self: start;
+  aspect-ratio: 4 / 3;
 }
 
 .public-speaking-list li:not([hidden]) ~ li {
@@ -632,7 +637,12 @@ a:hover {
   }
 
   .public-speaking-list li {
-    grid-template-columns: 1fr;
+    gap: 0.3rem 0.75rem;
+    grid-template-columns: clamp(4rem, 12vw, 7rem) minmax(0, 1fr);
+  }
+
+  .public-speaking-list .preview-frame {
+    grid-row: span 2;
   }
 
   .home-intro {

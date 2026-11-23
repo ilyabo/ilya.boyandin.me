@@ -1,11 +1,14 @@
 ---
 import KeywordSearch from '../components/KeywordSearch';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { getEntries } from '../lib/content';
 import { getKeywordIndex } from '../lib/keyword-search';
+import { previewMediaPath } from '../lib/media';
 import { getPublicSpeakingItems } from '../lib/public-speaking';
 import { pageTitle } from '../lib/seo';
 
 const items = getPublicSpeakingItems();
+const previewsByRoute = new Map(getEntries('talks').map((entry) => [entry.route, previewMediaPath(entry)]));
 const pinnedKeywords = [
   'AI', 'collaboration', 'data visualization', 'databases', 'deck.gl', 'DuckDB',
   'flow maps', 'geospatial', 'local-first', 'mobility', 'React', 'SQLRooms',
@@ -21,6 +24,7 @@ const description = 'Conference talks, meetups, guest lectures, workshops, and p
     <ol class="public-speaking-list">
       {
         items.map((item) => {
+          const preview = item.route && previewsByRoute.get(item.route);
           const hasMeta = item.venue || item.location || item.note;
           const venue = item.venueUrl ? <a href={item.venueUrl}>{item.venue}</a> : item.venue;
           const location = item.location ? `${item.venue ? ', ' : ''}${item.location}` : '';
@@ -28,6 +32,9 @@ const description = 'Conference talks, meetups, guest lectures, workshops, and p
 
           return (
             <li data-keywords={JSON.stringify(item.keywords)}>
+              <div class="preview-frame" aria-hidden="true">
+                {preview && <img src={preview} alt="" loading="lazy" decoding="async" />}
+              </div>
               <div>
                 <span class="public-speaking-kind" data-search-detail>{item.kind}</span>
                 {item.url ? <a href={item.url} data-search-title>{item.title}</a> : <span class="public-speaking-title" data-search-title>{item.title}</span>}
